@@ -1,0 +1,1295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1440" />
+<title>DubCheck — Loudness & Delivery QC for Post-Production</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0E0E10;
+    --bg-2:#121214;
+    --surface:#17171A;
+    --surface-2:#1C1C20;
+    --line:rgba(255,255,255,0.08);
+    --line-2:rgba(255,255,255,0.04);
+    --ink:#ECECEE;
+    --ink-2:#A1A1A8;
+    --ink-3:#6B6B72;
+    --ink-4:#44444B;
+    --cyan:#22D3EE;
+    --cyan-dim:rgba(34,211,238,0.14);
+    --orange:#FF7A1A;
+    --orange-dim:rgba(255,122,26,0.14);
+    --red:#FF3B47;
+    --green:#22C98B;
+    --amber:#F5B33D;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    font-size:15px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    font-feature-settings: "ss01","cv11";
+  }
+  .mono{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-feature-settings:"zero","ss02";}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--ink-3);
+  }
+  a{color:inherit;text-decoration:none}
+
+  /* ---------- Background grid ---------- */
+  .grid-bg{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      radial-gradient(rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size:24px 24px;
+    background-position:0 0;
+    mask-image: radial-gradient(ellipse 110% 70% at 50% 0%, #000 30%, transparent 80%);
+  }
+  .crosshair{
+    position:absolute;width:18px;height:18px;pointer-events:none;
+  }
+  .crosshair::before,.crosshair::after{
+    content:"";position:absolute;background:rgba(255,255,255,0.18);
+  }
+  .crosshair::before{left:50%;top:0;bottom:0;width:1px;transform:translateX(-0.5px)}
+  .crosshair::after{top:50%;left:0;right:0;height:1px;transform:translateY(-0.5px)}
+
+  /* ---------- Page frame ---------- */
+  .page{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:0 40px}
+
+  /* ---------- Nav ---------- */
+  nav.top{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 0;border-bottom:1px solid var(--line-2);
+    position:relative;z-index:2;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-0.01em}
+  .brand-mark{
+    width:22px;height:22px;position:relative;display:grid;place-items:center;
+    border:1px solid var(--line);border-radius:4px;background:var(--surface);
+  }
+  .brand-mark::before{
+    content:"";width:10px;height:10px;border-radius:50%;
+    background:var(--cyan);
+    box-shadow:0 0 10px rgba(34,211,238,0.6), inset 0 0 4px rgba(255,255,255,0.4);
+  }
+  .brand-name{font-size:15px}
+  .brand-name b{font-weight:600}
+  .brand-tag{
+    margin-left:4px;font-family:'JetBrains Mono',monospace;
+    font-size:10px;color:var(--ink-3);border:1px solid var(--line);
+    padding:2px 6px;border-radius:3px;letter-spacing:0.08em;
+  }
+  .nav-links{display:flex;gap:28px;font-size:13.5px;color:var(--ink-2)}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{display:flex;gap:10px;align-items:center}
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:inherit;font-size:13.5px;font-weight:500;
+    padding:10px 16px;border-radius:6px;cursor:pointer;
+    border:1px solid transparent;transition:background .15s,border-color .15s;
+  }
+  .btn-ghost{background:transparent;color:var(--ink-2);border-color:var(--line)}
+  .btn-ghost:hover{color:var(--ink);border-color:rgba(255,255,255,0.18)}
+  .btn-primary{
+    background:var(--orange);color:#1A0A00;font-weight:600;
+    box-shadow: 0 0 0 1px rgba(255,140,50,0.5), 0 10px 30px -10px rgba(255,122,26,0.6);
+  }
+  .btn-primary:hover{background:#FF8A33}
+  .btn-lg{padding:13px 20px;font-size:14px}
+  .btn svg{width:14px;height:14px}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:90px 0 80px;position:relative}
+  .hero-label{display:flex;align-items:center;gap:10px;margin-bottom:26px}
+  .led{
+    width:7px;height:7px;border-radius:50%;display:inline-block;
+    background:var(--green);
+    box-shadow:0 0 8px rgba(34,201,139,0.8), inset 0 0 2px rgba(255,255,255,0.5);
+  }
+  .led.red{background:var(--red);box-shadow:0 0 8px rgba(255,59,71,0.8),inset 0 0 2px rgba(255,255,255,0.5)}
+  .led.amber{background:var(--amber);box-shadow:0 0 8px rgba(245,179,61,0.8),inset 0 0 2px rgba(255,255,255,0.5)}
+  .hero h1{
+    font-size:72px;line-height:1.02;letter-spacing:-0.035em;
+    margin:0 0 22px;font-weight:600;max-width:14ch;
+  }
+  .hero h1 em{font-style:normal;color:var(--cyan);font-weight:500;
+    background:linear-gradient(180deg,#7CE5F4 0%,var(--cyan) 100%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .hero p.lede{
+    font-size:18px;line-height:1.55;color:var(--ink-2);
+    max-width:58ch;margin:0 0 36px;
+  }
+  .hero-cta{display:flex;gap:12px;align-items:center;margin-bottom:44px}
+  .hero-meta{
+    display:flex;gap:36px;align-items:center;
+    padding-top:26px;border-top:1px solid var(--line-2);
+    max-width:720px;
+  }
+  .hero-meta .stat .k{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-3);letter-spacing:0.1em;text-transform:uppercase}
+  .hero-meta .stat .v{font-family:'JetBrains Mono',monospace;font-size:17px;color:var(--ink);margin-top:4px}
+
+  /* Hero waveform */
+  .hero-wave{
+    position:absolute;left:0;right:0;top:0;bottom:0;
+    z-index:-1;pointer-events:none;overflow:hidden;
+    mask-image: linear-gradient(180deg, transparent 0%, #000 45%, #000 65%, transparent 100%);
+  }
+  .hero-wave svg{position:absolute;left:50%;top:50%;transform:translate(-50%,-20%);width:1600px;height:600px;opacity:0.35}
+  .hero-glow{
+    position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);
+    width:900px;height:380px;z-index:-1;pointer-events:none;
+    background: radial-gradient(ellipse at center, rgba(34,211,238,0.12) 0%, rgba(34,211,238,0.04) 35%, transparent 70%);
+    filter: blur(8px);
+  }
+
+  /* ---------- Logos strip ---------- */
+  .logos{
+    display:flex;align-items:center;gap:48px;flex-wrap:wrap;
+    padding:32px 0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);
+    margin-top:40px;
+  }
+  .logos .label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-3);letter-spacing:0.14em;text-transform:uppercase;margin-right:8px}
+  .logos .spec{
+    font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink-2);
+    padding:6px 12px;border:1px solid var(--line);border-radius:4px;background:rgba(255,255,255,0.02);
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .logos .spec .dot{width:5px;height:5px;border-radius:50%;background:var(--ink-3)}
+
+  /* ---------- Section ---------- */
+  section{padding:120px 0;position:relative}
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;gap:40px}
+  .sec-head h2{
+    font-size:44px;line-height:1.08;letter-spacing:-0.025em;margin:14px 0 0;font-weight:600;max-width:18ch;
+  }
+  .sec-head .side{max-width:36ch;color:var(--ink-2);font-size:15px}
+
+  /* ---------- Report showcase ---------- */
+  .macwin{
+    background:linear-gradient(180deg,#1A1A1E 0%,#131316 100%);
+    border:1px solid var(--line);
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow: 0 60px 120px -40px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.02), inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+  .macwin-chrome{
+    display:flex;align-items:center;gap:8px;
+    padding:12px 14px;border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,#202024 0%,#1A1A1E 100%);
+  }
+  .tl{width:12px;height:12px;border-radius:50%}
+  .tl.r{background:#FF5F57;box-shadow:inset 0 0 0 0.5px rgba(0,0,0,0.2)}
+  .tl.y{background:#FEBC2E;box-shadow:inset 0 0 0 0.5px rgba(0,0,0,0.2)}
+  .tl.g{background:#28C840;box-shadow:inset 0 0 0 0.5px rgba(0,0,0,0.2)}
+  .macwin-title{
+    flex:1;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-3);
+    letter-spacing:0.06em;
+  }
+  .macwin-title b{color:var(--ink-2);font-weight:500}
+  .macwin-body{display:grid;grid-template-columns:240px 1fr;min-height:600px}
+  .report-side{
+    border-right:1px solid var(--line);
+    padding:22px 18px;background:rgba(0,0,0,0.15);
+  }
+  .report-side .group{margin-bottom:22px}
+  .report-side .gtitle{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-3);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:10px}
+  .report-side .item{
+    display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:5px;
+    font-size:13px;color:var(--ink-2);
+  }
+  .report-side .item.active{background:rgba(34,211,238,0.08);color:var(--ink);box-shadow:inset 0 0 0 1px rgba(34,211,238,0.18)}
+  .report-side .item .ico{width:14px;height:14px;color:var(--ink-3)}
+  .report-side .item.active .ico{color:var(--cyan)}
+  .report-side .item .tail{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ink-3)}
+
+  .report-main{padding:28px 32px;min-width:0}
+  .report-top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:26px}
+  .report-title{font-size:22px;font-weight:600;letter-spacing:-0.01em;margin:0 0 6px}
+  .report-sub{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-3);letter-spacing:0.02em}
+  .pass-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:6px 11px;border-radius:4px;font-family:'JetBrains Mono',monospace;
+    font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+    background:rgba(34,201,139,0.12);color:#5EEBB3;border:1px solid rgba(34,201,139,0.35);
+  }
+  .fail-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:6px 11px;border-radius:4px;font-family:'JetBrains Mono',monospace;
+    font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+    background:rgba(255,59,71,0.12);color:#FF6B76;border:1px solid rgba(255,59,71,0.35);
+  }
+
+  .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+  .kpi{
+    border:1px solid var(--line);border-radius:8px;padding:14px 16px;
+    background:rgba(255,255,255,0.015);
+  }
+  .kpi .klabel{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+  .kpi .kval{font-family:'JetBrains Mono',monospace;font-size:22px;letter-spacing:-0.01em;color:var(--ink)}
+  .kpi .kval .u{font-size:12px;color:var(--ink-3);margin-left:2px}
+  .kpi .ktarget{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ink-3);margin-top:6px}
+  .kpi.cyan .kval{color:var(--cyan)}
+  .kpi.red .kval{color:var(--red)}
+
+  .chart-card{
+    border:1px solid var(--line);border-radius:8px;padding:18px 20px 10px;
+    background:rgba(255,255,255,0.015);margin-bottom:18px;
+  }
+  .chart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .chart-title{font-size:13px;color:var(--ink-2);display:flex;align-items:center;gap:10px}
+  .chart-title .swatch{width:10px;height:2px;background:var(--cyan);box-shadow:0 0 6px rgba(34,211,238,0.7)}
+  .chart-legend{display:flex;gap:16px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ink-3)}
+  .chart-legend span{display:inline-flex;align-items:center;gap:6px}
+  .chart-legend .lc{width:8px;height:1px;background:var(--cyan)}
+  .chart-legend .lo{width:8px;height:1px;background:var(--orange)}
+  .chart-legend .lr{width:8px;height:1px;background:var(--red);border-top:1px dashed var(--red);background:transparent}
+
+  .check-list{border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,0.015);overflow:hidden}
+  .check-row{display:grid;grid-template-columns:24px 1fr 120px 100px;gap:16px;padding:12px 16px;border-top:1px solid var(--line-2);align-items:center;font-size:13px}
+  .check-row:first-child{border-top:none}
+  .check-row .name{color:var(--ink)}
+  .check-row .spec{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink-3);text-align:right}
+  .check-row .val{font-family:'JetBrains Mono',monospace;font-size:12px;text-align:right;color:var(--ink-2)}
+  .check-row.pass .val{color:#5EEBB3}
+  .check-row.fail .val{color:#FF6B76}
+
+  /* ---------- Specs panel (platforms) ---------- */
+  .platforms{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .plat{
+    border:1px solid var(--line);background:var(--surface);
+    border-radius:10px;padding:22px;position:relative;overflow:hidden;
+    transition:border-color .2s, background .2s;
+  }
+  .plat:hover{border-color:rgba(255,255,255,0.14);background:var(--surface-2)}
+  .plat h4{font-size:15px;margin:0 0 2px;font-weight:600;letter-spacing:-0.005em}
+  .plat .pver{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-3);margin-bottom:18px}
+  .plat .prow{display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid var(--line-2);font-size:12.5px}
+  .plat .prow:first-of-type{border-top:none}
+  .plat .prow .pl{color:var(--ink-3);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.06em}
+  .plat .prow .pv{font-family:'JetBrains Mono',monospace;color:var(--ink)}
+
+  /* ---------- How it works ---------- */
+  .how{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .how-cell{background:var(--bg);padding:32px 28px;min-height:220px;position:relative}
+  .how-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-3);letter-spacing:0.14em;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+  .how-num .bar{flex:1;height:1px;background:var(--line-2)}
+  .how-cell h3{font-size:19px;margin:0 0 8px;font-weight:600;letter-spacing:-0.01em}
+  .how-cell p{color:var(--ink-2);margin:0;font-size:14px;line-height:1.55;max-width:34ch}
+  .how-cell .mini{margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-3);line-height:1.7}
+
+  /* ---------- Pricing ---------- */
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .price{
+    border:1px solid var(--line);background:var(--surface);border-radius:12px;
+    padding:28px 26px 26px;position:relative;display:flex;flex-direction:column;
+  }
+  .price.featured{
+    border-color:rgba(255,122,26,0.35);
+    background:linear-gradient(180deg,rgba(255,122,26,0.06) 0%,var(--surface) 30%);
+    box-shadow: 0 40px 80px -40px rgba(255,122,26,0.25);
+  }
+  .price .ptag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-3);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .price.featured .ptag{color:var(--orange)}
+  .price h3{font-size:22px;margin:0 0 6px;font-weight:600;letter-spacing:-0.01em}
+  .price .blurb{font-size:13.5px;color:var(--ink-2);margin:0 0 22px;min-height:2.8em}
+  .price .amt{font-family:'JetBrains Mono',monospace;font-size:40px;color:var(--ink);letter-spacing:-0.02em;line-height:1;margin-bottom:4px}
+  .price .amt .cur{font-size:20px;color:var(--ink-3);margin-right:2px;vertical-align:6px}
+  .price .per{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-3);margin-bottom:24px}
+  .price ul{list-style:none;padding:0;margin:0 0 28px;border-top:1px solid var(--line-2)}
+  .price li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-2);font-size:13.5px;color:var(--ink-2)}
+  .price li .l{display:flex;align-items:center;gap:10px}
+  .price li .v{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink)}
+  .price .buy{margin-top:auto}
+  .check-ico{width:14px;height:14px;color:var(--cyan);flex-shrink:0}
+
+  /* ---------- Spec detail block ---------- */
+  .spec-split{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+  .spec-list{border-top:1px solid var(--line-2)}
+  .spec-item{display:grid;grid-template-columns:28px 1fr auto;gap:18px;padding:18px 0;border-bottom:1px solid var(--line-2);align-items:baseline}
+  .spec-item .idx{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-3);padding-top:2px}
+  .spec-item h4{font-size:17px;margin:0 0 4px;font-weight:600;letter-spacing:-0.005em}
+  .spec-item p{margin:0;color:var(--ink-2);font-size:13.5px;max-width:44ch}
+  .spec-item .tag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-3);border:1px solid var(--line);padding:4px 8px;border-radius:3px;letter-spacing:0.06em}
+
+  /* Meter visual */
+  .meter-card{
+    border:1px solid var(--line);border-radius:12px;padding:22px;
+    background:linear-gradient(180deg,#17171A 0%,#131316 100%);
+  }
+  .meter-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+  .meter-head .mt{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-3);letter-spacing:0.14em;text-transform:uppercase}
+  .meter-head .mv{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--cyan)}
+  .meter-bars{display:flex;align-items:flex-end;gap:3px;height:86px;margin-bottom:14px}
+  .meter-bars .b{flex:1;background:linear-gradient(180deg,var(--cyan) 0%,rgba(34,211,238,0.3) 100%);border-radius:1px;opacity:0.85}
+  .meter-scale{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-4);border-top:1px solid var(--line-2);padding-top:8px}
+
+  /* ---------- FAQ ---------- */
+  .faq{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line-2);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .faq-cell{background:var(--bg);padding:26px 28px}
+  .faq-cell .q{font-size:15px;font-weight:600;margin:0 0 8px;letter-spacing:-0.005em;display:flex;gap:10px;align-items:baseline}
+  .faq-cell .q .n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-3)}
+  .faq-cell p{margin:0;color:var(--ink-2);font-size:13.5px;line-height:1.6}
+
+  /* ---------- CTA band ---------- */
+  .cta-band{
+    border:1px solid var(--line);border-radius:14px;padding:56px 48px;
+    background:
+      radial-gradient(ellipse 60% 100% at 100% 50%, rgba(255,122,26,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 100% at 0% 50%, rgba(34,211,238,0.08) 0%, transparent 60%),
+      linear-gradient(180deg,#18181C 0%,#131316 100%);
+    display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:center;
+    position:relative;overflow:hidden;
+  }
+  .cta-band h2{font-size:40px;margin:0 0 10px;letter-spacing:-0.025em;line-height:1.08;max-width:16ch}
+  .cta-band p{color:var(--ink-2);margin:0 0 0;max-width:48ch;font-size:15px}
+  .cta-band .act{display:flex;gap:12px;justify-content:flex-end;align-items:center;flex-wrap:wrap}
+
+  /* ---------- Footer ---------- */
+  footer{padding:60px 0 48px;border-top:1px solid var(--line-2);margin-top:80px;color:var(--ink-3);font-size:13px}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+  .foot-grid h5{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px;font-weight:500}
+  .foot-grid ul{list-style:none;padding:0;margin:0}
+  .foot-grid li{margin-bottom:8px}
+  .foot-grid a{color:var(--ink-2)}
+  .foot-grid a:hover{color:var(--ink)}
+  .foot-bot{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid var(--line-2);font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-3);letter-spacing:0.06em}
+  .foot-brand-tag{max-width:32ch;margin-top:12px;color:var(--ink-3);font-size:13px;line-height:1.6}
+
+  /* ---------- Tweaks panel ---------- */
+  .tweaks{
+    position:fixed;right:22px;bottom:22px;z-index:50;width:300px;
+    background:linear-gradient(180deg,#1A1A1E 0%,#131316 100%);
+    border:1px solid var(--line);border-radius:12px;
+    box-shadow: 0 40px 80px -30px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.02);
+    color:var(--ink);font-size:13px;
+    display:none;
+    backdrop-filter: blur(8px);
+  }
+  .tweaks.open{display:block}
+  .tweaks-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:12px 14px;border-bottom:1px solid var(--line);
+  }
+  .tweaks-head .t{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-3)}
+  .tweaks-head .t .led{width:6px;height:6px}
+  .tweaks-body{padding:14px 14px 16px}
+  .tweak-row{margin-bottom:14px}
+  .tweak-row:last-child{margin-bottom:0}
+  .tweak-label{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px}
+  .tweak-label .v{color:var(--cyan)}
+  .tweak-row input[type=range]{
+    -webkit-appearance:none;appearance:none;width:100%;height:4px;
+    background:rgba(255,255,255,0.08);border-radius:2px;outline:none;
+  }
+  .tweak-row input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;width:14px;height:14px;border-radius:50%;
+    background:var(--cyan);box-shadow:0 0 8px rgba(34,211,238,0.6);cursor:pointer;border:none;
+  }
+  .tweak-row input[type=range]::-moz-range-thumb{
+    width:14px;height:14px;border-radius:50%;background:var(--cyan);border:none;cursor:pointer;
+    box-shadow:0 0 8px rgba(34,211,238,0.6);
+  }
+  .tweak-toggle{
+    display:flex;align-items:center;gap:10px;padding:8px 10px;
+    border:1px solid var(--line);border-radius:6px;cursor:pointer;
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.06em;color:var(--ink-2);
+    background:rgba(255,255,255,0.02);
+  }
+  .tweak-toggle:hover{color:var(--ink);border-color:rgba(255,255,255,0.18)}
+  .tweak-toggle.on{color:var(--cyan);border-color:rgba(34,211,238,0.35);background:rgba(34,211,238,0.06)}
+
+  /* Small screen guard */
+  @media (max-width: 960px){
+    .hero h1{font-size:44px}
+    .kpi-row,.platforms,.price-grid,.how,.foot-grid,.spec-split,.faq{grid-template-columns:1fr}
+    .macwin-body{grid-template-columns:1fr}
+    .report-side{border-right:none;border-bottom:1px solid var(--line)}
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg" aria-hidden="true"></div>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav class="top">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"></div>
+      <div class="brand-name"><b>DubCheck</b></div>
+      <span class="brand-tag mono">QC / v2.4</span>
+    </div>
+    <div class="nav-links">
+      <a href="#report">Report</a>
+      <a href="#platforms">Platforms</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#docs">Docs</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="#login">Sign in</a>
+      <a class="btn btn-primary" href="#cta">Platz anfragen
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-wave" aria-hidden="true">
+      <!-- Subtle animated dimmed waveform -->
+      <svg viewBox="0 0 3200 600" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="wg" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#22D3EE" stop-opacity="0"/>
+            <stop offset="12%" stop-color="#22D3EE" stop-opacity="0.35"/>
+            <stop offset="88%" stop-color="#22D3EE" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <g id="wavescroll">
+          <g id="wavebars" fill="url(#wg)"></g>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Corner crosshairs -->
+    <div class="crosshair" style="left:-9px;top:60px"></div>
+    <div class="crosshair" style="right:-9px;top:60px"></div>
+
+    <div class="hero-label">
+      <span class="led"></span>
+      <span class="eyebrow">Loudness &amp; Delivery QC · build 2026.04</span>
+    </div>
+
+    <h1 style="color: rgb(6, 212, 243)">Liefere Mixes ab, die beim ersten Upload bestehen.</h1>
+    <p class="lede">
+      DubCheck prüft deine Film- und Serien-Mixes gegen jede relevante Plattform-Norm – Loudness, True-Peak, Dialog-Gating, Channel-Routing – und liefert dir einen auditierbaren PDF-Report. Gebaut für Post-Production-Studios, die in zehntel dB messen.
+    </p>
+
+    <div class="hero-cta">
+      <a class="btn btn-primary btn-lg" href="#cta">Platz anfragen
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+      <a class="btn btn-ghost btn-lg" href="#report">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="11" height="11" rx="1"/><path d="M5.5 6.5h5M5.5 9h3"/></svg>
+         Muster-Report ansehen
+      </a>
+    </div>
+
+    <div class="hero-meta">
+      <div class="stat">
+        <div class="k">Avg. turnaround</div>
+        <div class="v">4 min 12 s</div>
+      </div>
+      <div class="stat">
+        <div class="k">Spec profiles</div>
+        <div class="v">38 active</div>
+      </div>
+      <div class="stat">
+        <div class="k">Max program</div>
+        <div class="v">6 h · 7.1.4</div>
+      </div>
+      <div class="stat">
+        <div class="k">Report sig.</div>
+        <div class="v">SHA-256 / signed</div>
+      </div>
+    </div>
+
+    <!-- Delivery spec row -->
+    <div class="logos">
+      <span class="label">Delivery profiles</span>
+      <span class="spec"><span class="dot"></span>EBU R128 s1</span>
+      <span class="spec"><span class="dot"></span>ATSC A/85</span>
+      <span class="spec"><span class="dot"></span>Netflix (-27 LKFS)</span>
+      <span class="spec"><span class="dot"></span>5.1 M&E Stems</span>
+      <span class="spec"><span class="dot"></span>Theatrical Mix</span>
+      <span class="spec"><span class="dot"></span>Amazon Prime</span>
+    </div>
+  </section>
+
+
+  <!-- REPORT SHOWCASE -->
+  <section id="report">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">§ 02 · Report</div>
+        <h2>Ein signiertes PDF, das dein Delivery Manager ohne Rückfragen akzeptiert.</h2>
+      </div>
+      <div class="side">
+        Jeder Messwert ist fest an einen Timecode geknüpft, jeder Fail direkt in der Timeline. Keine schnellen Screenshots, keine endlosen Slack-Threads – sondern ein technischer Nachweis auf Engineering-Niveau, den du direkt an dein Delivery anhängst.
+      </div>
+    </div>
+
+    <div class="macwin">
+      <div class="macwin-chrome">
+        <span class="tl r"></span><span class="tl y"></span><span class="tl g"></span>
+        <div class="macwin-title"><b>DubCheck Report</b> · KRONOS_S02E04_FinalMix_v7.wav · 2026-04-18 14:02</div>
+        <span class="mono" style="font-size:11px;color:var(--ink-4)">r-7F3A9B2</span>
+      </div>
+      <div class="macwin-body">
+        <!-- Sidebar -->
+        <aside class="report-side">
+          <div class="group">
+            <div class="gtitle">Session</div>
+            <div class="item active">
+              <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 3.5h11v9h-11z"/><path d="M2.5 6.5h11"/></svg>
+              Overview
+              <span class="tail">PASS</span>
+            </div>
+            <div class="item">
+              <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8c2-4 4 4 6 0s4 4 6 0"/></svg>
+              Loudness
+              <span class="tail">–24.0</span>
+            </div>
+            <div class="item">
+              <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v10M6 5v8M9 2v11M12 6v7"/></svg>
+              True peak
+              <span class="tail">–2.1</span>
+            </div>
+            <div class="item">
+              <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="5"/><path d="M8 3v5l3 2"/></svg>
+              Dialog gate
+              <span class="tail">OK</span>
+            </div>
+            <div class="item">
+              <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="4" width="11" height="8" rx="1"/><path d="M5 4V2.5M11 4V2.5"/></svg>
+              Routing / LFE
+              <span class="tail">7.1.4</span>
+            </div>
+          </div>
+          <div class="group">
+            <div class="gtitle">Spec profile</div>
+            <div class="item">
+              <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 3.5h11v9h-11zM6 3.5v9M10 3.5v9"/></svg>
+              Streaming-24
+              <span class="tail">ACT</span>
+            </div>
+            <div class="item">
+              <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 8h11M8 2.5v11"/></svg>
+              EBU R128 s1
+            </div>
+            <div class="item">
+              <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 12.5l4-6 3 4 4-7"/></svg>
+              Theatrical DB
+            </div>
+          </div>
+          <div class="group">
+            <div class="gtitle">Attach</div>
+            <div class="item">
+              <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.5 2.5h6l3 3v8h-9z"/><path d="M9.5 2.5v3h3"/></svg>
+              Signed PDF
+            </div>
+            <div class="item">
+              <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 12.5l4-6 3 4 4-7"/></svg>
+              Raw CSV · EDL
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main -->
+        <div class="report-main">
+          <div class="report-top">
+            <div>
+              <h3 class="report-title">KRONOS · S02E04 · Final Mix v7</h3>
+              <div class="report-sub">
+                7.1.4 · 48.0 kHz · 24 bit · 47:12.480 · checksum 7F3A9B2
+              </div>
+            </div>
+            <span class="pass-badge"><span class="led" style="width:6px;height:6px"></span>Pass · Streaming-24</span>
+          </div>
+
+          <div class="kpi-row">
+            <div class="kpi cyan">
+              <div class="klabel"><span style="color:var(--cyan)">●</span> Integrated</div>
+              <div class="kval">–24.0<span class="u"> LUFS</span></div>
+              <div class="ktarget">Target –24.0 ±0.5</div>
+            </div>
+            <div class="kpi">
+              <div class="klabel"><span style="color:var(--green)">●</span> Short-term max</div>
+              <div class="kval">–18.3<span class="u"> LUFS</span></div>
+              <div class="ktarget">Window 3.0 s</div>
+            </div>
+            <div class="kpi">
+              <div class="klabel"><span style="color:var(--green)">●</span> True peak</div>
+              <div class="kval">–2.1<span class="u"> dBTP</span></div>
+              <div class="ktarget">Ceiling –2.0</div>
+            </div>
+            <div class="kpi">
+              <div class="klabel"><span style="color:var(--green)">●</span> LRA</div>
+              <div class="kval">11.4<span class="u"> LU</span></div>
+              <div class="ktarget">Range ≤ 18.0</div>
+            </div>
+          </div>
+
+          <!-- LUFS chart -->
+          <div class="chart-card">
+            <div class="chart-head">
+              <div class="chart-title"><span class="swatch"></span>Momentary loudness · 00:00 → 47:12</div>
+              <div class="chart-legend">
+                <span><span class="lc"></span>M-LUFS</span>
+                <span><span style="width:8px;height:1px;background:var(--orange);display:inline-block"></span>Integrated</span>
+                <span><span style="width:8px;height:1px;background:var(--red);display:inline-block;border-top:1px dashed var(--red)"></span>Ceiling</span>
+              </div>
+            </div>
+            <svg viewBox="0 0 800 180" style="width:100%;height:180px;display:block">
+              <defs>
+                <linearGradient id="fill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.25"/>
+                  <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <!-- grid -->
+              <g stroke="rgba(255,255,255,0.05)" stroke-width="1">
+                <line x1="0" y1="30" x2="800" y2="30"/>
+                <line x1="0" y1="70" x2="800" y2="70"/>
+                <line x1="0" y1="110" x2="800" y2="110"/>
+                <line x1="0" y1="150" x2="800" y2="150"/>
+              </g>
+              <!-- scale labels -->
+              <g fill="#44444B" font-family="JetBrains Mono" font-size="9">
+                <text x="4" y="28">-14</text>
+                <text x="4" y="68">-20</text>
+                <text x="4" y="108">-26</text>
+                <text x="4" y="148">-32</text>
+              </g>
+              <!-- ceiling line -->
+              <line x1="30" y1="40" x2="790" y2="40" stroke="#FF3B47" stroke-opacity="0.45" stroke-dasharray="3,4"/>
+              <!-- integrated line -->
+              <line x1="30" y1="92" x2="790" y2="92" stroke="#FF7A1A" stroke-opacity="0.5" stroke-width="1"/>
+              <!-- momentary curve + fill -->
+              <path id="loudpath" d="" fill="url(#fill)" stroke="none"/>
+              <path id="loudline" d="" fill="none" stroke="#22D3EE" stroke-width="1.3" stroke-linejoin="round"/>
+              <!-- cursor -->
+              <g>
+                <line x1="540" y1="10" x2="540" y2="170" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                <circle cx="540" cy="78" r="3" fill="#22D3EE"/>
+                <rect x="548" y="62" width="110" height="30" fill="#1C1C20" stroke="rgba(255,255,255,0.12)"/>
+                <text x="555" y="75" fill="#A1A1A8" font-family="JetBrains Mono" font-size="9">T 32:18.400</text>
+                <text x="555" y="87" fill="#22D3EE" font-family="JetBrains Mono" font-size="9">M  -21.8 LUFS</text>
+              </g>
+            </svg>
+            <div class="meter-scale" style="border-top:none;padding-top:6px">
+              <span>00:00</span><span>09:24</span><span>18:48</span><span>28:12</span><span>37:36</span><span>47:12</span>
+            </div>
+          </div>
+
+          <!-- Check list -->
+          <div class="check-list">
+            <div class="check-row pass">
+              <span class="led"></span>
+              <span class="name">Integrated loudness · Streaming-24</span>
+              <span class="spec">–24.0 ±0.5 LUFS</span>
+              <span class="val">–24.0</span>
+            </div>
+            <div class="check-row pass">
+              <span class="led"></span>
+              <span class="name">True-peak ceiling</span>
+              <span class="spec">≤ –2.0 dBTP</span>
+              <span class="val">–2.1</span>
+            </div>
+            <div class="check-row pass">
+              <span class="led"></span>
+              <span class="name">Channel routing · 7.1.4 atmos bed</span>
+              <span class="spec">ITU-R BS.2051</span>
+              <span class="val">OK</span>
+            </div>
+            <div class="check-row pass">
+              <span class="led"></span>
+              <span class="name">Dialog gate continuity</span>
+              <span class="spec">≥ 0.6 coverage</span>
+              <span class="val">0.71</span>
+            </div>
+            <div class="check-row pass">
+              <span class="led amber"></span>
+              <span class="name">LFE RMS headroom</span>
+              <span class="spec">–10 dB nom.</span>
+              <span class="val">–9.4</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PLATFORMS / NORMS -->
+  <section id="platforms">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">§ 03 · Spec profiles</div>
+        <h2>Every platform's delivery spec, kept current so you don't have to read changelogs.</h2>
+      </div>
+      <div class="side">
+        We track 38 active profiles and bump targets the day they change.
+        Below are four common ones — each has a full rulebook attached to the
+        report, signed against the version in effect on QC date.
+      </div>
+    </div>
+
+    <div class="platforms">
+      <div class="plat">
+        <h4>Streaming-24</h4>
+        <div class="pver mono">profile_streaming-24 · v5.1 · 2026-01</div>
+        <div class="prow"><span class="pl">Integrated</span><span class="pv">–24.0 LUFS</span></div>
+        <div class="prow"><span class="pl">True peak</span><span class="pv">–2.0 dBTP</span></div>
+        <div class="prow"><span class="pl">Dialog</span><span class="pv">–27 ±2 LKFS</span></div>
+        <div class="prow"><span class="pl">Bed</span><span class="pv">5.1 / 7.1.4</span></div>
+        <div class="prow"><span class="pl">Sample rate</span><span class="pv">48.0 kHz</span></div>
+      </div>
+      <div class="plat">
+        <h4>EBU R128 s1</h4>
+        <div class="pver mono">profile_ebu-r128 · v2023-02 · supp.1</div>
+        <div class="prow"><span class="pl">Integrated</span><span class="pv">–23.0 LUFS</span></div>
+        <div class="prow"><span class="pl">True peak</span><span class="pv">–1.0 dBTP</span></div>
+        <div class="prow"><span class="pl">LRA</span><span class="pv">≤ 18 LU</span></div>
+        <div class="prow"><span class="pl">Tolerance</span><span class="pv">±0.5 LU</span></div>
+        <div class="prow"><span class="pl">Gate</span><span class="pv">–70 / –10 LU</span></div>
+      </div>
+      <div class="plat">
+        <h4>OTT-27</h4>
+        <div class="pver mono">profile_ott-27 · v3.2 · 2025-09</div>
+        <div class="prow"><span class="pl">Integrated</span><span class="pv">–27.0 LKFS</span></div>
+        <div class="prow"><span class="pl">True peak</span><span class="pv">–2.0 dBTP</span></div>
+        <div class="prow"><span class="pl">Dialog</span><span class="pv">Anchor –27</span></div>
+        <div class="prow"><span class="pl">Bed</span><span class="pv">5.1 core</span></div>
+        <div class="prow"><span class="pl">Signing</span><span class="pv">XML + PDF</span></div>
+      </div>
+      <div class="plat">
+        <h4>Theatrical DB</h4>
+        <div class="pver mono">profile_theatrical · SMPTE ST 428</div>
+        <div class="prow"><span class="pl">Ref level</span><span class="pv">85 dB SPL</span></div>
+        <div class="prow"><span class="pl">Peak</span><span class="pv">+3 dBu / ch</span></div>
+        <div class="prow"><span class="pl">Bed</span><span class="pv">5.1 / 7.1 / Atmos</span></div>
+        <div class="prow"><span class="pl">Dub stage</span><span class="pv">X-curve</span></div>
+        <div class="prow"><span class="pl">LtRt check</span><span class="pv">included</span></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">§ 04 · Workflow</div>
+        <h2>Three steps. No plugin install. No re-rendering your bounces.</h2>
+      </div>
+      <div class="side">
+        Upload a flat print or a stem package, pick a target platform, get a
+        signed report. Reports stay in your workspace; raw audio is purged
+        after 30 days.
+      </div>
+    </div>
+
+    <div class="how">
+      <div class="how-cell">
+        <div class="how-num">01 <div class="bar"></div> <span>SUBMIT</span></div>
+        <h3>Upload the print or link your stem folder.</h3>
+        <p>WAV · AIFF · MXF · ADM BWF up to 320 GB. Resolve, Pro Tools and Nuendo session export recognised.</p>
+        <div class="mini">
+          dub-cli submit KRONOS_S02E04_v7.wav<br/>
+          → uploading 14.2 GB · ETA 00:48
+        </div>
+      </div>
+      <div class="how-cell">
+        <div class="how-num">02 <div class="bar"></div> <span>MEASURE</span></div>
+        <h3>Bind a delivery profile and run the QC engine.</h3>
+        <p>ITU-R BS.1770-4 loudness, inter-sample true-peak at 4× OS, channel routing, dialog gate, LFE integrity, format sanity.</p>
+        <div class="mini">
+          profile: streaming-24@v5.1<br/>
+          → 142 checks queued · 4 min 12 s
+        </div>
+      </div>
+      <div class="how-cell">
+        <div class="how-num">03 <div class="bar"></div> <span>DELIVER</span></div>
+        <h3>Attach the signed PDF to your delivery ticket.</h3>
+        <p>SHA-256-signed report, raw CSV, and an EDL of every fail bookmarked to the timeline. One file. Deliverable.</p>
+        <div class="mini">
+          report_r-7F3A9B2.pdf · 2.1 MB<br/>
+          → signed · audit trail attached
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SPEC DETAIL w/ METER -->
+  <section>
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">§ 05 · Engine</div>
+        <h2>Measurement you can defend in a delivery review.</h2>
+      </div>
+      <div class="side">
+        Every value in a DubCheck report is reproducible. Same input, same
+        profile, same number — down to the final digit. Engineering parity
+        with the reference meters your delivery partner uses on the other
+        end.
+      </div>
+    </div>
+
+    <div class="spec-split">
+      <div class="spec-list">
+        <div class="spec-item">
+          <span class="idx">01</span>
+          <div>
+            <h4>ITU-R BS.1770-4 loudness</h4>
+            <p>Momentary, short-term and integrated LUFS with the compliant –70 / –10 LU gate and K-weighting filter.</p>
+          </div>
+          <span class="tag">BS.1770-4</span>
+        </div>
+        <div class="spec-item">
+          <span class="idx">02</span>
+          <div>
+            <h4>4× oversampled true-peak</h4>
+            <p>Inter-sample detection with configurable ceilings per profile. No missed peaks on heavily limited dialog stems.</p>
+          </div>
+          <span class="tag">dBTP · 4× OS</span>
+        </div>
+        <div class="spec-item">
+          <span class="idx">03</span>
+          <div>
+            <h4>Dialog anchor + gate coverage</h4>
+            <p>Voice-activity detection gates the LKFS anchor and reports coverage as a time-weighted ratio, per ATSC A/85.</p>
+          </div>
+          <span class="tag">A/85 · Anchor</span>
+        </div>
+        <div class="spec-item">
+          <span class="idx">04</span>
+          <div>
+            <h4>Routing &amp; bed integrity</h4>
+            <p>7.1.4 / 5.1 / ADM BWF check against ITU-R BS.2051 assignment. Catches LFE on the wrong channel before delivery does.</p>
+          </div>
+          <span class="tag">BS.2051</span>
+        </div>
+        <div class="spec-item" style="border-bottom:none">
+          <span class="idx">05</span>
+          <div>
+            <h4>Signed, timestamped report</h4>
+            <p>SHA-256 signature over audio hash + profile version + result set. Cryptographic proof, not a screenshot.</p>
+          </div>
+          <span class="tag">SHA-256</span>
+        </div>
+      </div>
+
+      <!-- Meter card -->
+      <div>
+        <div class="meter-card">
+          <div class="meter-head">
+            <div>
+              <div class="mt">Live · Integrated</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:28px;color:var(--ink);margin-top:4px">–24.0<span style="font-size:13px;color:var(--ink-3);margin-left:4px">LUFS</span></div>
+            </div>
+            <div style="text-align:right">
+              <div class="mt">Peak</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--red);margin-top:4px">–2.1 dBTP</div>
+            </div>
+          </div>
+          <div class="meter-bars" id="meterbars"></div>
+          <div class="meter-scale"><span>-60</span><span>-48</span><span>-36</span><span>-24</span><span>-18</span><span>-12</span><span>-6</span><span>0</span></div>
+
+          <div style="margin-top:22px;border-top:1px solid var(--line-2);padding-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div>
+              <div class="mt" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-3);letter-spacing:0.12em">LRA</div>
+              <div class="mono" style="font-size:16px;margin-top:4px">11.4 LU</div>
+            </div>
+            <div>
+              <div class="mt" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-3);letter-spacing:0.12em">DIALOG</div>
+              <div class="mono" style="font-size:16px;margin-top:4px">–26.8 LKFS</div>
+            </div>
+            <div>
+              <div class="mt" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-3);letter-spacing:0.12em">SAMPLE RATE</div>
+              <div class="mono" style="font-size:16px;margin-top:4px">48.0 kHz</div>
+            </div>
+            <div>
+              <div class="mt" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-3);letter-spacing:0.12em">BIT DEPTH</div>
+              <div class="mono" style="font-size:16px;margin-top:4px">24 bit</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">§ 06 · Pricing</div>
+        <h2>Priced per deliverable. No seat taxes.</h2>
+      </div>
+      <div class="side">
+        Everything ships with the signed PDF, raw CSV and the fail-bookmark
+        EDL. Retainer gets you priority ingest and custom profiles.
+      </div>
+    </div>
+
+    <div class="price-grid">
+      <!-- Single -->
+      <div class="price">
+        <div class="ptag"><span class="led amber" style="width:6px;height:6px"></span>Single · a la carte</div>
+        <h3>Single Project</h3>
+        <p class="blurb">One film, one episode, one trailer. Runs on demand with a 24h turnaround.</p>
+        <div class="amt"><span class="cur">€</span>249</div>
+        <div class="per">per program / flat</div>
+
+        <ul>
+          <li><span class="l"><svg class="check-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg>Signed PDF report</span><span class="v">1</span></li>
+          <li><span class="l"><svg class="check-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg>Spec profiles</span><span class="v">38</span></li>
+          <li><span class="l"><svg class="check-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg>Program length</span><span class="v">≤ 180 min</span></li>
+          <li><span class="l"><svg class="check-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg>Turnaround SLA</span><span class="v">24 h</span></li>
+          <li><span class="l"><svg class="check-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg>Retention</span><span class="v">30 days</span></li>
+        </ul>
+        <div class="buy"><a class="btn btn-ghost btn-lg" style="width:100%;justify-content:center" href="#cta">Submit a project →</a></div>
+      </div>
+
+      <!-- Studio Batch (featured) -->
+      <div class="price featured">
+        <div class="ptag"><span class="led" style="width:6px;height:6px;background:var(--orange);box-shadow:0 0 8px rgba(255,122,26,0.7)"></span>Studio · most post houses</div>
+        <h3>Studio Batch</h3>
+        <p class="blurb">Whole season, feature + trailer + promo bundle. Batched ingest, one consolidated delivery package.</p>
+        <div class="amt"><span class="cur">€</span>1,890</div>
+        <div class="per">per batch · up to 12 programs</div>
+
+        <ul>
+          <li><span class="l"><svg class="check-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg>Programs incl.</span><span class="v">12</span></li>
+          <li><span class="l"><svg class="check-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg>Per-episode report</span><span class="v">signed</span></li>
+          <li><span class="l"><svg class="check-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg>Master delivery PDF</span><span class="v">1</span></li>
+          <li><span class="l"><svg class="check-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg>Priority ingest</span><span class="v">4 h</span></li>
+          <li><span class="l"><svg class="check-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg>Retention</span><span class="v">90 days</span></li>
+        </ul>
+        <div class="buy"><a class="btn btn-primary btn-lg" style="width:100%;justify-content:center" href="#cta">Book a batch →</a></div>
+      </div>
+
+      <!-- Retainer -->
+      <div class="price">
+        <div class="ptag"><span class="led" style="width:6px;height:6px"></span>Retainer · studios @ volume</div>
+        <h3>Monthly Retainer</h3>
+        <p class="blurb">Unlimited programs, custom delivery profiles, named engineer and a signed MSA.</p>
+        <div class="amt"><span class="cur">€</span>4,200</div>
+        <div class="per">per month · billed quarterly</div>
+
+        <ul>
+          <li><span class="l"><svg class="check-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg>Programs</span><span class="v">unlimited</span></li>
+          <li><span class="l"><svg class="check-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg>Custom profiles</span><span class="v">up to 6</span></li>
+          <li><span class="l"><svg class="check-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg>Ingest SLA</span><span class="v">45 min</span></li>
+          <li><span class="l"><svg class="check-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg>Named engineer</span><span class="v">1 FTE</span></li>
+          <li><span class="l"><svg class="check-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg>MSA + NDA</span><span class="v">signed</span></li>
+        </ul>
+        <div class="buy"><a class="btn btn-ghost btn-lg" style="width:100%;justify-content:center" href="#cta">Talk to us →</a></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">§ 07 · Questions</div>
+        <h2>The five questions a delivery manager will ask first.</h2>
+      </div>
+      <div class="side">
+        If the answer isn't here, the docs at <span class="mono" style="color:var(--ink-2)">docs.dubcheck.io</span>
+        have the full schema, the measurement source and a changelog for every
+        profile bump.
+      </div>
+    </div>
+
+    <div class="faq">
+      <div class="faq-cell">
+        <div class="q"><span class="n">Q/01</span>Which loudness meter sits under the hood?</div>
+        <p>A BS.1770-4 K-weighted integrator with –70 / –10 LU gating. We publish per-sample parity tests against the EBU compliance suite; identical numbers to the reference.</p>
+      </div>
+      <div class="faq-cell">
+        <div class="q"><span class="n">Q/02</span>Do you keep my audio after the report?</div>
+        <p>No. Raw audio is purged 30 days after report issue — or 90 days on Studio Batch. The signed report, the hash and the spec profile version stay indefinitely.</p>
+      </div>
+      <div class="faq-cell">
+        <div class="q"><span class="n">Q/03</span>What happens if the spec changes mid-delivery?</div>
+        <p>Every report is pinned to the profile version in effect on QC date. A profile bump doesn't retroactively invalidate a signed report — you still have the audit trail.</p>
+      </div>
+      <div class="faq-cell">
+        <div class="q"><span class="n">Q/04</span>Can I run DubCheck from my DAW session?</div>
+        <p>Yes. <span class="mono">dub-cli</span> and a small AAX/AU helper can submit a bounce straight from Pro Tools or Nuendo, using the current session's clock and sample rate.</p>
+      </div>
+      <div class="faq-cell" style="grid-column:span 2">
+        <div class="q"><span class="n">Q/05</span>Is the signed PDF actually accepted by delivery ops at the big streamers?</div>
+        <p>It's designed to sit alongside — not replace — the platform's own ingest QC. What the report gives you is a deterministic, reproducible pre-check on your side, so the first upload passes instead of the third. Several post houses in Berlin and Hamburg use it as a gating step before handoff.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CTA BAND -->
+  <section id="cta">
+    <div class="cta-band">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px">§ 08 · Pilot access</div>
+        <h2>Ship your next master with a report attached.</h2>
+        <p>We're onboarding twelve more studios this quarter. Pilot seats include two free Studio Batches and a custom profile migration from your current delivery checklist.</p>
+      </div>
+      <div class="act">
+        <a class="btn btn-primary btn-lg" href="#">Request pilot seat
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+        <a class="btn btn-ghost btn-lg" href="#">Download spec sheet (PDF)</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot-grid">
+      <div>
+        <div class="brand">
+          <div class="brand-mark"></div>
+          <div class="brand-name"><b>DubCheck</b></div>
+          <span class="brand-tag mono">QC / v2.4</span>
+        </div>
+        <p class="foot-brand-tag">Loudness &amp; delivery QC for post-production. Built in Berlin by mix engineers and platform-delivery ops.</p>
+      </div>
+      <div>
+        <h5>Product</h5>
+        <ul><li><a href="#">Report</a></li><li><a href="#">Spec profiles</a></li><li><a href="#">Pricing</a></li><li><a href="#">Changelog</a></li></ul>
+      </div>
+      <div>
+        <h5>Engineers</h5>
+        <ul><li><a href="#">Docs</a></li><li><a href="#">dub-cli</a></li><li><a href="#">BS.1770 parity</a></li><li><a href="#">Status</a></li></ul>
+      </div>
+      <div>
+        <h5>Studio</h5>
+        <ul><li><a href="#">Pilot program</a></li><li><a href="#">MSA / NDA</a></li><li><a href="#">Security</a></li><li><a href="#">Contact</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 DubCheck GmbH · Berlin · HRB 289144 B</span>
+      <span>ENGINE v2.4.1 · PROFILE DB 2026-04-18 · ALL SYSTEMS NOMINAL ●</span>
+    </div>
+  </footer>
+
+</div>
+
+<!-- TWEAKS PANEL -->
+<div class="tweaks" id="tweaksPanel">
+  <div class="tweaks-head">
+    <div class="t"><span class="led"></span> Tweaks · Hero waveform</div>
+    <span class="mono" style="font-size:10px;color:var(--ink-4)">LIVE</span>
+  </div>
+  <div class="tweaks-body">
+    <div class="tweak-row">
+      <div class="tweak-label"><span>Scroll speed</span><span class="v" id="twSpeedVal">22 px/s</span></div>
+      <input type="range" id="twSpeed" min="0" max="120" step="1" />
+    </div>
+    <div class="tweak-row">
+      <div class="tweak-label"><span>Smoothness</span><span class="v" id="twSmoothVal">0.90</span></div>
+      <input type="range" id="twSmooth" min="0" max="1" step="0.01" />
+    </div>
+    <div class="tweak-row">
+      <div class="tweak-toggle" id="twPlay"><span class="led" id="twPlayLed"></span><span id="twPlayLbl">PLAYING</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---------- Tweaks defaults (persisted) ----------
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "waveSpeed": 62,
+    "waveSmoothness": 0.88,
+    "wavePlaying": true
+  }/*EDITMODE-END*/;
+
+  // ---------- Hero waveform: generate + animate ----------
+  window.__dubcheckWave = (function(){
+    const g = document.getElementById('wavebars');
+    const scroll = document.getElementById('wavescroll');
+    if(!g || !scroll) return {};
+    const VBW = 3200, H = 600, mid = H/2, LOOP = 1600;
+    const n = 640;
+    const svgNS = "http://www.w3.org/2000/svg";
+    let seed = 7;
+    function rnd(){ seed = (seed*9301+49297)%233280; return seed/233280 }
+
+    const amps = [];
+    const halfN = n/2;
+    for(let i=0;i<halfN;i++){
+      const env = 0.35 + 0.55*Math.abs(Math.sin(i*0.024) + 0.5*Math.sin(i*0.007+1.2));
+      const burst = 0.25 + 0.75*Math.pow(rnd(),1.6);
+      amps.push(env * burst * 0.78);
+    }
+    function addBar(i, amp){
+      const x = (i/n)*VBW;
+      const h = amp * (H*0.42);
+      const r = document.createElementNS(svgNS, 'rect');
+      r.setAttribute('x', x.toFixed(2));
+      r.setAttribute('y', (mid - h).toFixed(2));
+      r.setAttribute('width', (VBW/n*0.55).toFixed(2));
+      r.setAttribute('height', (h*2).toFixed(2));
+      r.setAttribute('rx','0.5');
+      g.appendChild(r);
+    }
+    for(let i=0;i<halfN;i++) addBar(i, amps[i]);
+    for(let i=0;i<halfN;i++) addBar(i+halfN, amps[i]);
+
+    const state = {
+      speed: 22,
+      smoothness: 0.9,
+      offset: 0,
+      running: true,
+      last: performance.now()
+    };
+    function frame(now){
+      if(!state.running) { state.last = now; requestAnimationFrame(frame); return; }
+      const dt = Math.min(0.1, (now - state.last)/1000);
+      state.last = now;
+      state.offset = (state.offset + state.speed * dt) % LOOP;
+      const step = (1 - state.smoothness) * 14 + 0.05;
+      const rendered = step > 0.2 ? Math.round(state.offset/step)*step : state.offset;
+      scroll.setAttribute('transform', `translate(${-rendered.toFixed(2)} 0)`);
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+
+    return {
+      setSpeed(v){ state.speed = Math.max(0, Number(v)||0); },
+      setSmoothness(v){ state.smoothness = Math.max(0, Math.min(1, Number(v)||0)); },
+      setRunning(b){ state.running = !!b; state.last = performance.now(); },
+      state
+    };
+  })();
+
+  // ---------- Generate LUFS chart curve ----------
+  (function(){
+    const line = document.getElementById('loudline');
+    const fill = document.getElementById('loudpath');
+    if(!line) return;
+    const W = 800, H = 180;
+    const pts = [];
+    let seed = 42;
+    function rnd(){ seed = (seed*9301+49297)%233280; return seed/233280 }
+    const n = 180;
+    for(let i=0;i<n;i++){
+      const t = i/(n-1);
+      // central line around y=92 (-24 LUFS-ish), wandering
+      const slow = Math.sin(t*6.2)*6 + Math.sin(t*2.1+0.4)*10;
+      const fast = (rnd()-0.5)*14;
+      const y = 92 + slow + fast*0.6;
+      const x = 30 + t*(W-40);
+      pts.push([x, Math.max(20, Math.min(165, y))]);
+    }
+    const d = pts.map((p,i)=> (i===0?'M':'L')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+    line.setAttribute('d', d);
+    // fill: close to bottom
+    const last = pts[pts.length-1], first = pts[0];
+    fill.setAttribute('d', d + ` L ${last[0].toFixed(1)} 170 L ${first[0].toFixed(1)} 170 Z`);
+  })();
+
+  // ---------- Generate meter bars ----------
+  (function(){
+    const el = document.getElementById('meterbars');
+    if(!el) return;
+    const n = 48;
+    let seed = 3;
+    function rnd(){ seed = (seed*9301+49297)%233280; return seed/233280 }
+    for(let i=0;i<n;i++){
+      const t = i/(n-1);
+      // LUFS-ish envelope peaking mid-right
+      const base = Math.pow(Math.sin(t*Math.PI*0.9 + 0.2), 2);
+      const jitter = 0.75 + 0.25*rnd();
+      const h = Math.max(8, (base * jitter) * 86);
+      const b = document.createElement('div');
+      b.className = 'b';
+      b.style.height = h.toFixed(1) + 'px';
+      // last bars approach red
+      if(i > n-4) b.style.background = 'linear-gradient(180deg,var(--red) 0%, rgba(255,59,71,0.3) 100%)';
+      else if(i > n-9) b.style.background = 'linear-gradient(180deg,var(--orange) 0%, rgba(255,122,26,0.3) 100%)';
+      el.appendChild(b);
+    }
+  })();
+  // ---------- Tweaks panel wiring ----------
+  (function(){
+    const panel   = document.getElementById('tweaksPanel');
+    const sSpeed  = document.getElementById('twSpeed');
+    const sSmooth = document.getElementById('twSmooth');
+    const vSpeed  = document.getElementById('twSpeedVal');
+    const vSmooth = document.getElementById('twSmoothVal');
+    const bPlay   = document.getElementById('twPlay');
+    const lPlay   = document.getElementById('twPlayLbl');
+    const ledPlay = document.getElementById('twPlayLed');
+    const W = window.__dubcheckWave || {};
+
+    let state = Object.assign({}, TWEAK_DEFAULTS);
+    function apply(){
+      if (W.setSpeed)      W.setSpeed(state.waveSpeed);
+      if (W.setSmoothness) W.setSmoothness(state.waveSmoothness);
+      if (W.setRunning)    W.setRunning(state.wavePlaying);
+      sSpeed.value  = state.waveSpeed;
+      sSmooth.value = state.waveSmoothness;
+      vSpeed.textContent  = state.waveSpeed + ' px/s';
+      vSmooth.textContent = Number(state.waveSmoothness).toFixed(2);
+      bPlay.classList.toggle('on', !!state.wavePlaying);
+      lPlay.textContent = state.wavePlaying ? 'PLAYING' : 'PAUSED';
+      ledPlay.style.background = state.wavePlaying ? 'var(--green)' : 'var(--ink-4)';
+      ledPlay.style.boxShadow  = state.wavePlaying
+        ? '0 0 8px rgba(34,201,139,0.8), inset 0 0 2px rgba(255,255,255,0.5)'
+        : 'none';
+    }
+    apply();
+
+    function persist(partial){
+      try { window.parent.postMessage({type:'__edit_mode_set_keys', edits: partial}, '*'); } catch(e){}
+    }
+
+    sSpeed.addEventListener('input', e => {
+      state.waveSpeed = Number(e.target.value);
+      if (W.setSpeed) W.setSpeed(state.waveSpeed);
+      vSpeed.textContent = state.waveSpeed + ' px/s';
+    });
+    sSpeed.addEventListener('change', e => persist({waveSpeed: Number(e.target.value)}));
+
+    sSmooth.addEventListener('input', e => {
+      state.waveSmoothness = Number(e.target.value);
+      if (W.setSmoothness) W.setSmoothness(state.waveSmoothness);
+      vSmooth.textContent = state.waveSmoothness.toFixed(2);
+    });
+    sSmooth.addEventListener('change', e => persist({waveSmoothness: Number(e.target.value)}));
+
+    bPlay.addEventListener('click', () => {
+      state.wavePlaying = !state.wavePlaying;
+      apply();
+      persist({wavePlaying: state.wavePlaying});
+    });
+
+    window.addEventListener('message', (ev) => {
+      const d = ev.data || {};
+      if (d.type === '__activate_edit_mode')   panel.classList.add('open');
+      if (d.type === '__deactivate_edit_mode') panel.classList.remove('open');
+    });
+    try {
+      window.parent.postMessage({type:'__edit_mode_available'}, '*');
+    } catch(e){}
+  })();
+</script>
+</body>
+</html>

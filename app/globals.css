@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --bg: #0E0E10;
+  --bg-2: #121214;
+  --surface: #17171A;
+  --surface-2: #1C1C20;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-2: rgba(255, 255, 255, 0.04);
+  --ink: #ECECEE;
+  --ink-2: #A1A1A8;
+  --ink-3: #6B6B72;
+  --ink-4: #44444B;
+  --cyan: #22D3EE;
+  --orange: #FF7A1A;
+  --red: #FF3B47;
+  --green: #22C98B;
+  --amber: #F5B33D;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "ss01", "cv11";
+}
+
+/* ── Grid background ─────────────────────────────────────────── */
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: 0 0;
+  mask-image: radial-gradient(ellipse 110% 70% at 50% 0%, #000 30%, transparent 80%);
+}
+
+/* ── Crosshair decoration ────────────────────────────────────── */
+.crosshair {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+.crosshair::before,
+.crosshair::after {
+  content: "";
+  position: absolute;
+  background: rgba(255, 255, 255, 0.20);
+}
+.crosshair::before { left: 50%; top: 0; bottom: 0; width: 1px; transform: translateX(-0.5px); }
+.crosshair::after  { top: 50%; left: 0; right: 0; height: 1px; transform: translateY(-0.5px); }
+
+/* ── LED indicators ──────────────────────────────────────────── */
+.led {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+  background: var(--green);
+  box-shadow: 0 0 8px rgba(34,201,139,0.8), inset 0 0 2px rgba(255,255,255,0.5);
+}
+.led-sm {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+  background: var(--green);
+  box-shadow: 0 0 8px rgba(34,201,139,0.8), inset 0 0 2px rgba(255,255,255,0.5);
+}
+.led-red   { background: var(--red);   box-shadow: 0 0 8px rgba(255,59,71,0.8),   inset 0 0 2px rgba(255,255,255,0.5); }
+.led-amber { background: var(--amber); box-shadow: 0 0 8px rgba(245,179,61,0.8),  inset 0 0 2px rgba(255,255,255,0.5); }
+.led-orange{ background: var(--orange);box-shadow: 0 0 8px rgba(255,122,26,0.7),  inset 0 0 2px rgba(255,255,255,0.5); }
+.led-off   { background: #44444B; box-shadow: none; }
+
+/* ── Mono font feature settings ─────────────────────────────── */
+.mono-features {
+  font-feature-settings: "zero", "ss02";
+}
+
+/* ── DubCheck Mockup animations ──────────────────────────────── */
+@keyframes dc-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes dc-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.55; transform: scale(0.9); }
+}
+@keyframes dc-dots {
+  0%   { opacity: 0.3; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.3; }
+}
+@keyframes dc-rowin {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.dc-scroll::-webkit-scrollbar       { width: 2px; }
+.dc-scroll::-webkit-scrollbar-track { background: transparent; }
+.dc-scroll::-webkit-scrollbar-thumb {
+  background: var(--dc-accent, rgba(255,255,255,0.2));
+  border-radius: 1px;
+}
+.dc-scroll { scrollbar-width: thin; scrollbar-color: var(--dc-accent, rgba(255,255,255,0.2)) transparent; }
