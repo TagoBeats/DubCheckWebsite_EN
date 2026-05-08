@@ -48,6 +48,7 @@ body {
   background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
   background-size: 24px 24px;
   background-position: 0 0;
+  -webkit-mask-image: radial-gradient(ellipse 110% 70% at 50% 0%, #000 30%, transparent 80%);
   mask-image: radial-gradient(ellipse 110% 70% at 50% 0%, #000 30%, transparent 80%);
 }
 
@@ -113,6 +114,21 @@ body {
   from { opacity: 0; transform: translateY(4px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+@keyframes dc-drag {
+  0%   { transform: translate(280px, 170px) scale(0.92); opacity: 0; }
+  12%  { opacity: 1; }
+  85%  { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+@keyframes dc-drop-pulse {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
+@keyframes dc-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
 .dc-scroll::-webkit-scrollbar       { width: 2px; }
 .dc-scroll::-webkit-scrollbar-track { background: transparent; }
 .dc-scroll::-webkit-scrollbar-thumb {
@@ -120,3 +136,12 @@ body {
   border-radius: 1px;
 }
 .dc-scroll { scrollbar-width: thin; scrollbar-color: var(--dc-accent, rgba(255,255,255,0.2)) transparent; }
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  [class*="dc-"], [style*="dc-drag"], [style*="dc-rowin"], [style*="dc-pulse"], [style*="dc-spin"] {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

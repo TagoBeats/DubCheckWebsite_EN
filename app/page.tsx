@@ -1,6 +1,7 @@
 import Link from 'next/link'
-import Nav    from '@/components/Nav'
-import Footer from '@/components/Footer'
+import Nav            from '@/components/Nav'
+import Footer         from '@/components/Footer'
+import DubCheckMockup from '@/components/DubCheckMockup'
 
 export default function Home() {
   return (
@@ -51,15 +52,13 @@ function PersonaSwitch() {
         className="text-[36px] md:text-[54px] lg:text-[64px] leading-[1.06] md:leading-[1.02] tracking-[-0.035em] mb-[22px] font-semibold max-w-[18ch]"
         style={{ color: '#06D4F3' }}
       >
-        Pass spec on the first upload.
+        The ultimate final check for your audio.
       </h1>
 
       {/* Lede */}
       <p className="text-[18px] leading-[1.55] text-dc-ink2 max-w-[62ch] mb-12">
-        DubCheck comes in two editions sharing the same EBU 3341/3342 certified engine —
-        the AudioBook Edition for narrators and audiobook teams, the Studios Edition for
-        localization studios delivering to Netflix, Apple TV+, Disney+ and Prime. Pick
-        the edition built for your workflow:
+        Bulletproof your deliveries. DubCheck comes in two editions sharing the same EBU 3341/3342
+        certified engine. Pick the edition built for your workflow:
       </p>
 
       {/* Persona cards */}
@@ -77,15 +76,15 @@ function PersonaSwitch() {
             DubCheck AudioBook Edition
           </div>
           <h2 className="text-[26px] md:text-[32px] font-semibold tracking-[-0.02em] leading-[1.15] mb-3 text-dc-ink">
-            ACX rejected your chapter again?
+            Upload your audiobook with 100% confidence.
           </h2>
           <p className="text-dc-ink2 text-[15px] leading-[1.6] mb-7 max-w-[40ch]">
-            Drag your file in. Get a pass/fail PDF in seconds. RMS, peak, noise floor,
-            room tone — every value ACX checks, on every chapter. Stop redelivering.
+            Drag your chapters in and get a clear pass/fail PDF in seconds. Verify your
+            RMS, true peak and noise floor before you hit submit. Stop redelivering.
           </p>
           <div className="flex items-center justify-between">
             <span className="font-mono text-[12px] text-dc-ink3 tracking-[0.06em]">
-              From €39 lifetime
+              From €30 lifetime
             </span>
             <span className="inline-flex items-center gap-[8px] text-[13.5px] font-semibold text-dc-cyan group-hover:translate-x-[4px] transition-transform duration-200">
               See details
@@ -109,15 +108,15 @@ function PersonaSwitch() {
             DubCheck Studios Edition
           </div>
           <h2 className="text-[26px] md:text-[32px] font-semibold tracking-[-0.02em] leading-[1.15] mb-3 text-dc-ink">
-            Stop the streamer normalizing your mix.
+            Deliver your final mix with absolute certainty.
           </h2>
           <p className="text-dc-ink2 text-[15px] leading-[1.6] mb-7 max-w-[40ch]">
-            Verify final mixes against Netflix NOLS, Apple TV+, Disney+ and Prime — in
-            one pass. Keep control over how your work actually sounds at the viewer's end.
+            Verify your audio against strict Netflix, Apple TV+ and EBU R128 specs in one
+            pass. Get a certified PDF report and hand off your masters with 100% confidence.
           </p>
           <div className="flex items-center justify-between">
             <span className="font-mono text-[12px] text-dc-ink3 tracking-[0.06em]">
-              From €149 / project
+              From €49 lifetime
             </span>
             <span className="inline-flex items-center gap-[8px] text-[13.5px] font-semibold text-dc-orange group-hover:translate-x-[4px] transition-transform duration-200">
               See details
@@ -127,6 +126,17 @@ function PersonaSwitch() {
             </span>
           </div>
         </Link>
+      </div>
+
+      {/* Live demo mockup — Audiobook edition */}
+      <div className="mt-16 md:mt-20 max-w-[960px] mx-auto">
+        <div className="flex items-center gap-[10px] mb-5">
+          <span className="led" />
+          <span className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-ink3">
+            Live demo · see DubCheck in action
+          </span>
+        </div>
+        <DubCheckMockup edition="narrators" />
       </div>
     </section>
   )

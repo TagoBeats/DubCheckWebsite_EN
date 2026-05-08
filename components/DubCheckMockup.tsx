@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 
 // ── Helpers ────────────────────────────────────────────────────
 function hexToRgb(hex: string): [number, number, number] {
@@ -168,61 +168,122 @@ const STATUS_COLORS: Record<CheckStatus, { fg: string; bg: string; bd: string }>
 }
 
 // ── Waveform ───────────────────────────────────────────────────
+const WAVE_BAR_COUNT = 60
 function Waveform({ accent }: { accent: string }) {
-  const BAR_COUNT = 60
-  const [heights, setHeights] = useState(() =>
-    Array.from({ length: BAR_COUNT }, () => 8 + Math.random() * 28)
+  const barRefs = useRef<Array<HTMLDivElement | null>>([])
+  const heightsRef = useRef<number[]>(
+    Array.from({ length: WAVE_BAR_COUNT }, () => 8 + Math.random() * 28)
   )
+
   useEffect(() => {
-    const id = setInterval(() => {
-      setHeights(prev =>
-        prev.map(h => {
-          const target = 8 + Math.random() * 28
-          return h + (target - h) * 0.45
-        })
-      )
-    }, 110)
-    return () => clearInterval(id)
+    let id: ReturnType<typeof setInterval> | null = null
+    const tick = () => {
+      const hs = heightsRef.current
+      for (let i = 0; i < hs.length; i++) {
+        const target = 8 + Math.random() * 28
+        hs[i] = hs[i] + (target - hs[i]) * 0.45
+        const el = barRefs.current[i]
+        if (el) el.style.height = `${hs[i]}px`
+      }
+    }
+    const start = () => { if (!id) id = setInterval(tick, 110) }
+    const stop = () => { if (id) { clearInterval(id); id = null } }
+    const onVis = () => { document.hidden ? stop() : start() }
+    start()
+    document.addEventListener('visibilitychange', onVis)
+    return () => { stop(); document.removeEventListener('visibilitychange', onVis) }
   }, [])
+
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 3, height: 40, padding: '0 2px' }}>
-      {heights.map((h, i) => (
-        <div key={i} style={{
-          width: 2,
-          height: `${h}px`,
-          background: rgba(accent, 0.4),
-          borderRadius: 1,
-          transition: 'height 110ms linear',
-        }} />
+      {heightsRef.current.map((h, i) => (
+        <div
+          key={i}
+          ref={el => { barRefs.current[i] = el }}
+          style={{
+            width: 2,
+            height: `${h}px`,
+            background: rgba(accent, 0.4),
+            borderRadius: 1,
+            transition: 'height 110ms linear',
+            willChange: 'height',
+          }}
+        />
       ))}
     </div>
   )
 }
 
 // ── Step 0: Drop Zone ──────────────────────────────────────────
+function WavFileIcon({ size = 36, accent }: { size?: number; accent: string }) {
+  return (
+    <svg width={size} height={size * 1.25} viewBox="0 0 36 45" fill="none">
+      <path d="M4 2 H24 L32 10 V41 a2 2 0 0 1 -2 2 H4 a2 2 0 0 1 -2 -2 V4 a2 2 0 0 1 2 -2 z"
+        fill="#1A1A1E" stroke="rgba(255,255,255,0.18)" strokeWidth="1" />
+      <path d="M24 2 V10 H32" stroke="rgba(255,255,255,0.18)" strokeWidth="1" fill="none" />
+      <rect x="6" y="26" width="24" height="11" rx="2" fill={rgba(accent, 0.12)} stroke={rgba(accent, 0.4)} strokeWidth="0.8" />
+      <text x="18" y="34" textAnchor="middle"
+        fontFamily="JetBrains Mono, ui-monospace, monospace"
+        fontSize="6.5" fontWeight="700" fill={accent} letterSpacing="0.1em">
+        .WAV
+      </text>
+      {/* mini waveform */}
+      <g stroke={accent} strokeWidth="1" strokeLinecap="round" opacity="0.7">
+        <line x1="8" y1="18" x2="8" y2="22" />
+        <line x1="11" y1="15" x2="11" y2="22" />
+        <line x1="14" y1="13" x2="14" y2="22" />
+        <line x1="17" y1="16" x2="17" y2="22" />
+        <line x1="20" y1="14" x2="20" y2="22" />
+        <line x1="23" y1="17" x2="23" y2="22" />
+        <line x1="26" y1="15" x2="26" y2="22" />
+        <line x1="29" y1="19" x2="29" y2="22" />
+      </g>
+    </svg>
+  )
+}
+
+function CursorIcon({ size = 22 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>
+      <path d="M5 3 L5 19 L9 15 L11.5 21 L14 20 L11.5 14 L17 14 Z"
+        fill="#FFFFFF" stroke="#0E0E10" strokeWidth="1" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 function StepDropZone({ accent, onAdvance }: { accent: string; onAdvance: () => void }) {
-  const [hover, setHover] = useState(false)
+  // Phases: 'dragging' (cursor + tile move toward dropzone) → 'dropped' (pulse) → advance
+  const [phase, setPhase] = useState<'dragging' | 'dropped'>('dragging')
+  const DRAG_MS = 1100
+  const HOLD_MS = 280
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setPhase('dropped'), DRAG_MS)
+    const t2 = setTimeout(() => onAdvance(), DRAG_MS + HOLD_MS)
+    return () => { clearTimeout(t1); clearTimeout(t2) }
+  }, [onAdvance])
+
+  const isDropped = phase === 'dropped'
+
   return (
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', flexDirection: 'column',
       alignItems: 'center', justifyContent: 'center',
-      gap: 18,
+      gap: 18, position: 'relative',
     }}>
       <div
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-        onClick={onAdvance}
         style={{
           width: 380, height: 200,
-          border: `1.5px dashed ${hover ? rgba(accent, 0.4) : 'rgba(255,255,255,0.12)'}`,
+          border: `1.5px dashed ${isDropped ? rgba(accent, 0.55) : 'rgba(255,255,255,0.12)'}`,
           borderRadius: 8,
-          background: hover ? rgba(accent, 0.04) : 'rgba(255,255,255,0.015)',
+          background: isDropped ? rgba(accent, 0.08) : 'rgba(255,255,255,0.015)',
           display: 'flex', flexDirection: 'column',
           alignItems: 'center', justifyContent: 'center',
           gap: 10,
-          transition: 'border-color 150ms ease, background 150ms ease',
-          cursor: 'pointer',
+          transition: 'border-color 220ms ease, background 220ms ease',
+          animation: isDropped ? 'dc-drop-pulse 280ms ease' : undefined,
+          position: 'relative',
         }}
       >
         <UploadIcon size={28} color="#6B6B72" />
@@ -235,31 +296,67 @@ function StepDropZone({ accent, onAdvance }: { accent: string; onAdvance: () => 
         }}>
           .wav  ·  .aiff  ·  .flac  ·  .mp3
         </div>
+
+        {/* Animated cursor + dragged file tile */}
+        {!isDropped && (
+          <div style={{
+            position: 'absolute',
+            left: '50%', top: '50%',
+            marginLeft: -32, marginTop: -22,
+            pointerEvents: 'none',
+            animation: `dc-drag ${DRAG_MS}ms cubic-bezier(0.22, 0.61, 0.36, 1) both`,
+            willChange: 'transform, opacity',
+          }}>
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: 6,
+              padding: '6px 10px 6px 6px',
+              background: 'rgba(20,20,24,0.92)',
+              border: `1px solid ${rgba(accent, 0.45)}`,
+              borderRadius: 8,
+              boxShadow: `0 12px 28px -8px rgba(0,0,0,0.6), 0 0 0 4px ${rgba(accent, 0.08)}`,
+              backdropFilter: 'blur(4px)',
+            }}>
+              <WavFileIcon size={28} accent={accent} />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <span style={{
+                  fontFamily: 'JetBrains Mono, ui-monospace, monospace',
+                  fontSize: 11, color: '#ECECEE', fontWeight: 600,
+                }}>chapter_01.wav</span>
+                <span style={{
+                  fontFamily: 'JetBrains Mono, ui-monospace, monospace',
+                  fontSize: 9, color: '#6B6B72', letterSpacing: '0.06em',
+                }}>4.2 MB</span>
+              </div>
+            </div>
+            <div style={{ position: 'absolute', right: -6, bottom: -10 }}>
+              <CursorIcon size={20} />
+            </div>
+          </div>
+        )}
       </div>
-      <button
-        onClick={onAdvance}
-        style={{
-          fontFamily: 'Inter, -apple-system, sans-serif',
-          fontWeight: 600, fontSize: 13,
-          color: '#0E0E10', background: accent,
-          border: 'none', padding: '8px 16px',
-          borderRadius: 6, cursor: 'pointer',
-          boxShadow: `0 0 0 1px ${rgba(accent, 0.4)}, 0 6px 16px -6px ${rgba(accent, 0.5)}`,
-        }}
-        onMouseEnter={e => (e.currentTarget.style.filter = 'brightness(1.1)')}
-        onMouseLeave={e => (e.currentTarget.style.filter = 'none')}
-      >
-        Select file →
-      </button>
     </div>
   )
 }
 
 // ── Step 1: Processing ─────────────────────────────────────────
 const PROCESS_LABELS = [
-  'INTEGRATED LOUDNESS', 'TRUE PEAK', 'LRA', 'SAMPLE RATE',
-  'BIT DEPTH', 'DC OFFSET', 'DIALOG GATE', 'CHANNEL MAP',
+  'SAMPLE RATE', 'BIT DEPTH', 'CHANNEL MAP',
+  'INTEGRATED LOUDNESS', 'TRUE PEAK', 'LRA', 'DC OFFSET', 'DIALOG GATE',
 ]
+
+// Timing: first 3 checks appear within 0.8s, remaining 5 follow at 0.4s cadence.
+// Each entry = [spinner-start ms, value-reveal ms]. Total = 2750ms (< 3500ms cap).
+const CHECK_TIMING: Array<[number, number]> = [
+  [0,    250],
+  [300,  500],
+  [600,  750],
+  [1000, 1150],
+  [1400, 1550],
+  [1800, 1950],
+  [2200, 2350],
+  [2600, 2750],
+]
+const TOTAL_DURATION = 2800
 
 function StepProcessing({ accent, data }: { accent: string; data: EditionData }) {
   const [states, setStates] = useState(() => PROCESS_LABELS.map(() => 0))
@@ -268,17 +365,18 @@ function StepProcessing({ accent, data }: { accent: string; data: EditionData })
   useEffect(() => {
     const timeouts: ReturnType<typeof setTimeout>[] = []
     PROCESS_LABELS.forEach((_, i) => {
+      const [startMs, doneMs] = CHECK_TIMING[i]
       timeouts.push(setTimeout(() => {
         setStates(s => { const n = [...s]; n[i] = 1; return n })
-      }, i * 295))
+      }, startMs))
       timeouts.push(setTimeout(() => {
         setStates(s => { const n = [...s]; n[i] = 2; return n })
-      }, i * 295 + 240))
+      }, doneMs))
     })
     const start = performance.now()
     let raf: number
     const tick = (t: number) => {
-      const p = Math.min(1, (t - start) / 2950)
+      const p = Math.min(1, (t - start) / TOTAL_DURATION)
       setProgress(p)
       if (p < 1) raf = requestAnimationFrame(tick)
     }
@@ -286,19 +384,17 @@ function StepProcessing({ accent, data }: { accent: string; data: EditionData })
     return () => { timeouts.forEach(clearTimeout); cancelAnimationFrame(raf) }
   }, [])
 
-  const valueFor = (label: string): string => {
-    const map: Record<string, string> = {
-      'INTEGRATED LOUDNESS': data.meta.includes('48') ? '–27.0 LUFS' : '–18.2 LUFS',
-      'TRUE PEAK':   data.meta.includes('48') ? '–7.4 dBTP' : '–3.8 dBFS',
-      'LRA':         '7.4 LU',
-      'SAMPLE RATE': data.meta.includes('48') ? '48000 Hz' : '44100 Hz',
-      'BIT DEPTH':   '24-bit',
-      'DC OFFSET':   '–107.7 dBFS',
-      'DIALOG GATE': '–26.9 LUFS',
-      'CHANNEL MAP': data.meta.includes('5.1') ? '5.1' : 'Mono',
-    }
-    return map[label] ?? '—'
-  }
+  const valueMap = useMemo<Record<string, string>>(() => ({
+    'INTEGRATED LOUDNESS': data.meta.includes('48') ? '–27.0 LUFS' : '–18.2 LUFS',
+    'TRUE PEAK':   data.meta.includes('48') ? '–7.4 dBTP' : '–3.8 dBFS',
+    'LRA':         '7.4 LU',
+    'SAMPLE RATE': data.meta.includes('48') ? '48000 Hz' : '44100 Hz',
+    'BIT DEPTH':   '24-bit',
+    'DC OFFSET':   '–107.7 dBFS',
+    'DIALOG GATE': '–26.9 LUFS',
+    'CHANNEL MAP': data.meta.includes('5.1') ? '5.1' : 'Mono',
+  }), [data.meta])
+  const valueFor = (label: string): string => valueMap[label] ?? '—'
 
   return (
     <div style={{ display: 'flex', height: '100%' }}>
@@ -703,12 +799,31 @@ function TitleBar({ filename, spec }: { filename: string; spec: string }) {
 }
 
 // ── Main component ─────────────────────────────────────────────
+const MOCKUP_W = 960
+const MOCKUP_H = 460
+
 export default function DubCheckMockup({ edition = 'narrators' }: { edition?: 'narrators' | 'studios' }) {
-  const data = EDITION_DATA[edition] ?? EDITION_DATA.narrators
+  const data = useMemo(() => EDITION_DATA[edition] ?? EDITION_DATA.narrators, [edition])
   const accent = data.accent
   const [step, setStep] = useState(0)
   const [visible, setVisible] = useState(false)
+  const [scale, setScale] = useState(1)
+  const wrapperRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+
+  // Responsive scale based on available wrapper width
+  useEffect(() => {
+    const el = wrapperRef.current
+    if (!el) return
+    const update = () => {
+      const w = el.clientWidth
+      setScale(Math.min(1, w / MOCKUP_W))
+    }
+    update()
+    const ro = new ResizeObserver(update)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
 
   // Start animation only when scrolled into view
   useEffect(() => {
@@ -716,7 +831,7 @@ export default function DubCheckMockup({ edition = 'narrators' }: { edition?: 'n
     if (!el) return
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect() } },
-      { threshold: 0.25 }
+      { threshold: 0.2 }
     )
     observer.observe(el)
     return () => observer.disconnect()
@@ -725,14 +840,22 @@ export default function DubCheckMockup({ edition = 'narrators' }: { edition?: 'n
   useEffect(() => {
     if (!visible) return
     let t: ReturnType<typeof setTimeout>
-    if (step === 0) t = setTimeout(() => setStep(1), 4000)
-    else if (step === 1) t = setTimeout(() => setStep(2), 4570)
+    // step 0 advances itself when the cursor "drops" the file (see StepDropZone)
+    if (step === 1) t = setTimeout(() => setStep(2), TOTAL_DURATION + 200)
     return () => clearTimeout(t)
   }, [step, visible])
 
   return (
+    <div ref={wrapperRef} style={{
+      width: '100%',
+      maxWidth: MOCKUP_W,
+      height: MOCKUP_H * scale,
+      margin: '0 auto',
+    }}>
     <div ref={containerRef} style={{
-      width: 960, height: 460,
+      width: MOCKUP_W, height: MOCKUP_H,
+      transform: `scale(${scale})`,
+      transformOrigin: 'top left',
       borderRadius: 12,
       border: '1px solid rgba(255,255,255,0.08)',
       boxShadow: '0 60px 120px -40px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.02)',
@@ -782,6 +905,7 @@ export default function DubCheckMockup({ edition = 'narrators' }: { edition?: 'n
           </button>
         )}
       </div>
+    </div>
     </div>
   )
 }
