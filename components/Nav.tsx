@@ -7,11 +7,7 @@ import Link from 'next/link'
 const STATIC_LINKS = [
   { href: '/narrators', label: 'Narrators' },
   { href: '/studios',   label: 'Studios' },
-]
-
-const DEV_LINKS = [
-  { href: '/checkout',  label: '⚠ Checkout [DEV]' },
-  { href: '/thank-you', label: '⚠ Thank You [DEV]' },
+  { href: '/blog',      label: 'Blog' },
 ]
 
 export default function Nav() {
@@ -23,7 +19,6 @@ export default function Nav() {
     ...STATIC_LINKS,
     { href: `${base}#how`, label: 'How it works' },
     { href: `${base}#faq`, label: 'FAQ' },
-    ...DEV_LINKS,
   ]
 
   const pricingHref = `${base}#pricing`
@@ -33,14 +28,7 @@ export default function Nav() {
 
       {/* Brand */}
       <Link href="/" className="flex items-center gap-[10px]">
-        <div
-          className="w-[22px] h-[22px] grid place-items-center border border-white/[0.08] rounded-[4px] bg-dc-surface"
-        >
-          <span
-            className="w-[10px] h-[10px] rounded-full bg-dc-cyan"
-            style={{ boxShadow: '0 0 10px rgba(34,211,238,0.6), inset 0 0 4px rgba(255,255,255,0.4)' }}
-          />
-        </div>
+        <img src="/logo.svg" alt="DubCheck" width={22} height={22} className="block" />
         <span className="text-[15px] font-semibold tracking-[-0.01em] text-dc-ink">DubCheck</span>
         <span className="font-mono text-[10px] text-dc-ink3 border border-white/[0.08] px-[6px] py-[2px] rounded-[3px] tracking-[0.08em] ml-1">
           QC / v2.4

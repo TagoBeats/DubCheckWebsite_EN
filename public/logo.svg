@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 1024 1024">
+  <!-- Generator: Adobe Illustrator 30.3.0, SVG Export Plug-In . SVG Version: 2.1.3 Build 182)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: url(#Unbenannter_Verlauf);
+      }
+
+      .st1 {
+        fill: url(#Unbenannter_Verlauf_2);
+      }
+
+      .st2 {
+        fill: url(#Unbenannter_Verlauf_4);
+      }
+
+      .st3 {
+        fill: url(#Unbenannter_Verlauf_3);
+      }
+
+      .st4 {
+        fill: url(#Unbenannter_Verlauf_6);
+      }
+
+      .st5 {
+        fill: url(#Unbenannter_Verlauf_7);
+      }
+
+      .st6 {
+        fill: url(#Unbenannter_Verlauf_5);
+      }
+
+      .st7 {
+        fill: #22d3ee;
+        opacity: .18;
+      }
+
+      .st7, .st8 {
+        isolation: isolate;
+      }
+
+      .st9 {
+        stroke: #7eedff;
+        stroke-opacity: .7;
+        stroke-width: 3px;
+      }
+
+      .st9, .st8, .st10 {
+        fill: none;
+      }
+
+      .st8 {
+        opacity: .95;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 36px;
+      }
+
+      .st8, .st10 {
+        stroke: #fff;
+      }
+
+      .st10 {
+        stroke-opacity: .06;
+        stroke-width: 2px;
+      }
+    </style>
+    <radialGradient id="Unbenannter_Verlauf" data-name="Unbenannter Verlauf" cx="-985.5" cy="2011.5" fx="-985.5" fy="2011.5" r=".7" gradientTransform="translate(970241 1979825) scale(984 -984)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3a3a3a"/>
+      <stop offset=".6" stop-color="#2a2a2a"/>
+      <stop offset="1" stop-color="#1a1a1a"/>
+    </radialGradient>
+    <radialGradient id="Unbenannter_Verlauf_2" data-name="Unbenannter Verlauf 2" cx="-985.5" cy="2011.5" fx="-985.5" fy="2011.5" r=".5" gradientTransform="translate(970241 1979825) scale(984 -984)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff" stop-opacity=".04"/>
+      <stop offset=".4" stop-color="#fff" stop-opacity=".02"/>
+      <stop offset=".7" stop-color="#fff" stop-opacity=".05"/>
+      <stop offset="1" stop-color="#000" stop-opacity=".15"/>
+    </radialGradient>
+    <linearGradient id="Unbenannter_Verlauf_3" data-name="Unbenannter Verlauf 3" x1="-986" y1="2012" x2="-985" y2="2011" gradientTransform="translate(970241 1979825) scale(984 -984)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff" stop-opacity=".08"/>
+      <stop offset=".5" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity=".2"/>
+    </linearGradient>
+    <radialGradient id="Unbenannter_Verlauf_4" data-name="Unbenannter Verlauf 4" cx="-984.02" cy="2010.09" fx="-984.02" fy="2010.09" r=".5" gradientTransform="translate(384260 784400) scale(390 -390)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7eedff"/>
+      <stop offset=".3" stop-color="#4de0f5"/>
+      <stop offset=".65" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#0ea5c0"/>
+    </radialGradient>
+    <radialGradient id="Unbenannter_Verlauf_5" data-name="Unbenannter Verlauf 5" cx="-983.97" cy="2009.97" fx="-983.97" fy="2009.97" r=".5" gradientTransform="translate(384260 784400) scale(390 -390)" gradientUnits="userSpaceOnUse">
+      <stop offset=".85" stop-color="#22d3ee" stop-opacity="0"/>
+      <stop offset=".95" stop-color="#22d3ee" stop-opacity=".6"/>
+      <stop offset="1" stop-color="#7eedff" stop-opacity=".8"/>
+    </radialGradient>
+    <radialGradient id="Unbenannter_Verlauf_6" data-name="Unbenannter Verlauf 6" cx="-983.92" cy="2009.82" fx="-983.92" fy="2009.82" r=".5" gradientTransform="translate(384260 784400) scale(390 -390)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000" stop-opacity="0"/>
+      <stop offset=".7" stop-color="#000" stop-opacity=".15"/>
+      <stop offset="1" stop-color="#000" stop-opacity=".4"/>
+    </radialGradient>
+    <radialGradient id="Unbenannter_Verlauf_7" data-name="Unbenannter Verlauf 7" cx="-982.44" cy="2007.22" fx="-982.44" fy="2007.22" r=".4" gradientTransform="translate(236263 361723) scale(240 -180)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff" stop-opacity=".7"/>
+      <stop offset=".4" stop-color="#fff" stop-opacity=".15"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect class="st0" x="20" y="20" width="984" height="984" rx="220" ry="220"/>
+  <rect class="st1" x="20" y="20" width="984" height="984" rx="220" ry="220"/>
+  <rect class="st3" x="20" y="20" width="984" height="984" rx="220" ry="220"/>
+  <rect class="st10" x="20" y="20" width="984" height="984" rx="220" ry="220"/>
+  <circle class="st7" cx="512" cy="512" r="240"/>
+  <circle class="st2" cx="512" cy="512" r="195"/>
+  <circle class="st9" cx="512" cy="512" r="195"/>
+  <circle class="st6" cx="512" cy="512" r="195"/>
+  <circle class="st4" cx="512" cy="512" r="195"/>
+  <ellipse class="st5" cx="490" cy="460" rx="120" ry="90"/>
+  <path class="st8" d="M430,520l58,58,112-130"/>
+</svg>
