@@ -8,6 +8,7 @@ const STATIC_LINKS = [
   { href: '/narrators', label: 'Narrators' },
   { href: '/studios',   label: 'Studios' },
   { href: '/blog',      label: 'Blog' },
+  { href: '/help',      label: 'Help' },
 ]
 
 export default function Nav() {
