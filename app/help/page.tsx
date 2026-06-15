@@ -420,16 +420,28 @@ function Step({ n, title, children }: { n: number; title: string; children: Reac
   )
 }
 
+const SHOT_ALT: Record<string, string> = {
+  '/help/empty-state.png':       'DubCheck empty state screen',
+  '/help/spec-select.png':       'Delivery spec selection menu',
+  '/help/batch-processing.png':  'Batch processing in progress',
+  '/help/batch-summary.png':     'Batch summary results screen',
+  '/help/file-detail.png':       'Single file detail view',
+  '/help/license-screen.png':    'License screen',
+  '/help/pdf-summary.png':       'PDF report summary page',
+  '/help/pdf-timeline.png':      'PDF loudness timeline page',
+  '/help/pdf-histogram.png':     'PDF loudness histogram page',
+}
+
 function Shot({ src, caption, narrow = false, inline = false }: { src: string; caption: string; narrow?: boolean; inline?: boolean }) {
   const dims = SHOT_DIMS[src] ?? { w: 1072, h: 782 }
   const priority = ABOVE_FOLD_SHOTS.has(src)
+  const alt = SHOT_ALT[src] ?? 'DubCheck screenshot'
   return (
     <figure className={`${inline ? 'mt-3' : 'my-4'} ${narrow ? 'max-w-[640px] mx-auto' : ''}`}>
       <div className="rounded-[10px] overflow-hidden border border-white/[0.06] bg-white/[0.02]">
         <Image
           src={src}
-          alt=""
-          aria-hidden="true"
+          alt={alt}
           width={dims.w}
           height={dims.h}
           priority={priority}

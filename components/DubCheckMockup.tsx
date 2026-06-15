@@ -743,7 +743,7 @@ function StepDownload({ accent, reportFile, onRestart }: { accent: string; repor
 
       <button
         onClick={onRestart}
-        aria-label="Replay the live demo"
+        title="Replay demo"
         style={{
           position: 'absolute', right: 16, bottom: 14,
           display: 'inline-flex', alignItems: 'center', gap: 8,

@@ -76,7 +76,7 @@ function ReplayButton({ accent, onClick }: { accent: Accent; onClick: () => void
     <button
       type="button"
       onClick={onClick}
-      aria-label="Replay the demo from the start"
+      title="Replay demo from the start"
       className={`group inline-flex items-center gap-2 px-4 py-[10px] rounded-[8px] text-[13px] font-semibold ${a.text} transition-all duration-150`}
       style={{
         border: `1px solid rgba(${a.rgb},0.45)`,
