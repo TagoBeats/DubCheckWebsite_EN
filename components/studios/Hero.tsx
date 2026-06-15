@@ -20,7 +20,7 @@ const SPECS = [
 export default function StudiosHero() {
   return (
     <section className="pt-[90px] pb-[80px] relative overflow-hidden" id="top">
-      {/* Glow — orange-tinted for studios */}
+      {/* Glow - orange-tinted for studios */}
       <div
         className="absolute -z-[1] pointer-events-none"
         style={{
@@ -37,7 +37,7 @@ export default function StudiosHero() {
       {/* Label */}
       <div className="flex items-center gap-[10px] mb-[26px]">
         <span className="led-orange" />
-        <span className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-ink3">
+        <span className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3">
           DubCheck Studios Edition · For Localization Studios &amp; Re-Recording Mixers
         </span>
       </div>
@@ -88,7 +88,7 @@ export default function StudiosHero() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-9 pt-[26px] border-t border-white/[0.04] max-w-[900px]">
         {STATS.map(s => (
           <div key={s.k}>
-            <div className="font-mono text-[11px] text-dc-ink3 tracking-[0.1em] uppercase">{s.k}</div>
+            <div className="font-mono text-[12px] text-dc-ink3 tracking-[0.1em] uppercase">{s.k}</div>
             <div className="font-mono text-[15px] md:text-[17px] text-dc-ink mt-1">{s.v}</div>
           </div>
         ))}
@@ -96,7 +96,7 @@ export default function StudiosHero() {
 
       {/* Spec badges */}
       <div className="flex items-center gap-4 md:gap-12 flex-wrap py-8 border-t border-b border-white/[0.04] mt-10">
-        <span className="font-mono text-[11px] text-dc-ink3 tracking-[0.14em] uppercase mr-2">
+        <span className="font-mono text-[12px] text-dc-ink3 tracking-[0.14em] uppercase mr-2">
           Delivery profiles
         </span>
         {SPECS.map(spec => (

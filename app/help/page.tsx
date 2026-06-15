@@ -1,10 +1,32 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Nav    from '@/components/Nav'
 import Footer from '@/components/Footer'
 
+const SHOT_DIMS: Record<string, { w: number; h: number }> = {
+  '/help/empty-state.png':       { w: 1072, h: 772 },
+  '/help/spec-select.png':       { w: 1072, h: 782 },
+  '/help/batch-processing.png':  { w: 1072, h: 782 },
+  '/help/batch-summary.png':     { w: 1072, h: 782 },
+  '/help/file-detail.png':       { w: 1072, h: 782 },
+  '/help/license-screen.png':    { w: 1072, h: 909 },
+  '/help/pdf-summary.png':       { w: 566,  h: 744 },
+  '/help/pdf-timeline.png':      { w: 566,  h: 744 },
+  '/help/pdf-histogram.png':     { w: 1819, h: 2573 },
+}
+const ABOVE_FOLD_SHOTS = new Set(['/help/empty-state.png', '/help/spec-select.png'])
+
 export const metadata: Metadata = {
-  title: 'Help & Docs | DubCheck',
-  description: 'Get DubCheck running, read your first report, and fix the common stuff.',
+  title: 'Help & Docs - Setup, reports, spec picking',
+  description:
+    'Get DubCheck installed, read your first PDF report, pick the right delivery spec, and fix the things that usually trip people up on a first run.',
+  alternates: { canonical: '/help' },
+  openGraph: {
+    url: '/help',
+    title: 'DubCheck Help & Documentation',
+    description:
+      'Setup, reading the PDF report, picking the right delivery spec, troubleshooting and FAQ.',
+  },
 }
 
 const CARDS = [
@@ -57,7 +79,7 @@ export default function HelpPage() {
 
           {/* Hero */}
           <div className="max-w-[880px] mx-auto mb-14 text-center">
-            <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-ink3 mb-3">§ Help &amp; Docs</div>
+            <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3 mb-3">§ Help &amp; Docs</div>
             <h1 className="text-[32px] md:text-[48px] font-semibold tracking-[-0.025em] leading-[1.1] mb-5 break-words">
               Everything you need to ship a clean master.
             </h1>
@@ -217,7 +239,12 @@ export default function HelpPage() {
                 cause="Most often a gating-mode mismatch with your DAW meter, or LFE being weighted in by another tool."
                 fix={
                   <>
-                    Open the file detail. If the spec is Netflix and the dialog-gated value is what fails, your overall loudness is fine but the dialog itself is too hot or too low. If the spec is EBU R128 and your DAW shows a slightly different number, your DAW may be using ungated mode. R128 uses gated. For 5.1 deliverables, remember DubCheck strips the LFE before measuring loudness as BS.1770 requires. Re-render with the LFE excluded from the loudness sum and the numbers will match.
+                    Open the file detail. If the spec is Netflix and the dialog-gated value is what fails, your overall loudness is fine but the dialog itself is too hot or too low. If the spec is EBU R128 and your DAW shows a slightly different number, your DAW may be using ungated mode. R128 uses gated. For 5.1 deliverables, remember DubCheck strips the LFE before measuring loudness as BS.1770 requires. Re-render with the LFE excluded from the loudness sum and the numbers will match.{' '}
+                    <strong className="text-dc-ink">ACX narrators:</strong> see the{' '}
+                    <a href="/blog/acx-submission-rejected" className="text-dc-cyan underline underline-offset-2 hover:text-dc-ink transition-colors">
+                      full ACX rejection guide
+                    </a>{' '}
+                    if you are missing the -18 to -23 LUFS window on individual chapters.
                   </>
                 }
               />
@@ -339,7 +366,7 @@ export default function HelpPage() {
 
             {/* CONTACT */}
             <div id="contact" className="max-w-[1100px] mx-auto rounded-[14px] border border-white/[0.06] bg-white/[0.02] p-7 md:p-9 text-center">
-              <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-ink3 mb-3">Still stuck?</div>
+              <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3 mb-3">Still stuck?</div>
               <h2 className="text-dc-ink text-[22px] md:text-[28px] font-semibold tracking-[-0.02em] mb-3">Talk to us</h2>
               <p className="text-dc-ink2 text-[15px] leading-[1.7] mb-2">
                 If the troubleshooting did not cover it, file a GitHub issue or email us. Include the macOS version, DubCheck version (License screen, then About), the input file if you can share it, and the PDF report.
@@ -367,7 +394,7 @@ function Section({ id, eyebrow, title, children }: { id: string; eyebrow: string
   return (
     <section id={id} className="scroll-mt-6">
       <div className="max-w-[1100px] mx-auto">
-        <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-ink3 mb-3 text-center">{eyebrow}</div>
+        <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3 mb-3 text-center">{eyebrow}</div>
         <h2 className="text-dc-ink text-[26px] md:text-[34px] font-semibold tracking-[-0.025em] mb-8 leading-[1.15] text-center">{title}</h2>
         <div className="text-dc-ink2 text-[15px] leading-[1.75] space-y-5">{children}</div>
       </div>
@@ -394,10 +421,22 @@ function Step({ n, title, children }: { n: number; title: string; children: Reac
 }
 
 function Shot({ src, caption, narrow = false, inline = false }: { src: string; caption: string; narrow?: boolean; inline?: boolean }) {
+  const dims = SHOT_DIMS[src] ?? { w: 1072, h: 782 }
+  const priority = ABOVE_FOLD_SHOTS.has(src)
   return (
     <figure className={`${inline ? 'mt-3' : 'my-4'} ${narrow ? 'max-w-[640px] mx-auto' : ''}`}>
       <div className="rounded-[10px] overflow-hidden border border-white/[0.06] bg-white/[0.02]">
-        <img src={src} alt="" className="w-full block" loading="lazy" />
+        <Image
+          src={src}
+          alt=""
+          aria-hidden="true"
+          width={dims.w}
+          height={dims.h}
+          priority={priority}
+          loading={priority ? undefined : 'lazy'}
+          sizes="(max-width: 768px) 100vw, (max-width: 1100px) 90vw, 1072px"
+          className="w-full h-auto block"
+        />
       </div>
       <figcaption className={`text-dc-ink3 text-[12.5px] mt-2 leading-[1.5] ${narrow ? 'text-center' : ''}`}>{caption}</figcaption>
     </figure>
@@ -421,7 +460,7 @@ function Issue({ problem, cause, fix }: { problem: string; cause: string; fix: R
   return (
     <details className="group rounded-[10px] border border-white/[0.06] bg-white/[0.02] open:bg-white/[0.035] transition-colors">
       <summary className="cursor-pointer list-none p-4 flex items-start gap-3">
-        <span className="shrink-0 mt-[3px] w-4 h-4 rounded-full border border-white/[0.15] flex items-center justify-center text-dc-ink3 text-[10px] group-open:bg-dc-orange group-open:border-dc-orange group-open:text-[#1A0A00]">
+        <span className="shrink-0 mt-[3px] w-4 h-4 rounded-full border border-white/[0.15] flex items-center justify-center text-dc-ink3 text-[12px] group-open:bg-dc-orange group-open:border-dc-orange group-open:text-[#1A0A00]">
           <span className="block group-open:hidden">+</span>
           <span className="hidden group-open:block">·</span>
         </span>
@@ -429,11 +468,11 @@ function Issue({ problem, cause, fix }: { problem: string; cause: string; fix: R
       </summary>
       <div className="px-4 pb-4 pt-1 pl-[40px] space-y-3 text-[14px] text-dc-ink2 leading-[1.65]">
         <div>
-          <span className="font-mono text-[10.5px] tracking-[0.12em] uppercase text-dc-ink3 mr-2">Cause</span>
+          <span className="font-mono text-[12px] tracking-[0.12em] uppercase text-dc-ink3 mr-2">Cause</span>
           {cause}
         </div>
         <div>
-          <span className="font-mono text-[10.5px] tracking-[0.12em] uppercase text-dc-ink3 mr-2">Fix</span>
+          <span className="font-mono text-[12px] tracking-[0.12em] uppercase text-dc-ink3 mr-2">Fix</span>
           {fix}
         </div>
       </div>
@@ -457,6 +496,13 @@ function Table({ rows }: { rows: string[][] }) {
   return (
     <div className="overflow-x-auto rounded-[10px] border border-white/[0.06]">
       <table className="w-full text-[14px] border-collapse">
+        <caption className="sr-only">Delivery target to DubCheck spec ID mapping</caption>
+        <thead>
+          <tr className="border-b border-white/[0.08] bg-white/[0.03]">
+            <th scope="col" className="py-2.5 px-4 text-left font-mono text-[12px] tracking-[0.1em] uppercase text-dc-ink3 w-1/2">Delivery target</th>
+            <th scope="col" className="py-2.5 px-4 text-left font-mono text-[12px] tracking-[0.1em] uppercase text-dc-ink3">Spec ID</th>
+          </tr>
+        </thead>
         <tbody>
           {rows.map((r, ri) => (
             <tr key={ri} className={ri > 0 ? 'border-t border-white/[0.05]' : ''}>

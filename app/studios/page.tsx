@@ -9,11 +9,19 @@ import HowItWorks     from '@/components/studios/HowItWorks'
 import Pricing        from '@/components/studios/Pricing'
 import FAQ            from '@/components/studios/FAQ'
 import DubCheckMockup from '@/components/DubCheckMockup'
+import DemoSection   from '@/components/DemoSection'
 
 export const metadata: Metadata = {
-  title: 'DubCheck for Studios | Multi-platform delivery QC',
+  title: 'DubCheck for Studios - Multi-platform delivery QC',
   description:
-    'Verify final mixes against Netflix NOLS, Apple TV+, Disney+ and Prime delivery specs in one pass. Local processing, EBU 3341/3342 certified engine, NDA-safe, auditable PDF report.',
+    'Verify final mixes against Netflix NOLS, Apple TV+, Disney+ and Prime specs in one pass. NDA-safe, fully local, with an auditable PDF report for every delivery.',
+  alternates: { canonical: '/studios' },
+  openGraph: {
+    url: '/studios',
+    title: 'DubCheck for Studios - Multi-platform delivery QC',
+    description:
+      'Verify mixes against Netflix, Apple TV+, Disney+ and Prime specs in one pass. NDA-safe, local, auditable.',
+  },
 }
 
 export default function StudiosPage() {
@@ -27,15 +35,11 @@ export default function StudiosPage() {
 
           {/* Live product demo */}
           <section className="py-[80px]" id="demo">
-            <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-ink3 mb-[14px]">
-              § 02 · Live Demo
-            </div>
-            <h2 className="text-[28px] md:text-[40px] leading-[1.1] tracking-[-0.025em] font-semibold mb-[40px] max-w-[22ch]">
-              See exactly what you get before you buy.
-            </h2>
-            <div className="overflow-x-auto pb-2 flex justify-center">
-              <DubCheckMockup edition="studios" />
-            </div>
+            <DemoSection
+              edition="studios"
+              accent="orange"
+              headline="Watch DubCheck run on a real Netflix delivery."
+            />
           </section>
 
           <WhyControl />

@@ -11,7 +11,7 @@ export default function CTABand() {
           `,
         }}
       >
-        <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-ink3 mb-[14px]">
+        <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3 mb-[14px]">
           § 08 · Support &amp; Feedback
         </div>
         <h2 className="text-[26px] md:text-[40px] leading-[1.12] md:leading-[1.08] tracking-[-0.025em] font-semibold mb-[10px] max-w-[24ch]">
@@ -23,7 +23,7 @@ export default function CTABand() {
         </p>
 
         <a
-          href="mailto:hello@audio-dubcheck.com"
+          href="mailto:info@audio-dubcheck.com"
           className="inline-flex items-center gap-[10px] text-[14px] font-semibold px-5 py-[13px] rounded-[6px] text-[#1A0A00] bg-dc-orange hover:bg-[#FF8A33] transition-colors duration-150"
           style={{ boxShadow: '0 0 0 1px rgba(255,140,50,0.5), 0 10px 30px -10px rgba(255,122,26,0.6)' }}
         >
@@ -32,7 +32,7 @@ export default function CTABand() {
           </svg>
           Send a message
         </a>
-        <span className="text-sm text-[var(--ink-3)] font-mono mt-3">hello@audio-dubcheck.com</span>
+        <span className="text-sm text-[var(--ink-3)] font-mono mt-3">info@audio-dubcheck.com</span>
       </div>
     </section>
   )

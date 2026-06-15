@@ -51,7 +51,7 @@ export default function Platforms() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-14 gap-6 md:gap-10">
         <div>
-          <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-ink3">§ 03 · Spec profiles</div>
+          <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3">§ 03 · Spec profiles</div>
           <h2 className="text-[28px] md:text-[44px] leading-[1.12] md:leading-[1.08] tracking-[-0.025em] mt-[14px] font-semibold max-w-[18ch]">
             Die Delivery-Specs jeder Plattform. Immer aktuell, <br className="hidden md:block" />
             damit du keine Changelogs lesen musst.
@@ -71,13 +71,13 @@ export default function Platforms() {
             className="border border-white/[0.08] bg-dc-surface rounded-[10px] p-[22px] relative overflow-hidden transition-all duration-200 hover:border-white/[0.14] hover:bg-dc-surf2"
           >
             <h4 className="text-[15px] font-semibold tracking-[-0.005em] mb-[2px]">{p.name}</h4>
-            <div className="font-mono text-[11px] text-dc-ink3 mb-[18px]">{p.version}</div>
+            <div className="font-mono text-[12px] text-dc-ink3 mb-[18px]">{p.version}</div>
             {p.rows.map((row, i) => (
               <div
                 key={row.l}
                 className={`flex justify-between py-2 text-[12.5px] ${i > 0 ? 'border-t border-white/[0.04]' : ''}`}
               >
-                <span className="font-mono text-[11px] text-dc-ink3 tracking-[0.06em]">{row.l}</span>
+                <span className="font-mono text-[12px] text-dc-ink3 tracking-[0.06em]">{row.l}</span>
                 <span className="font-mono text-dc-ink">{row.v}</span>
               </div>
             ))}

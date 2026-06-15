@@ -69,7 +69,7 @@ export default function Pricing() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-14 gap-6 md:gap-10">
         <div>
-          <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-ink3">§ 06 · Pricing</div>
+          <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3">§ 06 · Pricing</div>
           <h2 className="text-[28px] md:text-[44px] leading-[1.12] md:leading-[1.08] tracking-[-0.025em] mt-[14px] font-semibold max-w-[18ch]">
             Klare Preise. Keine Sternchen.
           </h2>
@@ -96,7 +96,7 @@ export default function Pricing() {
             }}
           >
             {/* Tag */}
-            <div className={`flex items-center gap-2 font-mono text-[11px] tracking-[0.14em] uppercase mb-[14px] ${plan.featured ? 'text-dc-orange' : 'text-dc-ink3'}`}>
+            <div className={`flex items-center gap-2 font-mono text-[12px] tracking-[0.14em] uppercase mb-[14px] ${plan.featured ? 'text-dc-orange' : 'text-dc-ink3'}`}>
               <span className={plan.ledClass} />
               {plan.tag}
             </div>

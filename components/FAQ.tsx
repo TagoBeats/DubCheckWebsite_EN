@@ -36,7 +36,7 @@ const FAQS = [
   {
     n: 'Q/07',
     q: 'Warum DubCheck statt iZotope Insight oder Nugen?',
-    a: 'Insight und Nugen sind super Metering-Tools — aber sie zeigen Ihnen Messwerte an, die Sie selbst ablesen und gegen die richtige Spec abgleichen müssen. DubCheck macht beides automatisch: messen und gegen die aktuelle Delivery-Spec prüfen. Am Ende bekommen Sie einen fertigen PDF-Report mit Pass/Fail für jeden einzelnen Check. Kein manuelles Übertragen, kein Nachschlagen in der Delivery Bible.',
+    a: 'Insight und Nugen sind super Metering-Tools - aber sie zeigen Ihnen Messwerte an, die Sie selbst ablesen und gegen die richtige Spec abgleichen müssen. DubCheck macht beides automatisch: messen und gegen die aktuelle Delivery-Spec prüfen. Am Ende bekommen Sie einen fertigen PDF-Report mit Pass/Fail für jeden einzelnen Check. Kein manuelles Übertragen, kein Nachschlagen in der Delivery Bible.',
   },
 ]
 
@@ -48,7 +48,7 @@ export default function FAQ() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-14 gap-6 md:gap-10">
         <div>
-          <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-ink3">§ 07 · Fragen</div>
+          <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3">§ 07 · Fragen</div>
           <h2 className="text-[28px] md:text-[44px] leading-[1.12] md:leading-[1.08] tracking-[-0.025em] mt-[14px] font-semibold max-w-[18ch]">
             Häufig gestellte Fragen.
           </h2>
@@ -72,7 +72,7 @@ export default function FAQ() {
                 className="w-full flex items-center justify-between py-[22px] px-[4px] text-left group cursor-pointer"
               >
                 <div className="flex items-center gap-[14px]">
-                  <span className="font-mono text-[11px] text-dc-ink3 shrink-0 w-[36px]">{faq.n}</span>
+                  <span className="font-mono text-[12px] text-dc-ink3 shrink-0 w-[36px]">{faq.n}</span>
                   <span className="text-[15px] font-semibold tracking-[-0.005em]">{faq.q}</span>
                 </div>
                 <span

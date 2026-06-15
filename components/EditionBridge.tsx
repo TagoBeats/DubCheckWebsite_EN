@@ -41,7 +41,7 @@ export default function EditionBridge({ variant }: { variant: Variant }) {
         style={{ background: '#17171A' }}
       >
         <div className="flex-1">
-          <div className={`font-mono text-[11px] tracking-[0.14em] uppercase mb-3 flex items-center gap-2 ${c.accent}`}>
+          <div className={`font-mono text-[12px] tracking-[0.14em] uppercase mb-3 flex items-center gap-2 ${c.accent}`}>
             <span className={c.ledClass} />
             {c.label}
           </div>

@@ -8,11 +8,19 @@ import HowItWorks     from '@/components/narrators/HowItWorks'
 import Pricing        from '@/components/narrators/Pricing'
 import FAQ            from '@/components/narrators/FAQ'
 import DubCheckMockup from '@/components/DubCheckMockup'
+import DemoSection   from '@/components/DemoSection'
 
 export const metadata: Metadata = {
-  title: 'DubCheck for Narrators | ACX spec check & PDF report',
+  title: 'DubCheck for Narrators - ACX QC & PDF',
   description:
-    'Stop getting ACX-rejected. DubCheck verifies RMS, peak, noise floor and room tone on every chapter and delivers a clean pass/fail PDF, built on an EBU 3341/3342 certified engine. Local processing, lifetime license from €30.',
+    'Stop getting ACX-rejected. DubCheck verifies RMS, peak, noise floor and room tone on every chapter and hands you a clean pass/fail PDF. Lifetime license from €30.',
+  alternates: { canonical: '/narrators' },
+  openGraph: {
+    url: '/narrators',
+    title: 'DubCheck for Narrators - ACX QC & PDF',
+    description:
+      'Verify every chapter against ACX RMS, peak, noise floor and room tone. Pass/fail PDF in seconds.',
+  },
 }
 
 export default function NarratorsPage() {
@@ -26,15 +34,11 @@ export default function NarratorsPage() {
 
           {/* Live product demo */}
           <section className="py-[80px]" id="demo">
-            <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-ink3 mb-[14px]">
-              § 02 · Live Demo
-            </div>
-            <h2 className="text-[28px] md:text-[40px] leading-[1.1] tracking-[-0.025em] font-semibold mb-[40px] max-w-[22ch]">
-              See exactly what you get before you buy.
-            </h2>
-            <div className="overflow-x-auto pb-2 flex justify-center">
-              <DubCheckMockup edition="narrators" />
-            </div>
+            <DemoSection
+              edition="narrators"
+              accent="cyan"
+              headline="Watch DubCheck run on a real ACX chapter."
+            />
           </section>
 
           <HowItWorks />

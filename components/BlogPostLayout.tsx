@@ -49,18 +49,57 @@ export default function BlogPostLayout({
 
           {/* Header */}
           <div className="max-w-[990px]">
-            <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-cyan mb-4">
+            <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-cyan mb-4">
               {category}
             </div>
             <h1 className="text-[28px] md:text-[42px] font-semibold tracking-[-0.03em] leading-[1.12] text-dc-ink mb-5">
               {title}
             </h1>
-            <div className="flex items-center gap-3 text-[13px] text-dc-ink3">
-              <span>{formatted}</span>
+            <div className="flex items-center gap-3 text-[13px] text-dc-ink3 flex-wrap">
+              <span className="rel-author">
+                By <a href="/about" rel="author" className="text-dc-ink2 hover:text-dc-ink underline underline-offset-2">Robin Busse</a>
+              </span>
+              <span className="w-[3px] h-[3px] rounded-full bg-dc-ink4" />
+              <time dateTime={date}>{formatted}</time>
               <span className="w-[3px] h-[3px] rounded-full bg-dc-ink4" />
               <span>{readingMinutes} min read</span>
             </div>
           </div>
+
+          {/* Article structured data */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'Article',
+                headline: title,
+                description: title,
+                image: ['https://audio-dubcheck.com/og.png'],
+                datePublished: date,
+                dateModified: date,
+                author: [{
+                  '@type': 'Person',
+                  name: 'Robin Busse',
+                  url: 'https://audio-dubcheck.com/about',
+                }],
+                publisher: {
+                  '@type': 'Organization',
+                  name: 'DubCheck',
+                  url: 'https://audio-dubcheck.com',
+                  logo: {
+                    '@type': 'ImageObject',
+                    url: 'https://audio-dubcheck.com/logo.svg',
+                  },
+                },
+                mainEntityOfPage: {
+                  '@type': 'WebPage',
+                  '@id': 'https://audio-dubcheck.com/blog',
+                },
+                articleSection: category,
+              }),
+            }}
+          />
 
           {/* Divider */}
           <div className="border-t border-white/[0.06] my-10" />
@@ -68,13 +107,13 @@ export default function BlogPostLayout({
           {/* TL;DR */}
           <div className="max-w-[990px] mb-12">
             <div className="relative pl-5 border-l-2 border-dc-cyan">
-              <div className="font-mono text-[10px] tracking-[0.18em] uppercase text-dc-cyan mb-4">
+              <div className="font-mono text-[12px] tracking-[0.18em] uppercase text-dc-cyan mb-4">
                 TL;DR
               </div>
               <ul className="space-y-3">
                 {tldr.map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-[14.5px] text-dc-ink2 leading-[1.65]">
-                    <span className="font-mono text-[11px] text-dc-cyan mt-[3px] shrink-0">
+                    <span className="font-mono text-[12px] text-dc-cyan mt-[3px] shrink-0">
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <span>{item.text}</span>
@@ -95,7 +134,7 @@ export default function BlogPostLayout({
               className="rounded-[12px] px-7 py-8 border border-dc-orange/20"
               style={{ background: 'radial-gradient(ellipse 120% 120% at 0% 50%, rgba(255,122,26,0.07) 0%, transparent 70%), #121214' }}
             >
-              <div className="font-mono text-[10px] tracking-[0.18em] uppercase text-dc-orange mb-4">
+              <div className="font-mono text-[12px] tracking-[0.18em] uppercase text-dc-orange mb-4">
                 Stop checking manually
               </div>
               <h2 className="text-[22px] font-semibold tracking-[-0.02em] text-dc-ink mb-3">

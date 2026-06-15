@@ -1,12 +1,22 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
+import Link from 'next/link'
 
-const FAQS = [
+type Faq = { n: string; q: string; a: ReactNode }
+
+const FAQS: Faq[] = [
   {
     n: 'Q/01',
     q: 'Does this guarantee ACX accepts my book?',
-    a: 'No. DubCheck guarantees that the four measurable specs ACX cares about RMS, peak, noise floor and room tone are correctly measured and reported. ACX may still reject a file for content-quality reasons (mouth clicks, breath issues, performance, lip-sync). What DubCheck eliminates are the technical reject reasons. Your ear handles the rest.',
+    a: (
+      <>
+        No. DubCheck guarantees that the four measurable specs ACX cares about RMS, peak, noise floor and room tone are correctly measured and reported. ACX may still reject a file for content-quality reasons (mouth clicks, breath issues, performance, lip-sync). What DubCheck eliminates are the technical reject reasons. Your ear handles the rest.{' '}
+        <Link href="/blog/acx-submission-rejected" className="text-dc-cyan underline underline-offset-2 hover:text-dc-ink transition-colors">
+          Read the full guide to every technical ACX reject reason →
+        </Link>
+      </>
+    ),
   },
   {
     n: 'Q/02',
@@ -53,15 +63,15 @@ export default function NarratorFAQ() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-14 gap-6 md:gap-10">
         <div>
-          <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-ink3">§ 07 · Questions</div>
+          <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3">§ 07 · Questions</div>
           <h2 className="text-[28px] md:text-[44px] leading-[1.12] md:leading-[1.08] tracking-[-0.025em] mt-[14px] font-semibold max-w-[18ch]">
             Frequently asked questions.
           </h2>
         </div>
         <p className="max-w-[36ch] text-dc-ink2 text-[15px] md:shrink-0">
           Anything else? Email{' '}
-          <a href="mailto:hello@audio-dubcheck.com" className="font-mono text-dc-ink2 underline underline-offset-2 hover:text-dc-ink transition-colors">
-            hello@audio-dubcheck.com
+          <a href="mailto:info@audio-dubcheck.com" className="font-mono text-dc-ink2 underline underline-offset-2 hover:text-dc-ink transition-colors">
+            info@audio-dubcheck.com
           </a>
           {' '}I read every message personally.
         </p>
@@ -79,7 +89,7 @@ export default function NarratorFAQ() {
                 className="w-full flex items-center justify-between py-[22px] px-[4px] text-left group cursor-pointer"
               >
                 <div className="flex items-center gap-[14px]">
-                  <span className="font-mono text-[11px] text-dc-ink3 shrink-0 w-[36px]">{faq.n}</span>
+                  <span className="font-mono text-[12px] text-dc-ink3 shrink-0 w-[36px]">{faq.n}</span>
                   <span className="text-[15px] font-semibold tracking-[-0.005em]">{faq.q}</span>
                 </div>
                 <span

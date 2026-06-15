@@ -3,7 +3,15 @@ import Nav    from '@/components/Nav'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | DubCheck',
+  title: 'Privacy Policy - How DubCheck handles your data',
+  description:
+    'How audio-dubcheck.com handles personal data: what we collect, why, how long we keep it, your GDPR rights, cookies, hosting, analytics and third-party services.',
+  alternates: { canonical: '/privacy' },
+  openGraph: {
+    url: '/privacy',
+    title: 'Privacy Policy - DubCheck',
+    description: 'How DubCheck handles your data under GDPR.',
+  },
 }
 
 export default function PrivacyPage() {
@@ -13,7 +21,7 @@ export default function PrivacyPage() {
       <div className="relative z-[1] max-w-[900px] mx-auto px-5 md:px-10">
         <Nav />
         <main className="pt-[60px] pb-[80px]">
-          <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-ink3 mb-3">§ Legal</div>
+          <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3 mb-3">§ Legal</div>
           <h1 className="text-[28px] md:text-[40px] font-semibold tracking-[-0.025em] mb-10">Privacy Policy</h1>
 
           {/* 1 */}
@@ -174,7 +182,7 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <p className="font-mono text-[11px] text-dc-ink3 mt-8">Source: eRecht24</p>
+          <p className="font-mono text-[12px] text-dc-ink3 mt-8">Source: eRecht24</p>
         </main>
         <Footer />
       </div>

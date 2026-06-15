@@ -62,15 +62,15 @@ export default function StudiosFAQ() {
     <section className="py-[120px]" id="faq">
       <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-14 gap-6 md:gap-10">
         <div>
-          <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-ink3">§ 07 · Questions</div>
+          <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3">§ 07 · Questions</div>
           <h2 className="text-[28px] md:text-[44px] leading-[1.12] md:leading-[1.08] tracking-[-0.025em] mt-[14px] font-semibold max-w-[18ch]">
             Frequently asked questions.
           </h2>
         </div>
         <p className="max-w-[36ch] text-dc-ink2 text-[15px] md:shrink-0">
           Anything else? Email{' '}
-          <a href="mailto:hello@audio-dubcheck.com" className="font-mono text-dc-ink2 underline underline-offset-2 hover:text-dc-ink transition-colors">
-            hello@audio-dubcheck.com
+          <a href="mailto:info@audio-dubcheck.com" className="font-mono text-dc-ink2 underline underline-offset-2 hover:text-dc-ink transition-colors">
+            info@audio-dubcheck.com
           </a>
           {' '}I read every studio inquiry personally.
         </p>
@@ -87,7 +87,7 @@ export default function StudiosFAQ() {
                 className="w-full flex items-center justify-between py-[22px] px-[4px] text-left group cursor-pointer"
               >
                 <div className="flex items-center gap-[14px]">
-                  <span className="font-mono text-[11px] text-dc-ink3 shrink-0 w-[36px]">{faq.n}</span>
+                  <span className="font-mono text-[12px] text-dc-ink3 shrink-0 w-[36px]">{faq.n}</span>
                   <span className="text-[15px] font-semibold tracking-[-0.005em]">{faq.q}</span>
                 </div>
                 <span

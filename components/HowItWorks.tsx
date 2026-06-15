@@ -28,7 +28,7 @@ export default function HowItWorks() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-14 gap-6 md:gap-10">
         <div>
-          <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-ink3">§ 04 · Workflow</div>
+          <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3">§ 04 · Workflow</div>
           <h2 className="text-[28px] md:text-[44px] leading-[1.12] md:leading-[1.08] tracking-[-0.025em] mt-[14px] font-semibold max-w-[18ch]">
             Drei Schritte. Keine Plugin-Installation. Kein erneutes Rendern.
           </h2>
@@ -47,14 +47,14 @@ export default function HowItWorks() {
       >
         {STEPS.map(step => (
           <div key={step.num} className="bg-dc-bg px-7 py-8 min-h-[220px] relative">
-            <div className="flex items-center gap-[10px] font-mono text-[11px] text-dc-ink3 tracking-[0.14em] mb-[18px]">
+            <div className="flex items-center gap-[10px] font-mono text-[12px] text-dc-ink3 tracking-[0.14em] mb-[18px]">
               {step.num}
               <div className="flex-1 h-px bg-white/[0.04]" />
               <span>{step.label}</span>
             </div>
             <h3 className="text-[19px] font-semibold tracking-[-0.01em] mb-2">{step.title}</h3>
             <p className="text-dc-ink2 text-[14px] leading-[1.55] max-w-[34ch]">{step.body}</p>
-            <div className="mt-[18px] font-mono text-[11px] text-dc-ink3 leading-[1.7]">
+            <div className="mt-[18px] font-mono text-[12px] text-dc-ink3 leading-[1.7]">
               {step.mini.map(line => <div key={line}>{line}</div>)}
             </div>
           </div>

@@ -19,21 +19,27 @@ export default function Footer() {
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Left: brand + copyright */}
         <div className="flex items-center gap-[10px]">
-          <img src="/logo.svg" alt="DubCheck" width={22} height={22} className="block" />
+          <img src="/logo.svg" alt="DubCheck" width={22} height={22} decoding="async" className="block" />
           <span className="text-[15px] font-semibold text-dc-ink">DubCheck</span>
           <span className="text-sm text-[var(--ink-3)]">© 2026 DubCheck</span>
         </div>
 
         {/* Right: links */}
         <div className="flex items-center gap-4 md:gap-6 flex-wrap justify-center">
-          <a href="/imprint" target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--ink-3)] hover:text-white transition-colors duration-150">
+          <a href="/about" className="text-sm text-[var(--ink-3)] hover:text-white transition-colors duration-150">
+            About
+          </a>
+          <a href="/contact" className="text-sm text-[var(--ink-3)] hover:text-white transition-colors duration-150">
+            Contact
+          </a>
+          <a href="/imprint" className="text-sm text-[var(--ink-3)] hover:text-white transition-colors duration-150">
             Imprint
           </a>
-          <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--ink-3)] hover:text-white transition-colors duration-150">
+          <a href="/privacy" className="text-sm text-[var(--ink-3)] hover:text-white transition-colors duration-150">
             Privacy
           </a>
-          <a href="mailto:hello@audio-dubcheck.com" className="text-sm text-[var(--ink-3)] font-mono hover:text-white transition-colors duration-150">
-            hello@audio-dubcheck.com
+          <a href="mailto:info@audio-dubcheck.com" className="text-sm text-[var(--ink-3)] font-mono hover:text-white transition-colors duration-150">
+            info@audio-dubcheck.com
           </a>
         </div>
       </div>

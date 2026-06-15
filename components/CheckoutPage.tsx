@@ -115,7 +115,7 @@ function useConfetti(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
 
     for (let i = 0; i < 70; i++) parts.push(makeParticle(true))
 
-    // Stop spawning new particles after 5s — let existing ones fall off, then stop RAF
+    // Stop spawning new particles after 5s - let existing ones fall off, then stop RAF
     let spawning = true
     const spawnTimer = setTimeout(() => { spawning = false }, 5000)
 
@@ -259,7 +259,7 @@ export default function CheckoutPage() {
       {/* Content */}
       <div className="relative z-[2] max-w-[1180px] mx-auto px-6 md:px-10 pb-20 pt-9 flex flex-col items-center min-h-[100dvh]">
 
-        {/* Brand mark — no nav */}
+        {/* Brand mark - no nav */}
         <div className="self-start flex items-center gap-[10px]">
           <div className="w-[22px] h-[22px] grid place-items-center border border-white/[0.08] rounded-[4px] bg-[#17171A]">
             <span
@@ -270,7 +270,7 @@ export default function CheckoutPage() {
           <span className="text-[14px] font-semibold text-[#A1A1A8]">
             <b className="text-[#ECECEE]">DubCheck</b>
           </span>
-          <span className="font-mono text-[10px] text-[#6B6B72] border border-white/[0.08] px-[6px] py-[2px] rounded-[3px] tracking-[0.08em] ml-1">
+          <span className="font-mono text-[12px] text-[#6B6B72] border border-white/[0.08] px-[6px] py-[2px] rounded-[3px] tracking-[0.08em] ml-1">
             Early Access
           </span>
         </div>
@@ -289,7 +289,7 @@ export default function CheckoutPage() {
             style={{ background: 'rgba(34,201,139,0.08)', borderColor: 'rgba(34,201,139,0.28)', color: '#5EEBB3' }}>
             <span className="w-[7px] h-[7px] rounded-full animate-pulse flex-shrink-0"
               style={{ background: '#22C98B', boxShadow: '0 0 8px rgba(34,201,139,0.9)' }} />
-            <span className="font-mono text-[11px] tracking-[0.14em] uppercase">
+            <span className="font-mono text-[12px] tracking-[0.14em] uppercase">
               Confirmed{email ? ` · ${email}` : ''}
             </span>
           </div>
@@ -340,7 +340,7 @@ export default function CheckoutPage() {
 
         {/* ── Edition toggle ── */}
         <div className="mb-9 mt-[60px] flex flex-col items-center gap-[14px]">
-          <div className="font-mono text-[10.5px] text-[#6B6B72] tracking-[0.18em] uppercase">
+          <div className="font-mono text-[12px] text-[#6B6B72] tracking-[0.18em] uppercase">
             Choose your edition
           </div>
           <div
@@ -403,7 +403,7 @@ export default function CheckoutPage() {
               {/* Crown badge */}
               {plan.featured && (
                 <span
-                  className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 font-mono text-[10.5px] font-semibold tracking-[0.16em] uppercase px-[14px] py-[6px] rounded-full transition-all duration-300"
+                  className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 font-mono text-[12px] font-semibold tracking-[0.16em] uppercase px-[14px] py-[6px] rounded-full transition-all duration-300"
                   style={{
                     background: accent, color: accentOnDark,
                     boxShadow: `0 0 24px ${accentGlow}, inset 0 1px 0 rgba(255,255,255,0.2)`,
@@ -414,7 +414,7 @@ export default function CheckoutPage() {
               )}
 
               {/* Tag */}
-              <div className="font-mono text-[11px] tracking-[0.14em] uppercase mb-[10px] flex items-center gap-2"
+              <div className="font-mono text-[12px] tracking-[0.14em] uppercase mb-[10px] flex items-center gap-2"
                 style={{ color: plan.featured ? accentText : '#6B6B72' }}>
                 <span className="w-[6px] h-[6px] rounded-full transition-all duration-300"
                   style={{ background: plan.featured ? accent : '#44444B',
@@ -429,7 +429,7 @@ export default function CheckoutPage() {
 
               {/* Save chip */}
               <div
-                className="inline-flex items-center gap-[6px] mb-[14px] px-[9px] py-[5px] font-mono text-[10.5px] tracking-[0.12em] uppercase rounded-[4px] border self-start transition-all duration-300"
+                className="inline-flex items-center gap-[6px] mb-[14px] px-[9px] py-[5px] font-mono text-[12px] tracking-[0.12em] uppercase rounded-[4px] border self-start transition-all duration-300"
                 style={{ color: accentText, background: accentDim, borderColor: accentDim }}
               >
                 <span className="w-[5px] h-[5px] rounded-full transition-all duration-300"
@@ -454,7 +454,7 @@ export default function CheckoutPage() {
                   {plan.prices[edition]}
                 </span>
               </div>
-              <div className="font-mono text-[11.5px] text-[#6B6B72] mb-6 tracking-[0.04em]">
+              <div className="font-mono text-[12px] text-[#6B6B72] mb-6 tracking-[0.04em]">
                 {plan.per}
               </div>
 
@@ -505,7 +505,7 @@ export default function CheckoutPage() {
             </span>
           </div>
 
-          <div className="flex items-center font-mono text-[10.5px] text-[#44444B] tracking-[0.14em] uppercase">
+          <div className="flex items-center font-mono text-[12px] text-[#44444B] tracking-[0.14em] uppercase">
             {['SCA / 3DS Secure', 'Stripe · VISA · MC · SEPA', 'Invoiced VAT, EU'].map((item, i) => (
               <span key={item} className={`px-4 ${i > 0 ? 'border-l border-white/[0.04]' : 'pl-0'}`}>
                 {item}
@@ -515,7 +515,7 @@ export default function CheckoutPage() {
         </div>
 
         {/* Footer sig */}
-        <div className="mt-10 font-mono text-[10px] text-[#44444B] tracking-[0.18em] uppercase">
+        <div className="mt-10 font-mono text-[12px] text-[#44444B] tracking-[0.18em] uppercase">
           DubCheck QC · v1.0 RC · pre-order · 2026
         </div>
       </div>

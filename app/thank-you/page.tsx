@@ -58,7 +58,7 @@ export default function ThankYouPage() {
 
           {/* ── Status pill ── */}
           <div
-            className="inline-flex items-center gap-[9px] px-[14px] py-[7px] rounded-full border mb-7 font-mono text-[11px] tracking-[0.14em] uppercase"
+            className="inline-flex items-center gap-[9px] px-[14px] py-[7px] rounded-full border mb-7 font-mono text-[12px] tracking-[0.14em] uppercase"
             style={{
               background: 'rgba(34,201,139,0.08)',
               borderColor: 'rgba(34,201,139,0.28)',
@@ -113,7 +113,7 @@ export default function ThankYouPage() {
                   <path d="M8 5v3.5l2 2" />
                 </svg>
               </div>
-              <span className="font-mono text-[11px] tracking-[0.14em] uppercase text-[#22C98B]">
+              <span className="font-mono text-[12px] tracking-[0.14em] uppercase text-[#22C98B]">
                 What happens now?
               </span>
             </div>
@@ -162,7 +162,7 @@ export default function ThankYouPage() {
           </Link>
 
           {/* Footer sig */}
-          <p className="font-mono text-[10px] text-[#44444B] tracking-[0.18em] uppercase mt-14">
+          <p className="font-mono text-[12px] text-[#44444B] tracking-[0.18em] uppercase mt-14">
             DubCheck QC · v1.0 RC · pre-order · 2026
           </p>
 

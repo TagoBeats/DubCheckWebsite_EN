@@ -52,7 +52,7 @@ export default function SpecDetail() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-14 gap-6 md:gap-10">
         <div>
-          <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-ink3">§ 05 · Engine</div>
+          <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3">§ 05 · Engine</div>
           <h2 className="text-[28px] md:text-[44px] leading-[1.12] md:leading-[1.08] tracking-[-0.025em] mt-[14px] font-semibold max-w-[18ch]">
             Messwerte, die in jedem Delivery-Review standhalten.
           </h2>
@@ -75,12 +75,12 @@ export default function SpecDetail() {
               className={`grid gap-[18px] py-[18px] items-baseline ${s.last ? '' : 'border-b border-white/[0.04]'}`}
               style={{ gridTemplateColumns: '28px 1fr auto' }}
             >
-              <span className="font-mono text-[11px] text-dc-ink3 pt-[2px]">{s.idx}</span>
+              <span className="font-mono text-[12px] text-dc-ink3 pt-[2px]">{s.idx}</span>
               <div>
                 <h4 className="text-[17px] font-semibold tracking-[-0.005em] mb-1">{s.title}</h4>
                 <p className="text-dc-ink2 text-[13.5px] max-w-[44ch]">{s.body}</p>
               </div>
-              <span className="font-mono text-[11px] text-dc-ink3 border border-white/[0.08] px-2 py-1 rounded-[3px] tracking-[0.06em] self-start">
+              <span className="font-mono text-[12px] text-dc-ink3 border border-white/[0.08] px-2 py-1 rounded-[3px] tracking-[0.06em] self-start">
                 {s.tag}
               </span>
             </div>
@@ -95,13 +95,13 @@ export default function SpecDetail() {
           {/* Head */}
           <div className="flex justify-between items-center mb-4">
             <div>
-              <div className="font-mono text-[11px] text-dc-ink3 tracking-[0.14em] uppercase">Live · Integrated</div>
+              <div className="font-mono text-[12px] text-dc-ink3 tracking-[0.14em] uppercase">Live · Integrated</div>
               <div className="font-mono text-[28px] text-dc-ink mt-1">
                 –24.0<span className="text-[13px] text-dc-ink3 ml-1">LUFS</span>
               </div>
             </div>
             <div className="text-right">
-              <div className="font-mono text-[11px] text-dc-ink3 tracking-[0.14em] uppercase">Peak</div>
+              <div className="font-mono text-[12px] text-dc-ink3 tracking-[0.14em] uppercase">Peak</div>
               <div className="font-mono text-[16px] text-dc-red mt-1">–2.1 dBTP</div>
             </div>
           </div>
@@ -125,7 +125,7 @@ export default function SpecDetail() {
           </div>
 
           {/* Scale */}
-          <div className="flex justify-between font-mono text-[10px] text-dc-ink4 border-t border-white/[0.04] pt-2">
+          <div className="flex justify-between font-mono text-[12px] text-dc-ink4 border-t border-white/[0.04] pt-2">
             {['-60','-48','-36','-24','-18','-12','-6','0'].map(v => <span key={v}>{v}</span>)}
           </div>
 
@@ -138,7 +138,7 @@ export default function SpecDetail() {
               { k: 'BIT DEPTH',   v: '24 bit' },
             ].map(m => (
               <div key={m.k}>
-                <div className="font-mono text-[10px] text-dc-ink3 tracking-[0.12em] uppercase">{m.k}</div>
+                <div className="font-mono text-[12px] text-dc-ink3 tracking-[0.12em] uppercase">{m.k}</div>
                 <div className="font-mono text-[16px] text-dc-ink mt-1">{m.v}</div>
               </div>
             ))}

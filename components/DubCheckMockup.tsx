@@ -292,7 +292,7 @@ function StepDropZone({ accent, onAdvance }: { accent: string; onAdvance: () => 
         </div>
         <div style={{
           fontFamily: 'JetBrains Mono, ui-monospace, monospace',
-          fontSize: 11, color: '#6B6B72', letterSpacing: '0.1em',
+          fontSize: 12, color: '#6B6B72', letterSpacing: '0.1em',
         }}>
           .wav  ·  .aiff  ·  .flac  ·  .mp3
         </div>
@@ -320,11 +320,11 @@ function StepDropZone({ accent, onAdvance }: { accent: string; onAdvance: () => 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 <span style={{
                   fontFamily: 'JetBrains Mono, ui-monospace, monospace',
-                  fontSize: 11, color: '#ECECEE', fontWeight: 600,
+                  fontSize: 12, color: '#ECECEE', fontWeight: 600,
                 }}>chapter_01.wav</span>
                 <span style={{
                   fontFamily: 'JetBrains Mono, ui-monospace, monospace',
-                  fontSize: 9, color: '#6B6B72', letterSpacing: '0.06em',
+                  fontSize: 12, color: '#6B6B72', letterSpacing: '0.06em',
                 }}>4.2 MB</span>
               </div>
             </div>
@@ -394,7 +394,7 @@ function StepProcessing({ accent, data }: { accent: string; data: EditionData })
     'DIALOG GATE': '–26.9 LUFS',
     'CHANNEL MAP': data.meta.includes('5.1') ? '5.1' : 'Mono',
   }), [data.meta])
-  const valueFor = (label: string): string => valueMap[label] ?? '—'
+  const valueFor = (label: string): string => valueMap[label] ?? '-'
 
   return (
     <div style={{ display: 'flex', height: '100%' }}>
@@ -409,7 +409,7 @@ function StepProcessing({ accent, data }: { accent: string; data: EditionData })
         <div style={{
           display: 'flex', alignItems: 'center', gap: 8,
           fontFamily: 'JetBrains Mono, ui-monospace, monospace',
-          fontSize: 11, color: '#6B6B72',
+          fontSize: 12, color: '#6B6B72',
         }}>
           <span style={{
             width: 8, height: 8, borderRadius: '50%',
@@ -424,7 +424,7 @@ function StepProcessing({ accent, data }: { accent: string; data: EditionData })
         <Waveform accent={accent} />
         <div style={{
           fontFamily: 'JetBrains Mono, ui-monospace, monospace',
-          fontSize: 11, color: '#6B6B72', lineHeight: 1.5,
+          fontSize: 12, color: '#6B6B72', lineHeight: 1.5,
         }}>
           {data.meta}
         </div>
@@ -457,11 +457,11 @@ function StepProcessing({ accent, data }: { accent: string; data: EditionData })
               }}>
                 <span style={{
                   fontFamily: 'JetBrains Mono, ui-monospace, monospace',
-                  fontSize: 11, color: '#6B6B72', letterSpacing: '0.06em',
+                  fontSize: 12, color: '#6B6B72', letterSpacing: '0.06em',
                 }}>{label}</span>
                 <span style={{
                   fontFamily: 'JetBrains Mono, ui-monospace, monospace',
-                  fontSize: 11, display: 'flex', alignItems: 'center', gap: 6,
+                  fontSize: 12, display: 'flex', alignItems: 'center', gap: 6,
                 }}>
                   {s === 0 && <span style={{ color: '#44444B' }}>--</span>}
                   {s === 1 && <Spinner color={accent} />}
@@ -521,7 +521,7 @@ function StepResults({
           </div>
           <div style={{
             fontFamily: 'JetBrains Mono, ui-monospace, monospace',
-            fontSize: 11, color: '#A1A1A8', marginTop: 6,
+            fontSize: 12, color: '#A1A1A8', marginTop: 6,
           }}>
             {data.countLabel ?? `${passCount} / ${flat.length} checks passed`}
           </div>
@@ -536,7 +536,7 @@ function StepResults({
             }}>
               <span style={{
                 fontFamily: 'JetBrains Mono, ui-monospace, monospace',
-                fontSize: 11, color: '#6B6B72', letterSpacing: '0.08em',
+                fontSize: 12, color: '#6B6B72', letterSpacing: '0.08em',
               }}>{label}</span>
               <span style={{
                 fontFamily: 'JetBrains Mono, ui-monospace, monospace',
@@ -575,7 +575,7 @@ function StepResults({
       >
         <div style={{
           fontFamily: 'JetBrains Mono, ui-monospace, monospace',
-          fontSize: 11, color: '#6B6B72',
+          fontSize: 12, color: '#6B6B72',
           letterSpacing: '0.14em', marginBottom: 10,
         }}>
           CHECK RESULTS
@@ -593,7 +593,7 @@ function StepResults({
                 }}>
                   <span style={{
                     fontFamily: 'JetBrains Mono, ui-monospace, monospace',
-                    fontSize: 10, color: '#6B6B72', letterSpacing: '0.18em',
+                    fontSize: 12, color: '#6B6B72', letterSpacing: '0.18em',
                   }}>{section.title}</span>
                   <span style={{
                     flex: 1, height: 1,
@@ -601,7 +601,7 @@ function StepResults({
                   }} />
                   <span style={{
                     fontFamily: 'JetBrains Mono, ui-monospace, monospace',
-                    fontSize: 10, color: '#44444B',
+                    fontSize: 12, color: '#44444B',
                   }}>{section.checks.length}</span>
                 </div>
                 {section.checks.map(c => {
@@ -631,13 +631,13 @@ function StepResults({
                         }} />
                         <span style={{
                           fontFamily: 'JetBrains Mono, ui-monospace, monospace',
-                          fontSize: 11, color: '#6B6B72', letterSpacing: '0.06em',
+                          fontSize: 12, color: '#6B6B72', letterSpacing: '0.06em',
                           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
                         }}>{c.label}</span>
                         {c.note && (
                           <span style={{
                             fontFamily: 'JetBrains Mono, ui-monospace, monospace',
-                            fontSize: 10, color: '#44444B', whiteSpace: 'nowrap',
+                            fontSize: 12, color: '#44444B', whiteSpace: 'nowrap',
                           }}>({c.note})</span>
                         )}
                       </div>
@@ -648,7 +648,7 @@ function StepResults({
                         }}>{c.value}</span>
                         <span style={{
                           fontFamily: 'JetBrains Mono, ui-monospace, monospace',
-                          fontSize: 10, fontWeight: 600,
+                          fontSize: 12, fontWeight: 600,
                           color: sc.fg, background: sc.bg,
                           border: `1px solid ${sc.bd}`,
                           padding: '3px 7px', borderRadius: 4,
@@ -736,23 +736,43 @@ function StepDownload({ accent, reportFile, onRestart }: { accent: string; repor
 
       <div style={{
         fontFamily: 'JetBrains Mono, ui-monospace, monospace',
-        fontSize: 11, color: '#6B6B72', letterSpacing: '0.06em', marginTop: 4,
+        fontSize: 12, color: '#6B6B72', letterSpacing: '0.06em', marginTop: 4,
       }}>
         SHA-256 signed  ·  {hash.current}  ·  {today.current}
       </div>
 
       <button
         onClick={onRestart}
+        aria-label="Replay the live demo"
         style={{
           position: 'absolute', right: 16, bottom: 14,
-          background: 'transparent', border: 'none', cursor: 'pointer',
+          display: 'inline-flex', alignItems: 'center', gap: 8,
+          background: 'rgba(255,255,255,0.04)',
+          border: `1px solid ${rgba(accent, 0.45)}`,
+          color: accent,
+          cursor: 'pointer',
           fontFamily: 'Inter, -apple-system, sans-serif',
-          fontSize: 12, color: '#6B6B72', padding: 4,
+          fontWeight: 600, fontSize: 12.5,
+          letterSpacing: '0.02em',
+          padding: '8px 14px',
+          borderRadius: 6,
+          boxShadow: `0 0 0 4px ${rgba(accent, 0.05)}, 0 8px 20px -10px ${rgba(accent, 0.5)}`,
+          transition: 'background 150ms ease, transform 150ms ease',
         }}
-        onMouseEnter={e => (e.currentTarget.style.color = '#A1A1A8')}
-        onMouseLeave={e => (e.currentTarget.style.color = '#6B6B72')}
+        onMouseEnter={e => {
+          e.currentTarget.style.background = rgba(accent, 0.12)
+          e.currentTarget.style.transform = 'translateY(-1px)'
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.background = 'rgba(255,255,255,0.04)'
+          e.currentTarget.style.transform = 'translateY(0)'
+        }}
       >
-        Restart demo →
+        <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M2 8a6 6 0 1 1 1.76 4.24" />
+          <path d="M2 13v-4h4" />
+        </svg>
+        Replay demo
       </button>
     </div>
   )
@@ -791,7 +811,7 @@ function TitleBar({ filename, spec }: { filename: string; spec: string }) {
       <div style={{ marginLeft: 'auto' }}>
         <span style={{
           fontFamily: 'JetBrains Mono, ui-monospace, monospace',
-          fontSize: 11, color: '#44444B',
+          fontSize: 12, color: '#44444B',
         }}>{spec}</span>
       </div>
     </div>
@@ -896,7 +916,7 @@ export default function DubCheckMockup({ edition = 'narrators' }: { edition?: 'n
               pointerEvents: 'auto',
               background: 'transparent', border: 'none', cursor: 'pointer',
               fontFamily: 'Inter, -apple-system, sans-serif',
-              fontSize: 11, color: '#6B6B72', padding: 0,
+              fontSize: 12, color: '#6B6B72', padding: 0,
             }}
             onMouseEnter={e => (e.currentTarget.style.color = '#A1A1A8')}
             onMouseLeave={e => (e.currentTarget.style.color = '#6B6B72')}

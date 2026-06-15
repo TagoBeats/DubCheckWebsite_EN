@@ -26,7 +26,7 @@ export default function NarratorHowItWorks() {
     <section className="py-[120px]" id="how">
       <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-14 gap-6 md:gap-10">
         <div>
-          <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-ink3">§ 03 · Workflow</div>
+          <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3">§ 03 · Workflow</div>
           <h2 className="text-[28px] md:text-[44px] leading-[1.12] md:leading-[1.08] tracking-[-0.025em] mt-[14px] font-semibold max-w-[18ch]">
             Drop a file. Get the verdict.
           </h2>
@@ -43,7 +43,7 @@ export default function NarratorHowItWorks() {
             key={step.n}
             className="border border-white/[0.08] rounded-[12px] p-[24px_22px] bg-dc-surface flex flex-col"
           >
-            <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-ink3 mb-3">
+            <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3 mb-3">
               Step {step.n}
             </div>
             <h3 className="text-[17px] font-semibold tracking-[-0.005em] mb-[10px]">

@@ -9,6 +9,7 @@ const STATIC_LINKS = [
   { href: '/studios',   label: 'Studios' },
   { href: '/blog',      label: 'Blog' },
   { href: '/help',      label: 'Help' },
+  { href: '/about',     label: 'About' },
 ]
 
 export default function Nav() {
@@ -16,11 +17,10 @@ export default function Nav() {
   const pathname = usePathname()
   const base = pathname.startsWith('/studios') ? '/studios' : '/narrators'
 
-  const contextLinks = [
-    ...STATIC_LINKS,
-    { href: `${base}#how`, label: 'How it works' },
-    { href: `${base}#faq`, label: 'FAQ' },
-  ]
+  const onPersonaPage = pathname.startsWith('/narrators') || pathname.startsWith('/studios')
+  const contextLinks = onPersonaPage
+    ? [...STATIC_LINKS, { href: `${base}#faq`, label: 'FAQ' }]
+    : STATIC_LINKS
 
   const pricingHref = `${base}#pricing`
 
@@ -31,7 +31,7 @@ export default function Nav() {
       <Link href="/" className="flex items-center gap-[10px]">
         <img src="/logo.svg" alt="DubCheck" width={22} height={22} className="block" />
         <span className="text-[15px] font-semibold tracking-[-0.01em] text-dc-ink">DubCheck</span>
-        <span className="font-mono text-[10px] text-dc-ink3 border border-white/[0.08] px-[6px] py-[2px] rounded-[3px] tracking-[0.08em] ml-1">
+        <span className="font-mono text-[12px] text-dc-ink3 border border-white/[0.08] px-[6px] py-[2px] rounded-[3px] tracking-[0.08em] ml-1">
           QC / v2.4
         </span>
       </Link>

@@ -4,7 +4,7 @@ export default function ReportShowcase() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-14 gap-6 md:gap-10">
         <div>
-          <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-dc-ink3">§ 02 · Report</div>
+          <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3">§ 02 · Report</div>
           <h2 className="text-[28px] md:text-[44px] leading-[1.12] md:leading-[1.08] tracking-[-0.025em] mt-[14px] font-semibold max-w-[18ch]">
             Ein signiertes PDF, das dein Delivery Manager ohne Rückfragen akzeptiert.
           </h2>
@@ -36,7 +36,7 @@ export default function ReportShowcase() {
             <b className="text-dc-ink2 font-medium">DubCheck Report</b>
             {' · chapter_01_final.wav · ACX · AudioBook Edition'}
           </div>
-          <span className="font-mono text-[11px] text-dc-ink4">r-7F3A9B2</span>
+          <span className="font-mono text-[12px] text-dc-ink4">r-7F3A9B2</span>
         </div>
 
         {/* PDF embed */}

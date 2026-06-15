@@ -2,9 +2,20 @@ import type { Metadata } from 'next'
 import BlogPostLayout from '@/components/BlogPostLayout'
 
 export const metadata: Metadata = {
-  title: 'Why Your ACX Submission Keeps Getting Rejected | DubCheck',
+  title: 'Why Your ACX Submission Keeps Getting Rejected',
   description:
-    'ACX rejections waste hours of re-editing. This guide covers every technical reason files get rejected and shows exactly how to fix each one before you upload.',
+    'ACX rejections waste hours. Every technical reason files get bounced - noise floor, true peak, per-chapter LUFS, format - and how to fix each one before upload.',
+  alternates: { canonical: '/blog/acx-submission-rejected' },
+  authors: [{ name: 'Robin Busse', url: 'https://audio-dubcheck.com/about' }],
+  openGraph: {
+    url: '/blog/acx-submission-rejected',
+    type: 'article',
+    title: 'Why Your ACX Submission Keeps Getting Rejected',
+    description:
+      'Every technical reason ACX rejects files - and how to fix each one before upload.',
+    authors: ['Robin Busse'],
+    publishedTime: '2026-05-09',
+  },
 }
 
 export default function Post() {
@@ -48,7 +59,10 @@ export default function Post() {
 
       <h2>What ACX Actually Checks</h2>
       <p>
-        Every file you submit gets run through an automated QC process that measures four things:
+        Every file you submit gets run through an automated QC process that measures four things. The values below come straight from the{' '}
+        <a href="https://www.acx.com/help/narrators/200484550" target="_blank" rel="noopener noreferrer">
+          official ACX audio submission requirements
+        </a>:
       </p>
 
       <table>
@@ -125,7 +139,10 @@ export default function Post() {
 
       <h3 data-n="04">Still Using RMS Instead of LUFS</h3>
       <p>
-        A lot of older tutorials, forum posts, and some plugins still talk about RMS levels. ACX officially measures integrated loudness in LUFS (based on the BS.1770 standard). The numbers look similar, but they&apos;re calculated differently: LUFS applies frequency weighting that reflects how human hearing actually works, while RMS is a straight mathematical average.
+        A lot of older tutorials, forum posts, and some plugins still talk about RMS levels. ACX officially measures integrated loudness in LUFS, based on the{' '}
+        <a href="https://www.itu.int/rec/R-REC-BS.1770" target="_blank" rel="noopener noreferrer">
+          ITU-R BS.1770 standard
+        </a>. The numbers look similar, but they&apos;re calculated differently: LUFS applies frequency weighting that reflects how human hearing actually works, while RMS is a straight mathematical average.
       </p>
       <p>
         If you&apos;re targeting -18 to -23 RMS and verifying with an RMS meter, you might be passing or failing by a margin that&apos;s invisible in your workflow.
