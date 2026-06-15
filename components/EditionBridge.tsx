@@ -14,7 +14,7 @@ const COPY: Record<Variant, {
   narrators: {
     label:    'Need streamer specs instead?',
     headline: 'Mixing for Netflix, Apple TV+, Disney+ or Prime?',
-    body:     'The AudioBook Edition focuses on ACX, Spotify Audiobooks, Storytel and Podtrac. If you deliver final mixes to streaming platforms, the Studios Edition covers NOLS, Apple TV+, Disney+, Prime Video, EBU R128 and ATSC A/85 — multi-spec in one pass, audit-ready PDF.',
+    body:     'The AudioBook Edition focuses on ACX, Spotify Audiobooks, Storytel and Podtrac. If you deliver final mixes to streaming platforms, the Studios Edition covers NOLS, Apple TV+, Disney+, Prime Video, EBU R128 and ATSC A/85. Multi-spec in one pass, audit-ready PDF.',
     ctaLabel: 'See Studios Edition',
     ctaHref:  '/studios',
     accent:   'text-dc-orange',
@@ -23,7 +23,7 @@ const COPY: Record<Variant, {
   studios: {
     label:    'Just need ACX or audiobook specs?',
     headline: 'Recording an audiobook for Audible / ACX?',
-    body:     'The Studios Edition is built for streamer-grade deliveries (Netflix, Apple TV+, Disney+, Prime). If your workflow centers on audiobook submissions, the lighter AudioBook Edition covers ACX, Spotify Audiobooks, Storytel and Podtrac — at audiobook pricing.',
+    body:     'The Studios Edition is built for streamer-grade deliveries (Netflix, Apple TV+, Disney+, Prime). If your workflow centers on audiobook submissions, the lighter AudioBook Edition covers ACX, Spotify Audiobooks, Storytel and Podtrac, at audiobook pricing.',
     ctaLabel: 'See AudioBook Edition',
     ctaHref:  '/narrators',
     accent:   'text-dc-cyan',

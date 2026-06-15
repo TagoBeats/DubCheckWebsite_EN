@@ -10,9 +10,9 @@ import FAQ            from '@/components/narrators/FAQ'
 import DubCheckMockup from '@/components/DubCheckMockup'
 
 export const metadata: Metadata = {
-  title: 'DubCheck for Narrators — ACX spec check & PDF report',
+  title: 'DubCheck for Narrators | ACX spec check & PDF report',
   description:
-    'Stop getting ACX-rejected. DubCheck verifies RMS, peak, noise floor and room tone on every chapter and delivers a clean pass/fail PDF — built on an EBU 3341/3342 certified engine. Local processing, lifetime license from €39.',
+    'Stop getting ACX-rejected. DubCheck verifies RMS, peak, noise floor and room tone on every chapter and delivers a clean pass/fail PDF, built on an EBU 3341/3342 certified engine. Local processing, lifetime license from €30.',
 }
 
 export default function NarratorsPage() {
@@ -30,7 +30,7 @@ export default function NarratorsPage() {
               § 02 · Live Demo
             </div>
             <h2 className="text-[28px] md:text-[40px] leading-[1.1] tracking-[-0.025em] font-semibold mb-[40px] max-w-[22ch]">
-              See exactly what you get — before you buy.
+              See exactly what you get before you buy.
             </h2>
             <div className="overflow-x-auto pb-2 flex justify-center">
               <DubCheckMockup edition="narrators" />

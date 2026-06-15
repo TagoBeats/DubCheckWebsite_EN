@@ -3,7 +3,7 @@ import Nav    from '@/components/Nav'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Imprint — DubCheck',
+  title: 'Imprint | DubCheck',
 }
 
 export default function ImprintPage() {

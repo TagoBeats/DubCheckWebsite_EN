@@ -5,3 +5,7 @@ out/
 .env.local
 .env*.local
 *.tsbuildinfo
+.vercel
+.DS_Store
+.idea/
+.claude/

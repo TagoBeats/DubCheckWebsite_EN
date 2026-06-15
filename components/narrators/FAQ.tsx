@@ -31,7 +31,7 @@ const FAQS = [
   {
     n: 'Q/06',
     q: 'When does the V1 standalone app actually ship?',
-    a: 'Within 6 weeks of your pre-order. If we miss that window, you receive a full refund automatically — no questions, no friction. The measurement engine is already complete and EBU-certified; the V1 work is the desktop wrapper (macOS + Windows) and the user interface.',
+    a: 'Within 6 weeks of your pre-order. If we miss that window, you receive a full refund automatically. No questions, no friction. The measurement engine is already complete and EBU-certified. The V1 work is the desktop wrapper (macOS + Windows) and the user interface.',
   },
   {
     n: 'Q/07',
@@ -63,7 +63,7 @@ export default function NarratorFAQ() {
           <a href="mailto:hello@audio-dubcheck.com" className="font-mono text-dc-ink2 underline underline-offset-2 hover:text-dc-ink transition-colors">
             hello@audio-dubcheck.com
           </a>
-          {' '}— I read every message personally.
+          {' '}I read every message personally.
         </p>
       </div>
 

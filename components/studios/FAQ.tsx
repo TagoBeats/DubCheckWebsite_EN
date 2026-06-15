@@ -11,7 +11,7 @@ const FAQS = [
   {
     n: 'Q/02',
     q: 'How does dialog-gated loudness measurement work?',
-    a: 'For Netflix Originals (and similar dialog-gated specs), the loudness target depends on the dialog content of the file. DubCheck detects speech automatically — enough dialog measures against −27 LKFS, less dialog falls back to the −24 LKFS gate. The PDF report transparently states which gate was applied and why, so the result is auditable.',
+    a: 'For Netflix Originals (and similar dialog-gated specs), the loudness target depends on the dialog content of the file. DubCheck detects speech automatically: enough dialog measures against -27 LKFS, less dialog falls back to the -24 LKFS gate. The PDF report transparently states which gate was applied and why, so the result is auditable.',
   },
   {
     n: 'Q/03',
@@ -51,7 +51,7 @@ const FAQS = [
   {
     n: 'Q/10',
     q: 'When does V1 ship?',
-    a: 'Within 6 weeks of your pre-order. If we miss that window, you get a full automatic refund. The measurement engine is already EBU-certified and feature-complete — V1 is the desktop wrapper (macOS + Windows) and the studio-facing UI.',
+    a: 'Within 6 weeks of your pre-order. If we miss that window, you get a full automatic refund. The measurement engine is already EBU-certified and feature-complete. V1 is the desktop wrapper (macOS + Windows) and the studio-facing UI.',
   },
 ]
 
@@ -72,7 +72,7 @@ export default function StudiosFAQ() {
           <a href="mailto:hello@audio-dubcheck.com" className="font-mono text-dc-ink2 underline underline-offset-2 hover:text-dc-ink transition-colors">
             hello@audio-dubcheck.com
           </a>
-          {' '}— I read every studio inquiry personally.
+          {' '}I read every studio inquiry personally.
         </p>
       </div>
 

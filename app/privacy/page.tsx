@@ -3,7 +3,7 @@ import Nav    from '@/components/Nav'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — DubCheck',
+  title: 'Privacy Policy | DubCheck',
 }
 
 export default function PrivacyPage() {
@@ -40,7 +40,7 @@ export default function PrivacyPage() {
 
             <h3 className="text-[14px] font-semibold text-dc-ink mb-2">How do we collect your data?</h3>
             <p className="text-dc-ink2 text-[15px] leading-[1.7] mb-4">
-              Some data is collected when you provide it to us directly — for example, data you
+              Some data is collected when you provide it to us directly, for example data you
               enter into a form. Other data is collected automatically or with your consent when
               you visit the website. This is primarily technical data (e.g. internet browser,
               operating system, or time of page access).

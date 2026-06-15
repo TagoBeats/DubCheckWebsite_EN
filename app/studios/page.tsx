@@ -11,7 +11,7 @@ import FAQ            from '@/components/studios/FAQ'
 import DubCheckMockup from '@/components/DubCheckMockup'
 
 export const metadata: Metadata = {
-  title: 'DubCheck for Studios — Multi-platform delivery QC',
+  title: 'DubCheck for Studios | Multi-platform delivery QC',
   description:
     'Verify final mixes against Netflix NOLS, Apple TV+, Disney+ and Prime delivery specs in one pass. Local processing, EBU 3341/3342 certified engine, NDA-safe, auditable PDF report.',
 }
@@ -31,7 +31,7 @@ export default function StudiosPage() {
               § 02 · Live Demo
             </div>
             <h2 className="text-[28px] md:text-[40px] leading-[1.1] tracking-[-0.025em] font-semibold mb-[40px] max-w-[22ch]">
-              See exactly what you get — before you buy.
+              See exactly what you get before you buy.
             </h2>
             <div className="overflow-x-auto pb-2 flex justify-center">
               <DubCheckMockup edition="studios" />

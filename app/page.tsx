@@ -137,6 +137,21 @@ function PersonaSwitch() {
           </span>
         </div>
         <DubCheckMockup edition="narrators" />
+        <div className="flex justify-center mt-8">
+          <Link
+            href="/narrators"
+            className="inline-flex items-center gap-[10px] px-7 py-4 rounded-[8px] font-semibold text-[15px] text-[#0E0E10] transition-all duration-200 hover:brightness-110 hover:scale-[1.03]"
+            style={{
+              background: '#22D3EE',
+              boxShadow: '0 0 0 1px rgba(34,211,238,0.4), 0 10px 30px -10px rgba(34,211,238,0.55)',
+            }}
+          >
+            See Details
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-[15px] h-[15px]">
+              <path d="M3 8h10M9 4l4 4-4 4" />
+            </svg>
+          </Link>
+        </div>
       </div>
     </section>
   )

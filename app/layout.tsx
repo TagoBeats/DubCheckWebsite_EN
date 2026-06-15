@@ -18,7 +18,7 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'DubCheck — Audio QC for ACX, Netflix, Apple TV+ and more',
+  title: 'DubCheck | Audio QC for ACX, Netflix, Apple TV+ and more',
   description:
     'Verify your audiobook chapters and final mixes against ACX, Netflix NOLS, Apple TV+, Disney+ and Prime delivery specs. Local processing, EBU R128 certified engine, auditable PDF report.',
 }
@@ -26,16 +26,17 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-dc-bg text-dc-ink antialiased overflow-x-hidden`}>
-        <div className="relative min-h-screen">
-          {/* Ambient background accents — scroll with document */}
-          <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden" aria-hidden="true">
+      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-dc-bg text-dc-ink antialiased`}>
+        <div className="relative min-h-screen overflow-x-clip">
+          {/* Ambient background accents — desktop only, hidden on mobile for performance */}
+          <div className="hidden md:block absolute inset-0 -z-10 pointer-events-none overflow-hidden" aria-hidden="true">
           {/* × blueprint grid — full document height */}
           <div
             className="absolute inset-0 w-full h-full opacity-[0.025]"
             style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18 18l4 4M22 18l-4 4' stroke='%2300f2ff' stroke-width='0.6' stroke-linecap='round' fill='none'/%3E%3C/svg%3E")`,
               backgroundSize: '40px 40px',
+              WebkitMaskImage: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 8%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.4) 85%, transparent 100%)',
               maskImage: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 8%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.4) 85%, transparent 100%)',
             }}
           />

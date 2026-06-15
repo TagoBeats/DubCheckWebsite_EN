@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: "Thank You — DubCheck",
+  title: "Thank You | DubCheck",
   robots: { index: false, follow: false },
 }
 

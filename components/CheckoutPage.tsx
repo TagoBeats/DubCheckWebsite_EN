@@ -65,7 +65,7 @@ const TIERS = [
 ]
 
 // ── Confetti hook ──────────────────────────────────────────────────────────
-function useConfetti(canvasRef: React.RefObject<HTMLCanvasElement>) {
+function useConfetti(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
   useEffect(() => {
     const c = canvasRef.current
     if (!c) return
@@ -78,6 +78,7 @@ function useConfetti(canvasRef: React.RefObject<HTMLCanvasElement>) {
     function resize() {
       clearTimeout(resizeTimer)
       resizeTimer = setTimeout(() => {
+        if (!c) return
         W = c.clientWidth; H = c.clientHeight
         c.width = W * dpr; c.height = H * dpr
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
@@ -216,7 +217,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden" style={{ background: '#0E0E10', color: '#ECECEE' }}>
+    <div className="relative min-h-[100dvh] overflow-x-clip" style={{ background: '#0E0E10', color: '#ECECEE' }}>
 
       {/* Grid background */}
       <div
@@ -224,6 +225,7 @@ export default function CheckoutPage() {
         style={{
           backgroundImage: 'radial-gradient(rgba(255,255,255,0.035) 1px, transparent 1px)',
           backgroundSize: '24px 24px',
+          WebkitMaskImage: 'radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 80%)',
           maskImage: 'radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 80%)',
         }}
         aria-hidden="true"
@@ -246,6 +248,7 @@ export default function CheckoutPage() {
         className="fixed left-0 right-0 top-0 z-[1] pointer-events-none"
         style={{
           height: 480,
+          WebkitMaskImage: 'linear-gradient(180deg, #000 0%, #000 70%, transparent 100%)',
           maskImage: 'linear-gradient(180deg, #000 0%, #000 70%, transparent 100%)',
           willChange: 'transform',
           transform: 'translateZ(0)',
@@ -254,7 +257,7 @@ export default function CheckoutPage() {
       />
 
       {/* Content */}
-      <div className="relative z-[2] max-w-[1180px] mx-auto px-6 md:px-10 pb-20 pt-9 flex flex-col items-center min-h-screen">
+      <div className="relative z-[2] max-w-[1180px] mx-auto px-6 md:px-10 pb-20 pt-9 flex flex-col items-center min-h-[100dvh]">
 
         {/* Brand mark — no nav */}
         <div className="self-start flex items-center gap-[10px]">
