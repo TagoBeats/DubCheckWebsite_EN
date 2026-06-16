@@ -16,8 +16,9 @@ const PLANS = [
     slug:      'solo',
     name:      'Solo',
     blurb:     'For freelance mixers who need a fast, accurate check on every file.',
+    reframe:   'Less than 30 minutes of studio time.',
     amount:    '49',
-    amountWas: '99',
+    amountWas: '79',
     per:       'one-time · lifetime access',
     featured:  false,
     popup:     true,
@@ -37,8 +38,9 @@ const PLANS = [
     slug:      'pro',
     name:      'Pro',
     blurb:     'For active mixers who deliver entire episodes and feature films.',
-    amount:    '149',
-    amountWas: '299',
+    reframe:   'Less than one redelivery cycle.',
+    amount:    '99',
+    amountWas: '199',
     per:       'one-time · lifetime access',
     featured:  true,
     popup:     true,
@@ -57,6 +59,7 @@ const PLANS = [
     slug:      'team',
     name:      'Team',
     blurb:     'For post-production studios coordinating multiple mixers.',
+    reframe:   'Less than one rejected feature delivery.',
     amount:    '399',
     amountWas: '799',
     per:       'one-time · 5 seats',
@@ -84,7 +87,7 @@ export default function StudiosPricing() {
           </h2>
         </div>
         <p className="max-w-[42ch] text-dc-ink2 text-[15px] md:shrink-0">
-          Studios Edition pricing. Lock in your lifetime license at 50% off &mdash; Early Bird ends 31 Jul 2026.
+          Studios Edition pricing. Lock in your lifetime license at up to 50% off &mdash; Early Bird ends 31 Jul 2026.
           Files are always processed locally, zero vendor onboarding required from your IT team.
           Backed by a 30-day money-back guarantee, no questions asked.
         </p>
@@ -116,7 +119,10 @@ export default function StudiosPricing() {
             </div>
 
             <h3 className="text-[22px] font-semibold tracking-[-0.01em] mb-[6px]">{plan.name}</h3>
-            <p className="text-[13.5px] text-dc-ink2 mb-[22px]" style={{ minHeight: '2.8em' }}>{plan.blurb}</p>
+            <p className="text-[13.5px] text-dc-ink2 mb-[10px]" style={{ minHeight: '2.8em' }}>{plan.blurb}</p>
+            <p className={`font-mono text-[12px] tracking-[0.02em] mb-[18px] italic ${plan.featured ? 'text-dc-orange' : 'text-dc-cyan'}`}>
+              {plan.reframe}
+            </p>
 
             <div className="text-xl text-gray-500 line-through decoration-gray-600 mb-1 font-mono">
               € {plan.amountWas}
@@ -131,7 +137,7 @@ export default function StudiosPricing() {
                   ? 'bg-orange-500/10 text-orange-400 border-orange-500/20'
                   : 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'
               }`}>
-                Early Bird — 50% off · ends 31 Jul
+                Early Bird — {Math.round((1 - Number(plan.amount) / Number(plan.amountWas)) * 100)}% off · ends 31 Jul
               </span>
             </div>
             <div className="font-mono text-[12px] text-dc-ink3 mb-6">{plan.per}</div>

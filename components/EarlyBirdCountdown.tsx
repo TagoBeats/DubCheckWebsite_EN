@@ -28,14 +28,17 @@ function Cell({ value, label }: { value: number; label: string }) {
 }
 
 export default function EarlyBirdCountdown({ compact = false }: { compact?: boolean }) {
-  const [t, setT] = useState(() => diff(Date.now()))
+  // Start with null so SSR and first client paint render identical placeholder
+  // (a hydration mismatch otherwise — Date.now differs between server render and client hydrate).
+  const [t, setT] = useState<ReturnType<typeof diff> | null>(null)
 
   useEffect(() => {
+    setT(diff(Date.now()))
     const id = setInterval(() => setT(diff(Date.now())), 1000)
     return () => clearInterval(id)
   }, [])
 
-  if (t.expired) return null
+  if (t?.expired) return null
 
   return (
     <div
@@ -51,13 +54,13 @@ export default function EarlyBirdCountdown({ compact = false }: { compact?: bool
         </span>
       </div>
       <div className="flex items-start gap-3 md:gap-5">
-        <Cell value={t.d} label="Days" />
+        <Cell value={t?.d ?? 0} label="Days" />
         <span className="font-mono text-[22px] text-dc-ink3 leading-none mt-[2px]">:</span>
-        <Cell value={t.h} label="Hrs" />
+        <Cell value={t?.h ?? 0} label="Hrs" />
         <span className="font-mono text-[22px] text-dc-ink3 leading-none mt-[2px]">:</span>
-        <Cell value={t.m} label="Min" />
+        <Cell value={t?.m ?? 0} label="Min" />
         <span className="font-mono text-[22px] text-dc-ink3 leading-none mt-[2px]">:</span>
-        <Cell value={t.s} label="Sec" />
+        <Cell value={t?.s ?? 0} label="Sec" />
       </div>
     </div>
   )

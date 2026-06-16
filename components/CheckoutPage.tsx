@@ -16,8 +16,8 @@ const TIERS = [
     blurb:    'For independent narrators & engineers running QC on their own deliveries.',
     per:      'Lifetime license · 1 seat',
     featured: false,
-    prices:   { audiobook: 30, studios: 49 },
-    was:      { audiobook: 60, studios: 98 },
+    prices:   { audiobook: 29, studios: 49 },
+    was:      { audiobook: 49, studios: 79 },
     stripe:   { audiobook: 'https://buy.stripe.com/bJe7sMeWr4fj1ad1uu4Vy04', studios: 'https://buy.stripe.com/14AfZibKf5jn6uxgpo4Vy07' },
     items:    [
       { text: 'macOS & Windows app', bold: null },
@@ -33,8 +33,8 @@ const TIERS = [
     blurb:    'For working studios that need batch QC, custom profiles and priority support.',
     per:      'Lifetime license · 3 seats',
     featured: true,
-    prices:   { audiobook: 69,  studios: 149 },
-    was:      { audiobook: 138, studios: 298 },
+    prices:   { audiobook: 64,  studios: 99 },
+    was:      { audiobook: 129, studios: 199 },
     stripe:   { audiobook: 'https://buy.stripe.com/eVq14o29F8vz4mp6OO4Vy05', studios: 'https://buy.stripe.com/8x2dRa6pVdPT3il7SS4Vy08' },
     items:    [
       { text: 'Everything in Solo',          bold: null },
@@ -355,7 +355,7 @@ export default function CheckoutPage() {
                 boxShadow: focusedPlan ? '0 0 8px rgba(34,201,139,0.9)' : `0 0 8px ${accentGlow}`,
               }} />
             <span className="font-mono text-[12px] tracking-[0.14em] uppercase">
-              {focusedPlan ? 'Plan selected' : 'Early Bird · 50% off'}
+              {focusedPlan ? 'Plan selected' : 'Early Bird · up to 50% off'}
             </span>
           </div>
 
@@ -509,7 +509,7 @@ export default function CheckoutPage() {
               >
                 <span className="w-[5px] h-[5px] rounded-full transition-all duration-300"
                   style={{ background: accent, boxShadow: `0 0 6px ${accentGlow}` }} />
-                Save 50% · was €{plan.was[edition]}
+                Save {Math.round((1 - plan.prices[edition] / plan.was[edition]) * 100)}% · was €{plan.was[edition]}
               </div>
 
               {/* Price */}

@@ -6,6 +6,7 @@ import EditionBridge  from '@/components/EditionBridge'
 import Hero           from '@/components/narrators/Hero'
 import HowItWorks     from '@/components/narrators/HowItWorks'
 import Pricing        from '@/components/narrators/Pricing'
+import Testimonials   from '@/components/Testimonials'
 import FAQ            from '@/components/narrators/FAQ'
 import DubCheckMockup from '@/components/DubCheckMockup'
 import DemoSection   from '@/components/DemoSection'
@@ -13,7 +14,7 @@ import DemoSection   from '@/components/DemoSection'
 export const metadata: Metadata = {
   title: 'DubCheck for Narrators - ACX QC & PDF',
   description:
-    'Stop getting ACX-rejected. DubCheck verifies RMS, peak, noise floor and room tone on every chapter and hands you a clean pass/fail PDF. Lifetime license from €30.',
+    'Stop getting ACX-rejected. DubCheck verifies RMS, peak, noise floor and room tone on every chapter and hands you a clean pass/fail PDF. Lifetime license from €24.',
   alternates: { canonical: '/narrators' },
   openGraph: {
     url: '/narrators',
@@ -42,6 +43,7 @@ export default function NarratorsPage() {
           </section>
 
           <HowItWorks />
+          <Testimonials edition="narrators" />
           <Pricing />
           <EditionBridge variant="narrators" />
           <FAQ />

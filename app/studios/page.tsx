@@ -7,6 +7,7 @@ import Hero           from '@/components/studios/Hero'
 import WhyControl     from '@/components/studios/WhyControl'
 import HowItWorks     from '@/components/studios/HowItWorks'
 import Pricing        from '@/components/studios/Pricing'
+import Testimonials   from '@/components/Testimonials'
 import FAQ            from '@/components/studios/FAQ'
 import DubCheckMockup from '@/components/DubCheckMockup'
 import DemoSection   from '@/components/DemoSection'
@@ -44,6 +45,7 @@ export default function StudiosPage() {
 
           <WhyControl />
           <HowItWorks />
+          <Testimonials edition="studios" />
           <Pricing />
           <EditionBridge variant="studios" />
           <FAQ />

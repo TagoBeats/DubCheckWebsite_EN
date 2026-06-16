@@ -16,8 +16,9 @@ const PLANS = [
     slug:      'solo',
     name:      'Solo',
     blurb:     'For solo narrators who want spec checks on every chapter.',
-    amount:    '30',
-    amountWas: '60',
+    reframe:   'Less than the time to re-edit one ACX rejection.',
+    amount:    '29',
+    amountWas: '49',
     per:       'one-time · lifetime updates',
     featured:  false,
     popup:     true,
@@ -37,8 +38,9 @@ const PLANS = [
     slug:      'pro',
     name:      'Pro',
     blurb:     'For pro narrators with full audiobook batches and multiple platforms.',
-    amount:    '69',
-    amountWas: '139',
+    reframe:   'Less than one ACX rejection.',
+    amount:    '64',
+    amountWas: '129',
     per:       'one-time · lifetime updates',
     featured:  true,
     popup:     true,
@@ -58,6 +60,7 @@ const PLANS = [
     slug:      'team',
     name:      'Team',
     blurb:     'For audiobook production teams coordinating multiple narrators.',
+    reframe:   'Less than one bad redelivery week across the team.',
     amount:    '199',
     amountWas: '399',
     per:       'one-time · 5 seats',
@@ -120,7 +123,10 @@ export default function NarratorPricing() {
             </div>
 
             <h3 className="text-[22px] font-semibold tracking-[-0.01em] mb-[6px]">{plan.name}</h3>
-            <p className="text-[13.5px] text-dc-ink2 mb-[22px]" style={{ minHeight: '2.8em' }}>{plan.blurb}</p>
+            <p className="text-[13.5px] text-dc-ink2 mb-[10px]" style={{ minHeight: '2.8em' }}>{plan.blurb}</p>
+            <p className={`font-mono text-[12px] tracking-[0.02em] mb-[18px] italic ${plan.featured ? 'text-dc-orange' : 'text-dc-cyan'}`}>
+              {plan.reframe}
+            </p>
 
             <div className="text-xl text-gray-500 line-through decoration-gray-600 mb-1 font-mono">
               € {plan.amountWas}
@@ -135,7 +141,7 @@ export default function NarratorPricing() {
                   ? 'bg-orange-500/10 text-orange-400 border-orange-500/20'
                   : 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'
               }`}>
-                Early Bird — 50% off · ends 31 Jul
+                Early Bird — {Math.round((1 - Number(plan.amount) / Number(plan.amountWas)) * 100)}% off · ends 31 Jul
               </span>
             </div>
             <div className="font-mono text-[12px] text-dc-ink3 mb-6">{plan.per}</div>
