@@ -52,11 +52,8 @@ export default function StudiosHero() {
 
       {/* Lede */}
       <p className="text-[18px] leading-[1.55] text-dc-ink2 max-w-[62ch] mb-9">
-          Never worry about a delivery again.
-          DubCheck instantly verifies your delivery against strict industry standards and creates a signed PDF report.
-          Get the ultimate proof that your audio meets every spec perfectly before you hit send.
-          Don't let a technicality ruin your delivery.
-          DubCheck measures your audio against Netflix, Disney+, and Prime Video specs using a broadcast-certified engine.
+          Don&apos;t let a technicality ruin your delivery.
+          DubCheck gives you signed, auditable proof your mix passes Netflix, Apple TV+, Disney+ and Prime specs - before you hit send.
       </p>
 
       {/* CTA buttons */}
@@ -84,7 +81,7 @@ export default function StudiosHero() {
         </a>
       </div>
       <p className="font-mono text-[12px] tracking-[0.06em] text-dc-ink3 mb-11">
-        No account · just your email · runs locally · macOS &amp; Windows
+        No account · just your email · runs locally · macOS
       </p>
 
       {/* Stats row */}

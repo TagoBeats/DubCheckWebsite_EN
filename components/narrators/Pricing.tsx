@@ -141,7 +141,7 @@ export default function NarratorPricing() {
                   ? 'bg-orange-500/10 text-orange-400 border-orange-500/20'
                   : 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'
               }`}>
-                Early Bird — {Math.round((1 - Number(plan.amount) / Number(plan.amountWas)) * 100)}% off · ends 31 Jul
+                Early Bird - {Math.round((1 - Number(plan.amount) / Number(plan.amountWas)) * 100)}% off · ends 31 Jul
               </span>
             </div>
             <div className="font-mono text-[12px] text-dc-ink3 mb-6">{plan.per}</div>

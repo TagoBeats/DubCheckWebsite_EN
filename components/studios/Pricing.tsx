@@ -87,7 +87,7 @@ export default function StudiosPricing() {
           </h2>
         </div>
         <p className="max-w-[42ch] text-dc-ink2 text-[15px] md:shrink-0">
-          Studios Edition pricing. Lock in your lifetime license at up to 50% off &mdash; Early Bird ends 31 Jul 2026.
+          Studios Edition pricing. Lock in your lifetime license at up to 50% off - Early Bird ends 31 Jul 2026.
           Files are always processed locally, zero vendor onboarding required from your IT team.
           Backed by a 30-day money-back guarantee, no questions asked.
         </p>
@@ -137,7 +137,7 @@ export default function StudiosPricing() {
                   ? 'bg-orange-500/10 text-orange-400 border-orange-500/20'
                   : 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'
               }`}>
-                Early Bird — {Math.round((1 - Number(plan.amount) / Number(plan.amountWas)) * 100)}% off · ends 31 Jul
+                Early Bird - {Math.round((1 - Number(plan.amount) / Number(plan.amountWas)) * 100)}% off · ends 31 Jul
               </span>
             </div>
             <div className="font-mono text-[12px] text-dc-ink3 mb-6">{plan.per}</div>

@@ -29,7 +29,7 @@ function Cell({ value, label }: { value: number; label: string }) {
 
 export default function EarlyBirdCountdown({ compact = false }: { compact?: boolean }) {
   // Start with null so SSR and first client paint render identical placeholder
-  // (a hydration mismatch otherwise — Date.now differs between server render and client hydrate).
+  // (a hydration mismatch otherwise - Date.now differs between server render and client hydrate).
   const [t, setT] = useState<ReturnType<typeof diff> | null>(null)
 
   useEffect(() => {

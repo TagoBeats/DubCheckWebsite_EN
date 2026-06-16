@@ -20,7 +20,7 @@ const TIERS = [
     was:      { audiobook: 49, studios: 79 },
     stripe:   { audiobook: 'https://buy.stripe.com/bJe7sMeWr4fj1ad1uu4Vy04', studios: 'https://buy.stripe.com/14AfZibKf5jn6uxgpo4Vy07' },
     items:    [
-      { text: 'macOS & Windows app', bold: null },
+      { text: 'macOS app', bold: null },
       { text: ' spec profiles',         bold: 'All 38' },
       { text: 'Signed PDF reports',     bold: null },
       { text: 'Free 1.x updates',       bold: null },
@@ -255,7 +255,7 @@ export default function CheckoutPage() {
         aria-hidden="true"
       />
 
-      {/* Accent aura — top center, follows edition */}
+      {/* Accent aura - top center, follows edition */}
       <div
         className="fixed left-1/2 -translate-x-1/2 z-0 pointer-events-none transition-[background] duration-500"
         style={{
@@ -266,7 +266,7 @@ export default function CheckoutPage() {
         aria-hidden="true"
       />
 
-      {/* Brand blob · orange — top-left, slow drift */}
+      {/* Brand blob · orange - top-left, slow drift */}
       <div
         className="brand-blob fixed z-0 pointer-events-none"
         style={{
@@ -279,7 +279,7 @@ export default function CheckoutPage() {
         aria-hidden="true"
       />
 
-      {/* Brand blob · cyan — bottom-right, slow drift */}
+      {/* Brand blob · cyan - bottom-right, slow drift */}
       <div
         className="brand-blob fixed z-0 pointer-events-none"
         style={{
@@ -292,7 +292,7 @@ export default function CheckoutPage() {
         aria-hidden="true"
       />
 
-      {/* Brand blob · mid accent — drifts in the middle for depth */}
+      {/* Brand blob · mid accent - drifts in the middle for depth */}
       <div
         className="brand-blob fixed z-0 pointer-events-none"
         style={{
@@ -378,7 +378,7 @@ export default function CheckoutPage() {
 
           <p className="text-[18px] text-[#A1A1A8] m-0 max-w-[62ch] leading-[1.55]">
             {focusedPlan
-              ? 'One click to Stripe — checkout in under 30 seconds. Pay once, own forever. Backed by a 30-day money-back guarantee, no questions asked.'
+              ? 'One click to Stripe - checkout in under 30 seconds. Pay once, own forever. Backed by a 30-day money-back guarantee, no questions asked.'
               : 'Lifetime license, pay once, own forever. Pick your tier, click through to Stripe, and you’re running today.'}
           </p>
         </section>
@@ -546,7 +546,7 @@ export default function CheckoutPage() {
                 ))}
               </ul>
 
-              {/* CTA — hidden on dimmed sibling cards in focused view */}
+              {/* CTA - hidden on dimmed sibling cards in focused view */}
               {dimmed ? (
                 <div className="mt-auto w-full h-[48px] rounded-[9px] border border-white/[0.04] flex items-center justify-center text-[12px] font-mono tracking-[0.14em] uppercase text-[#44444B]">
                   Not selected

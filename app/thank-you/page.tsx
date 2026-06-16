@@ -121,9 +121,9 @@ export default function ThankYouPage() {
             <p className="text-[15px] text-dc-ink2 leading-[1.7] m-0">
               Check your inbox for the download link and license key.{' '}
               <span className="text-dc-ink font-medium">
-                Install DubCheck for macOS or Windows, paste in the key, and you&apos;re running.
+                Install DubCheck for macOS, paste in the key, and you&apos;re running.
               </span>{' '}
-              Your license activates instantly &mdash; no waiting, no queue.
+              Your license activates instantly - no waiting, no queue.
             </p>
 
             {/* Divider */}

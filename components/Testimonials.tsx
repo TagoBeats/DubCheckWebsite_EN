@@ -2,7 +2,7 @@ type Edition = 'studios' | 'narrators'
 
 const QUOTES = [
   {
-    text: 'Genuinely love the idea — this is the kind of safety net we have been missing.',
+    text: 'Genuinely love the idea - this is the kind of safety net we have been missing.',
     role: 'Re-recording Mixer',
     city: 'Berlin',
   },

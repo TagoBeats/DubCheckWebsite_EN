@@ -77,7 +77,7 @@ export default function NarratorHero() {
         </a>
       </div>
       <p className="font-mono text-[12px] tracking-[0.06em] text-dc-ink3 mb-11">
-        No account · just your email · runs locally · macOS &amp; Windows
+        No account · just your email · runs locally · macOS
       </p>
 
       {/* Stats row */}
