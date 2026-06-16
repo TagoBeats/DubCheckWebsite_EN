@@ -31,7 +31,7 @@ const FAQS: Faq[] = [
   {
     n: 'Q/04',
     q: 'Which platforms are supported?',
-    a: 'V1 covers ACX (Audible), Spotify Audiobooks, Storytel, Podtrac and EBU R128. New platform specs are added based on what early-access customers need. If you require a specific spec, mention it in your pre-order. Most can be added quickly because specs are defined as data, not code.',
+    a: 'DubCheck covers ACX (Audible), Spotify Audiobooks, Storytel, Podtrac and EBU R128. New platform specs are added based on what customers need — drop us a note if a spec is missing. Most can be added quickly because specs are defined as data, not code.',
   },
   {
     n: 'Q/05',
@@ -40,8 +40,8 @@ const FAQS: Faq[] = [
   },
   {
     n: 'Q/06',
-    q: 'When does the V1 standalone app actually ship?',
-    a: 'Within 6 weeks of your pre-order. If we miss that window, you receive a full refund automatically. No questions, no friction. The measurement engine is already complete and EBU-certified. The V1 work is the desktop wrapper (macOS + Windows) and the user interface.',
+    q: 'Can I try it before I buy?',
+    a: 'Yes. Download DubCheck and you automatically get a 14-day free trial of the Pro edition — no account, just your email. Run full batches of your chapters through ACX, Spotify and Storytel profiles locally. If it earns its keep, claim the 50% Early Bird license before 31 July 2026. If not, walk away with zero friction.',
   },
   {
     n: 'Q/07',
@@ -51,7 +51,7 @@ const FAQS: Faq[] = [
   {
     n: 'Q/08',
     q: 'What happens if I find a bug or want a feature?',
-    a: 'Pre-order customers get direct email access to the developer. Early-access feedback shapes the roadmap directly. The Pro tier includes priority support with a 24-hour response time.',
+    a: 'Every customer gets direct email access to the developer. Feedback shapes the roadmap directly. The Pro tier includes priority support with a 24-hour response time.',
   },
 ]
 

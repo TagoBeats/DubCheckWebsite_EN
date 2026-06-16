@@ -1,3 +1,6 @@
+import Link from 'next/link'
+import EarlyBirdCountdown from '../EarlyBirdCountdown'
+
 function CheckIcon() {
   return (
     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-[14px] h-[14px] text-dc-cyan flex-shrink-0">
@@ -6,12 +9,11 @@ function CheckIcon() {
   )
 }
 
-const TALLY_FORM = 'rj2MWv'
-
 const PLANS = [
   {
     tag:       'Lifetime · Single user',
     ledClass:  'led-sm',
+    slug:      'solo',
     name:      'Solo',
     blurb:     'For freelance mixers who need a fast, accurate check on every file.',
     amount:    '49',
@@ -19,7 +21,7 @@ const PLANS = [
     per:       'one-time · lifetime access',
     featured:  false,
     popup:     true,
-    cta:       'Claim Early Bird Price →',
+    cta:       'Claim 50% Early Bird →',
     ctaHref:   '',
     items: [
       { l: 'Single file checking',          v: 'per file' },
@@ -32,6 +34,7 @@ const PLANS = [
   {
     tag:       'Lifetime · Pro · Recommended',
     ledClass:  'led-orange',
+    slug:      'pro',
     name:      'Pro',
     blurb:     'For active mixers who deliver entire episodes and feature films.',
     amount:    '149',
@@ -39,7 +42,7 @@ const PLANS = [
     per:       'one-time · lifetime access',
     featured:  true,
     popup:     true,
-    cta:       'Claim Early Bird Price →',
+    cta:       'Claim 50% Early Bird →',
     ctaHref:   '',
     items: [
       { l: 'Everything in Solo',                              v: '✓' },
@@ -51,6 +54,7 @@ const PLANS = [
   {
     tag:       'Team License · Multi-seat',
     ledClass:  'led-amber',
+    slug:      'team',
     name:      'Team',
     blurb:     'For post-production studios coordinating multiple mixers.',
     amount:    '399',
@@ -58,7 +62,7 @@ const PLANS = [
     per:       'one-time · 5 seats',
     featured:  false,
     popup:     true,
-    cta:       'Claim Early Bird Price →',
+    cta:       'Claim 50% Early Bird →',
     ctaHref:   '',
     items: [
       { l: 'Everything in Pro',            v: '✓' },
@@ -80,10 +84,15 @@ export default function StudiosPricing() {
           </h2>
         </div>
         <p className="max-w-[42ch] text-dc-ink2 text-[15px] md:shrink-0">
-          Studios Edition pricing. Secure your lifetime license during Early Access.
+          Studios Edition pricing. Lock in your lifetime license at 50% off &mdash; Early Bird ends 31 Jul 2026.
           Files are always processed locally, zero vendor onboarding required from your IT team.
-          100% Risk-Free: Fully refunded if V1 doesn't ship within 6 weeks of your order
+          Backed by a 30-day money-back guarantee, no questions asked.
         </p>
+      </div>
+
+      {/* Early Bird countdown */}
+      <div className="flex justify-center mb-12">
+        <EarlyBirdCountdown />
       </div>
 
       {/* Grid */}
@@ -122,7 +131,7 @@ export default function StudiosPricing() {
                   ? 'bg-orange-500/10 text-orange-400 border-orange-500/20'
                   : 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'
               }`}>
-                Early Bird Pre-order (50% off)
+                Early Bird — 50% off · ends 31 Jul
               </span>
             </div>
             <div className="font-mono text-[12px] text-dc-ink3 mb-6">{plan.per}</div>
@@ -140,35 +149,24 @@ export default function StudiosPricing() {
             </ul>
 
             <div className="mt-auto">
-              {plan.popup ? (
-                <button
-                  data-tally-open={TALLY_FORM}
-                  data-tally-layout="modal"
-                  data-tally-width="500"
-                  className={`flex items-center justify-center w-full text-[14px] font-semibold px-5 py-[13px] rounded-[6px] transition-colors duration-150 cursor-pointer ${
-                    plan.featured
-                      ? 'text-[#1A0A00] bg-dc-orange hover:bg-[#FF8A33]'
-                      : 'text-dc-ink2 border border-white/[0.08] hover:text-dc-ink hover:border-white/[0.18]'
-                  }`}
-                  style={plan.featured ? { boxShadow: '0 0 0 1px rgba(255,140,50,0.5), 0 10px 30px -10px rgba(255,122,26,0.6)' } : undefined}
-                >
-                  {plan.cta}
-                </button>
-              ) : (
-                <a
-                  href={plan.ctaHref}
-                  className="flex items-center justify-center w-full text-[14px] font-semibold px-5 py-[13px] rounded-[6px] transition-colors duration-150 text-dc-ink2 border border-white/[0.08] hover:text-dc-ink hover:border-white/[0.18]"
-                >
-                  {plan.cta}
-                </a>
-              )}
+              <Link
+                href={`/checkout?edition=studios&plan=${plan.slug}`}
+                className={`flex items-center justify-center w-full text-[14px] font-semibold px-5 py-[13px] rounded-[6px] transition-colors duration-150 cursor-pointer ${
+                  plan.featured
+                    ? 'text-[#1A0A00] bg-dc-orange hover:bg-[#FF8A33]'
+                    : 'text-dc-ink2 border border-white/[0.08] hover:text-dc-ink hover:border-white/[0.18]'
+                }`}
+                style={plan.featured ? { boxShadow: '0 0 0 1px rgba(255,140,50,0.5), 0 10px 30px -10px rgba(255,122,26,0.6)' } : undefined}
+              >
+                {plan.cta}
+              </Link>
             </div>
           </div>
         ))}
       </div>
 
       <p className="font-mono text-[12px] text-dc-ink3 tracking-[0.05em] text-center mt-10">
-        100% refund guarantee · V1 ships within 8 weeks of your order or your money back.
+        100% refund guarantee · 30-day money-back, no questions asked.
       </p>
     </section>
   )

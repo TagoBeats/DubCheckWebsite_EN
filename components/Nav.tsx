@@ -52,11 +52,11 @@ export default function Nav() {
       {/* Desktop CTA */}
       <div className="hidden md:flex gap-[10px] items-center">
         <Link
-          href={pricingHref}
+          href="/download"
           className="inline-flex items-center gap-[10px] text-[13.5px] font-semibold px-4 py-[10px] rounded-[6px] text-[#1A0A00] bg-dc-orange hover:bg-[#FF8A33] transition-colors duration-150"
           style={{ boxShadow: '0 0 0 1px rgba(255,140,50,0.5), 0 10px 30px -10px rgba(255,122,26,0.6)' }}
         >
-          Get Early Access
+          Free trial
           <ArrowRight />
         </Link>
       </div>
@@ -90,12 +90,12 @@ export default function Nav() {
             </Link>
           ))}
           <Link
-            href={pricingHref}
+            href="/download"
             onClick={() => setOpen(false)}
             className="inline-flex items-center justify-center gap-[10px] text-[14px] font-semibold px-4 py-[12px] rounded-[6px] text-[#1A0A00] bg-dc-orange hover:bg-[#FF8A33] transition-colors duration-150 mt-2"
             style={{ boxShadow: '0 0 0 1px rgba(255,140,50,0.5), 0 10px 30px -10px rgba(255,122,26,0.6)' }}
           >
-            Get Early Access
+            Free trial
             <ArrowRight />
           </Link>
         </div>

@@ -50,8 +50,8 @@ const FAQS = [
   },
   {
     n: 'Q/10',
-    q: 'When does V1 ship?',
-    a: 'Within 6 weeks of your pre-order. If we miss that window, you get a full automatic refund. The measurement engine is already EBU-certified and feature-complete. V1 is the desktop wrapper (macOS + Windows) and the studio-facing UI.',
+    q: 'Can I try it before I buy?',
+    a: 'Yes. Download DubCheck and you automatically get a 14-day free trial of the Pro edition — no account, just your email. Run as many checks as you want against Netflix, Apple TV+, Disney+ and Prime profiles locally on your own files. If it earns its keep, claim the 50% Early Bird license before 31 July 2026. If not, walk away with zero friction.',
   },
 ]
 

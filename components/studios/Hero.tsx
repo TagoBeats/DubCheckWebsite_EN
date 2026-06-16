@@ -60,13 +60,13 @@ export default function StudiosHero() {
       </p>
 
       {/* CTA buttons */}
-      <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center mb-11">
+      <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center mb-3">
         <Link
-          href="#pricing"
+          href="/download"
           className="inline-flex items-center gap-[10px] text-[14px] font-semibold px-5 py-[13px] rounded-[6px] text-[#1A0A00] bg-dc-orange hover:bg-[#FF8A33] transition-colors duration-150"
           style={{ boxShadow: '0 0 0 1px rgba(255,140,50,0.5), 0 10px 30px -10px rgba(255,122,26,0.6)' }}
         >
-          Get Early Access
+          Download free 14-day Pro trial
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-[14px] h-[14px]">
             <path d="M3 8h10M9 4l4 4-4 4" />
           </svg>
@@ -83,6 +83,9 @@ export default function StudiosHero() {
           See sample report
         </a>
       </div>
+      <p className="font-mono text-[12px] tracking-[0.06em] text-dc-ink3 mb-11">
+        No account · just your email · runs locally · macOS &amp; Windows
+      </p>
 
       {/* Stats row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-9 pt-[26px] border-t border-white/[0.04] max-w-[900px]">

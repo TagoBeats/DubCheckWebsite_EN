@@ -4,9 +4,8 @@ import { useState, useEffect, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
-const TALLY_FORM = 'rj2MWv'
-
 type Edition = 'audiobook' | 'studios'
+type TierSlug = 'solo' | 'pro' | 'team'
 
 // ── Plan data ──────────────────────────────────────────────────────────────
 const TIERS = [
@@ -21,7 +20,7 @@ const TIERS = [
     was:      { audiobook: 60, studios: 98 },
     stripe:   { audiobook: 'https://buy.stripe.com/bJe7sMeWr4fj1ad1uu4Vy04', studios: 'https://buy.stripe.com/14AfZibKf5jn6uxgpo4Vy07' },
     items:    [
-      { text: 'macOS & Windows V1 app', bold: null },
+      { text: 'macOS & Windows app', bold: null },
       { text: ' spec profiles',         bold: 'All 38' },
       { text: 'Signed PDF reports',     bold: null },
       { text: 'Free 1.x updates',       bold: null },
@@ -192,10 +191,35 @@ function ArrowIcon() {
 // ── Main component ─────────────────────────────────────────────────────────
 export default function CheckoutPage() {
   const searchParams = useSearchParams()
-  const email = searchParams.get('email') ?? null
+  const editionParam = searchParams.get('edition')
+  const planParam = searchParams.get('plan')
 
-  const [edition, setEdition] = useState<Edition>('audiobook')
+  const initialEdition: Edition = editionParam === 'studios' ? 'studios' : 'audiobook'
+  const focusedPlan: TierSlug | null =
+    planParam === 'solo' || planParam === 'pro' || planParam === 'team' ? planParam : null
+
+  const [edition, setEdition] = useState<Edition>(initialEdition)
   const [flipping, setFlipping] = useState<string | null>(null)
+
+  // Bust the browser bfcache. When the user goes to Stripe and hits "back",
+  // some browsers restore the in-memory DOM snapshot without re-running React,
+  // which can show a stale layout. Force a reload in that specific case.
+  useEffect(() => {
+    function onPageShow(e: PageTransitionEvent) {
+      if (e.persisted) window.location.reload()
+    }
+    window.addEventListener('pageshow', onPageShow)
+    return () => window.removeEventListener('pageshow', onPageShow)
+  }, [])
+
+  // Focused view shows all three tiers, but selected goes to the center
+  // and the other two are dimmed/disabled. Bare /checkout shows TIERS as-is.
+  const visibleTiers = (() => {
+    if (!focusedPlan) return TIERS
+    const selected = TIERS.find(t => t.tier === focusedPlan)!
+    const siblings = TIERS.filter(t => t.tier !== focusedPlan)
+    return [siblings[0], selected, siblings[1]]
+  })()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   useConfetti(canvasRef)
 
@@ -231,13 +255,52 @@ export default function CheckoutPage() {
         aria-hidden="true"
       />
 
-      {/* Accent aura */}
+      {/* Accent aura — top center, follows edition */}
       <div
         className="fixed left-1/2 -translate-x-1/2 z-0 pointer-events-none transition-[background] duration-500"
         style={{
           top: -120, width: 1200, height: 700,
           background: `radial-gradient(ellipse at center top, ${accentDim} 0%, transparent 60%)`,
           filter: 'blur(2px)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Brand blob · orange — top-left, slow drift */}
+      <div
+        className="brand-blob fixed z-0 pointer-events-none"
+        style={{
+          top: '-180px', left: '-260px', width: '760px', height: '760px',
+          background: 'radial-gradient(circle at 50% 50%, rgba(255,122,26,0.16) 0%, rgba(255,122,26,0.05) 38%, transparent 70%)',
+          filter: 'blur(40px)',
+          willChange: 'transform',
+          animation: 'blobDriftA 18s ease-in-out infinite',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Brand blob · cyan — bottom-right, slow drift */}
+      <div
+        className="brand-blob fixed z-0 pointer-events-none"
+        style={{
+          bottom: '-220px', right: '-300px', width: '820px', height: '820px',
+          background: 'radial-gradient(circle at 50% 50%, rgba(34,211,238,0.14) 0%, rgba(34,211,238,0.04) 40%, transparent 72%)',
+          filter: 'blur(40px)',
+          willChange: 'transform',
+          animation: 'blobDriftB 22s ease-in-out infinite',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Brand blob · mid accent — drifts in the middle for depth */}
+      <div
+        className="brand-blob fixed z-0 pointer-events-none"
+        style={{
+          top: '40%', left: '60%', width: '520px', height: '520px',
+          background: `radial-gradient(circle at 50% 50%, ${accentDim} 0%, transparent 65%)`,
+          filter: 'blur(50px)',
+          willChange: 'transform',
+          animation: 'blobDriftC 26s ease-in-out infinite',
         }}
         aria-hidden="true"
       />
@@ -261,17 +324,12 @@ export default function CheckoutPage() {
 
         {/* Brand mark - no nav */}
         <div className="self-start flex items-center gap-[10px]">
-          <div className="w-[22px] h-[22px] grid place-items-center border border-white/[0.08] rounded-[4px] bg-[#17171A]">
-            <span
-              className="w-[10px] h-[10px] rounded-full transition-all duration-300"
-              style={{ background: accent, boxShadow: `0 0 10px ${accentGlow}, inset 0 0 4px rgba(255,255,255,0.4)` }}
-            />
-          </div>
+          <img src="/logo.svg" alt="DubCheck" width={22} height={22} className="block" />
           <span className="text-[14px] font-semibold text-[#A1A1A8]">
             <b className="text-[#ECECEE]">DubCheck</b>
           </span>
           <span className="font-mono text-[12px] text-[#6B6B72] border border-white/[0.08] px-[6px] py-[2px] rounded-[3px] tracking-[0.08em] ml-1">
-            Early Access
+            Early Bird
           </span>
         </div>
 
@@ -286,11 +344,18 @@ export default function CheckoutPage() {
 
           {/* Status pill */}
           <div className="inline-flex items-center gap-[9px] px-[14px] py-[7px] rounded-full border"
-            style={{ background: 'rgba(34,201,139,0.08)', borderColor: 'rgba(34,201,139,0.28)', color: '#5EEBB3' }}>
+            style={{
+              background: focusedPlan ? 'rgba(34,201,139,0.08)' : `${accentDim}`,
+              borderColor: focusedPlan ? 'rgba(34,201,139,0.28)' : accentDim,
+              color: focusedPlan ? '#5EEBB3' : accentText,
+            }}>
             <span className="w-[7px] h-[7px] rounded-full animate-pulse flex-shrink-0"
-              style={{ background: '#22C98B', boxShadow: '0 0 8px rgba(34,201,139,0.9)' }} />
+              style={{
+                background: focusedPlan ? '#22C98B' : accent,
+                boxShadow: focusedPlan ? '0 0 8px rgba(34,201,139,0.9)' : `0 0 8px ${accentGlow}`,
+              }} />
             <span className="font-mono text-[12px] tracking-[0.14em] uppercase">
-              Confirmed{email ? ` · ${email}` : ''}
+              {focusedPlan ? 'Plan selected' : 'Early Bird · 50% off'}
             </span>
           </div>
 
@@ -300,45 +365,26 @@ export default function CheckoutPage() {
               backgroundImage: 'linear-gradient(180deg, #FFFFFF 0%, #C8C8CE 100%)',
               WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
             }}>
-            You&apos;re on the list
+            {focusedPlan ? (
+              <>Great call.<br />Let&apos;s lock it in.</>
+            ) : (
+              <>Pick the license <br />that fits.</>
+            )}
             <span className="ml-2 inline-block animate-[tada_1.6s_ease-in-out_0.4s_both]"
               style={{ WebkitTextFillColor: 'initial', color: 'initial' }}>
-              🎉
+              {focusedPlan ? '🔒' : '🎯'}
             </span>
           </h1>
 
           <p className="text-[18px] text-[#A1A1A8] m-0 max-w-[62ch] leading-[1.55]">
-            We&apos;ll notify you as soon as the V1 app for macOS and Windows is ready.
-            Meanwhile, your spot in the queue is locked in.
+            {focusedPlan
+              ? 'One click to Stripe — checkout in under 30 seconds. Pay once, own forever. Backed by a 30-day money-back guarantee, no questions asked.'
+              : 'Lifetime license, pay once, own forever. Pick your tier, click through to Stripe, and you’re running today.'}
           </p>
-
-          {/* Upsell hook */}
-          <div className="mt-5 inline-flex items-center gap-[14px] px-[18px] py-[14px] pr-[22px] rounded-full border border-white/[0.08] text-[14.5px]"
-            style={{
-              background: `linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0)), #17171A`,
-              boxShadow: `0 0 0 1px ${accentDim} inset, 0 20px 50px -30px ${accentGlow}`,
-            }}>
-            <span className="w-6 h-6 rounded-full grid place-items-center flex-shrink-0 transition-all duration-300"
-              style={{ background: accent, boxShadow: `0 0 14px ${accentGlow}` }}>
-              <svg viewBox="0 0 16 16" fill="none" stroke={accentOnDark} strokeWidth="2.2" strokeLinecap="round"
-                className="w-3 h-3">
-                <path d="M8 1.5l1.8 4.7 4.7 1.8-4.7 1.8L8 14.5l-1.8-4.7L1.5 8l4.7-1.8z" />
-              </svg>
-            </span>
-            <span>
-              Since you&apos;re here: want to{' '}
-              <b className="font-semibold text-[#ECECEE]">secure your lifetime license at the 50% Early Bird price</b>
-              {' '}right now?
-            </span>
-            <span className="text-[#6B6B72] animate-[bob_2s_ease-in-out_infinite]" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6">
-                <path d="M4 6l4 4 4-4" />
-              </svg>
-            </span>
-          </div>
         </section>
 
         {/* ── Edition toggle ── */}
+        {!focusedPlan && (
         <div className="mb-9 mt-[60px] flex flex-col items-center gap-[14px]">
           <div className="font-mono text-[12px] text-[#6B6B72] tracking-[0.18em] uppercase">
             Choose your edition
@@ -380,28 +426,57 @@ export default function CheckoutPage() {
             ))}
           </div>
         </div>
+        )}
 
         {/* ── Pricing cards ── */}
-        <div className="w-full max-w-[1080px] grid grid-cols-1 md:grid-cols-3 gap-[18px] items-stretch"
+        <div
+          className={`w-full grid items-center gap-[18px] ${
+            focusedPlan
+              ? 'max-w-[1080px] grid-cols-1 md:grid-cols-3 mt-[40px]'
+              : 'max-w-[1080px] grid-cols-1 md:grid-cols-3 items-stretch'
+          }`}
           style={{ perspective: 1200 }}>
-          {TIERS.map(plan => (
+          {visibleTiers.map(plan => {
+            const dimmed = !!focusedPlan && plan.tier !== focusedPlan
+            // Per-tier accent for the soft glow on non-featured cards.
+            // Pro uses the edition accent (orange/cyan). Solo + Team get cyan / amber tints so each card has its own life.
+            const cardAccent =
+              plan.tier === 'solo' ? (isStudios ? 'rgba(34,211,238,0.18)' : 'rgba(255,122,26,0.16)')
+              : plan.tier === 'team' ? 'rgba(250,182,72,0.16)'
+              : accentDim
+            const cardGlow =
+              plan.tier === 'solo' ? (isStudios ? 'rgba(34,211,238,0.45)' : 'rgba(255,122,26,0.4)')
+              : plan.tier === 'team' ? 'rgba(250,182,72,0.38)'
+              : accentGlow
+            return (
             <article
               key={plan.tier}
-              className="relative border rounded-[14px] flex flex-col transition-all duration-300 hover:-translate-y-1"
+              aria-disabled={dimmed || undefined}
+              className={`tier-card relative border rounded-[14px] flex flex-col transition-all duration-500 ${
+                dimmed
+                  ? 'tier-card--dimmed pointer-events-none select-none'
+                  : 'hover:-translate-y-[6px]'
+              } ${plan.featured && !dimmed ? 'tier-card--featured' : ''}`}
               style={plan.featured ? {
                 borderColor: accentDim,
                 background: `radial-gradient(ellipse at top, ${accentDim} 0%, transparent 50%), linear-gradient(180deg, #1A1A1E 0%, #131316 100%)`,
                 boxShadow: `0 0 0 1px ${accentDim}, 0 30px 80px -30px ${accentGlow}, inset 0 1px 0 rgba(255,255,255,0.05)`,
                 transform: 'translateY(-12px)',
                 padding: '40px 28px 28px',
+                // expose accent for hover via CSS var
+                ['--card-accent' as any]: cardAccent,
+                ['--card-glow'   as any]: cardGlow,
               } : {
                 borderColor: 'rgba(255,255,255,0.08)',
-                background: 'linear-gradient(180deg, #17171A 0%, #131316 100%)',
+                background: `radial-gradient(ellipse at top, ${cardAccent} 0%, transparent 55%), linear-gradient(180deg, #17171A 0%, #131316 100%)`,
+                boxShadow: `0 0 0 1px rgba(255,255,255,0.04), 0 20px 50px -30px ${cardGlow}, inset 0 1px 0 rgba(255,255,255,0.03)`,
                 padding: '30px 28px 28px',
+                ['--card-accent' as any]: cardAccent,
+                ['--card-glow'   as any]: cardGlow,
               }}
             >
               {/* Crown badge */}
-              {plan.featured && (
+              {plan.featured && !dimmed && (
                 <span
                   className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 font-mono text-[12px] font-semibold tracking-[0.16em] uppercase px-[14px] py-[6px] rounded-full transition-all duration-300"
                   style={{
@@ -471,25 +546,41 @@ export default function CheckoutPage() {
                 ))}
               </ul>
 
-              {/* CTA */}
-              <a
-                href={plan.stripe[edition]}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group mt-auto w-full inline-flex items-center justify-center gap-[10px] px-[18px] py-[14px] rounded-[9px] text-[14px] font-semibold tracking-[-0.005em] border transition-all duration-200"
-                style={plan.featured ? {
-                  background: accent, color: accentOnDark, borderColor: 'transparent',
-                  boxShadow: `0 0 0 1px ${accentDim}, 0 18px 40px -18px ${accentGlow}`,
-                } : {
-                  background: 'rgba(255,255,255,0.02)', color: '#ECECEE',
-                  borderColor: 'rgba(255,255,255,0.08)',
-                }}
-              >
-                Proceed to Checkout
-                <ArrowIcon />
-              </a>
+              {/* CTA — hidden on dimmed sibling cards in focused view */}
+              {dimmed ? (
+                <div className="mt-auto w-full h-[48px] rounded-[9px] border border-white/[0.04] flex items-center justify-center text-[12px] font-mono tracking-[0.14em] uppercase text-[#44444B]">
+                  Not selected
+                </div>
+              ) : focusedPlan ? (
+                <a
+                  href={plan.stripe[edition]}
+                  className="group mt-auto w-full inline-flex items-center justify-center gap-[10px] px-[18px] py-[14px] rounded-[9px] text-[14px] font-semibold tracking-[-0.005em] border transition-all duration-200"
+                  style={{
+                    background: accent, color: accentOnDark, borderColor: 'transparent',
+                    boxShadow: `0 0 0 1px ${accentDim}, 0 18px 40px -18px ${accentGlow}`,
+                  }}
+                >
+                  Pay securely with Stripe
+                  <ArrowIcon />
+                </a>
+              ) : (
+                <Link
+                  href={`/checkout?edition=${edition}&plan=${plan.tier}`}
+                  className="group mt-auto w-full inline-flex items-center justify-center gap-[10px] px-[18px] py-[14px] rounded-[9px] text-[14px] font-semibold tracking-[-0.005em] border transition-all duration-200"
+                  style={plan.featured ? {
+                    background: accent, color: accentOnDark, borderColor: 'transparent',
+                    boxShadow: `0 0 0 1px ${accentDim}, 0 18px 40px -18px ${accentGlow}`,
+                  } : {
+                    background: 'rgba(255,255,255,0.02)', color: '#ECECEE',
+                    borderColor: 'rgba(255,255,255,0.08)',
+                  }}
+                >
+                  Proceed to Checkout
+                  <ArrowIcon />
+                </Link>
+              )}
             </article>
-          ))}
+          )})}
         </div>
 
         {/* ── Trust anchor ── */}
@@ -500,8 +591,8 @@ export default function CheckoutPage() {
               <path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" />
             </svg>
             <span>
-              <b className="font-medium text-[#A1A1A8]">100% Risk-Free Pre-Order.</b>{' '}
-              Fully refunded if the V1 app does not ship within 6 weeks of your order.
+              <b className="font-medium text-[#A1A1A8]">100% Risk-Free.</b>{' '}
+              30-day money-back guarantee, no questions asked.
             </span>
           </div>
 
@@ -516,7 +607,7 @@ export default function CheckoutPage() {
 
         {/* Footer sig */}
         <div className="mt-10 font-mono text-[12px] text-[#44444B] tracking-[0.18em] uppercase">
-          DubCheck QC · v1.0 RC · pre-order · 2026
+          DubCheck QC · v1.0 · 2026
         </div>
       </div>
 
@@ -530,6 +621,42 @@ export default function CheckoutPage() {
         @keyframes bob {
           0%,100% { transform: translateY(0); opacity: 0.5 }
           50%     { transform: translateY(3px); opacity: 1 }
+        }
+        @keyframes blobDriftA {
+          0%,100% { transform: translate(0,0)        scale(1) }
+          50%     { transform: translate(60px,40px)  scale(1.08) }
+        }
+        @keyframes blobDriftB {
+          0%,100% { transform: translate(0,0)         scale(1) }
+          50%     { transform: translate(-80px,-50px) scale(1.05) }
+        }
+        .tier-card { transform-origin: center; }
+        .tier-card:not(.tier-card--dimmed):hover {
+          border-color: var(--card-accent) !important;
+          box-shadow:
+            0 0 0 1px var(--card-accent),
+            0 40px 90px -30px var(--card-glow),
+            inset 0 1px 0 rgba(255,255,255,0.06) !important;
+        }
+        .tier-card--featured:not(.tier-card--dimmed) { transform: translateY(-12px); }
+        .tier-card--featured:not(.tier-card--dimmed):hover { transform: translateY(-18px) !important; }
+
+        /* Dimmed siblings in focused-plan view */
+        .tier-card--dimmed {
+          transform: scale(0.82);
+          opacity: 0.35;
+          filter: grayscale(0.85) saturate(0.4);
+          box-shadow: none !important;
+          cursor: default;
+        }
+        .tier-card--dimmed * { cursor: default !important; }
+        @keyframes blobDriftC {
+          0%,100% { transform: translate(0,0)         scale(1)   }
+          33%     { transform: translate(40px,-30px)  scale(1.1) }
+          66%     { transform: translate(-30px,50px)  scale(0.95) }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .brand-blob { animation: none !important; }
         }
       `}</style>
     </div>

@@ -69,7 +69,7 @@ export default function ThankYouPage() {
               className="w-[7px] h-[7px] rounded-full flex-shrink-0 animate-pulse"
               style={{ background: '#22C98B', boxShadow: '0 0 8px rgba(34,201,139,0.9)' }}
             />
-            Pre-order confirmed
+            Order confirmed
           </div>
 
           {/* ── Headline ── */}
@@ -88,8 +88,8 @@ export default function ThankYouPage() {
 
           {/* ── Subtext ── */}
           <p className="text-[17px] md:text-[18px] text-dc-ink2 leading-[1.6] max-w-[52ch] mb-12">
-            Your pre-order was successful and your lifetime license is now reserved.
-            We&apos;ve sent a receipt to your email address.
+            Your lifetime license is now active. The download link, license key
+            and receipt are on the way to your email.
           </p>
 
           {/* ── Next steps card ── */}
@@ -119,11 +119,11 @@ export default function ThankYouPage() {
             </div>
 
             <p className="text-[15px] text-dc-ink2 leading-[1.7] m-0">
-              We are working hard on the V1 release.{' '}
+              Check your inbox for the download link and license key.{' '}
               <span className="text-dc-ink font-medium">
-                Expect your download link and license key in your inbox within the next 6 weeks.
+                Install DubCheck for macOS or Windows, paste in the key, and you&apos;re running.
               </span>{' '}
-              You&apos;ll be among the first to know the moment it&apos;s ready.
+              Your license activates instantly &mdash; no waiting, no queue.
             </p>
 
             {/* Divider */}
@@ -163,7 +163,7 @@ export default function ThankYouPage() {
 
           {/* Footer sig */}
           <p className="font-mono text-[12px] text-[#44444B] tracking-[0.18em] uppercase mt-14">
-            DubCheck QC · v1.0 RC · pre-order · 2026
+            DubCheck QC · v1.0 · 2026
           </p>
 
         </main>
