@@ -155,6 +155,8 @@ export default function NarratorPricing() {
             <div className="mt-auto">
               <Link
                 href={`/checkout?edition=audiobook&plan=${plan.slug}`}
+                target="_blank"
+                rel="noopener"
                 className={`flex items-center justify-center w-full text-[14px] font-semibold px-5 py-[13px] rounded-[6px] transition-colors duration-150 cursor-pointer ${
                   plan.featured
                     ? 'text-[#1A0A00] bg-dc-orange hover:bg-[#FF8A33]'

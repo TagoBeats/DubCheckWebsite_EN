@@ -430,9 +430,9 @@ export default function CheckoutPage() {
 
         {/* ── Pricing cards ── */}
         <div
-          className={`w-full grid items-center gap-[18px] ${
+          className={`w-full grid items-center gap-[10px] md:gap-[18px] ${
             focusedPlan
-              ? 'max-w-[1080px] grid-cols-1 md:grid-cols-3 mt-[40px]'
+              ? 'max-w-[1080px] grid-cols-3 mt-[40px]'
               : 'max-w-[1080px] grid-cols-1 md:grid-cols-3 items-stretch'
           }`}
           style={{ perspective: 1200 }}>
