@@ -69,7 +69,7 @@ export default function ThankYouPage() {
               className="w-[7px] h-[7px] rounded-full flex-shrink-0 animate-pulse"
               style={{ background: '#22C98B', boxShadow: '0 0 8px rgba(34,201,139,0.9)' }}
             />
-            Order confirmed
+            Purchase complete
           </div>
 
           {/* ── Headline ── */}
@@ -82,14 +82,14 @@ export default function ThankYouPage() {
               backgroundClip: 'text',
             }}
           >
-            You&apos;re officially an<br />Early Adopter!{' '}
-            <span style={{ WebkitTextFillColor: 'initial' }}>🚀</span>
+            Thanks for your<br />purchase and support{' '}
+            <span style={{ WebkitTextFillColor: 'initial' }}>🎧</span>
           </h1>
 
           {/* ── Subtext ── */}
           <p className="text-[17px] md:text-[18px] text-dc-ink2 leading-[1.6] max-w-[52ch] mb-12">
-            Your lifetime license is now active. The download link, license key
-            and receipt are on the way to your email.
+            Your DubCheck license is on its way. Check your inbox for the
+            download link, your license key, and the receipt.
           </p>
 
           {/* ── Next steps card ── */}
@@ -114,24 +114,26 @@ export default function ThankYouPage() {
                 </svg>
               </div>
               <span className="font-mono text-[12px] tracking-[0.14em] uppercase text-[#22C98B]">
-                What happens now?
+                Next up
               </span>
             </div>
 
             <p className="text-[15px] text-dc-ink2 leading-[1.7] m-0">
-              Check your inbox for the download link and license key.{' '}
+              Open the email we just sent, grab the macOS installer and your
+              license key.{' '}
               <span className="text-dc-ink font-medium">
-                Install DubCheck for macOS, paste in the key, and you&apos;re running.
+                Drop DubCheck into Applications, paste the key, and you&apos;re
+                printing clean masters.
               </span>{' '}
-              Your license activates instantly - no waiting, no queue.
+              Activation is instant - no queue, no waiting.
             </p>
 
             {/* Divider */}
             <div className="border-t border-white/[0.04] mt-7 pt-6 flex items-center gap-6 flex-wrap">
               {[
                 { icon: 'M3 8.5l3 3 7-7', label: 'Receipt sent to your inbox' },
-                { icon: 'M3 8.5l3 3 7-7', label: 'License key reserved' },
-                { icon: 'M3 8.5l3 3 7-7', label: '100% refund guarantee' },
+                { icon: 'M3 8.5l3 3 7-7', label: 'License key delivered' },
+                { icon: 'M3 8.5l3 3 7-7', label: 'macOS installer ready' },
               ].map(item => (
                 <div key={item.label} className="flex items-center gap-[8px] text-[13px] text-dc-ink2">
                   <svg viewBox="0 0 16 16" fill="none" stroke="#22C98B" strokeWidth="2"
