@@ -279,14 +279,17 @@ export default function CheckoutPage() {
         aria-hidden="true"
       />
 
-      {/* Brand blob · orange - top-left, slow drift */}
+      {/* Brand blob · orange - top-left, slow drift.
+          Blur radius kept small: the gradient is already soft, an extra
+          24px is enough for the haze without paying a fat rasterization. */}
       <div
         className="brand-blob fixed z-0 pointer-events-none"
         style={{
           top: '-180px', left: '-260px', width: '760px', height: '760px',
           background: 'radial-gradient(circle at 50% 50%, rgba(255,122,26,0.16) 0%, rgba(255,122,26,0.05) 38%, transparent 70%)',
-          filter: 'blur(40px)',
+          filter: 'blur(24px)',
           willChange: 'transform',
+          transform: 'translateZ(0)',
           animation: 'blobDriftA 18s ease-in-out infinite',
         }}
         aria-hidden="true"
@@ -298,8 +301,9 @@ export default function CheckoutPage() {
         style={{
           bottom: '-220px', right: '-300px', width: '820px', height: '820px',
           background: 'radial-gradient(circle at 50% 50%, rgba(34,211,238,0.14) 0%, rgba(34,211,238,0.04) 40%, transparent 72%)',
-          filter: 'blur(40px)',
+          filter: 'blur(24px)',
           willChange: 'transform',
+          transform: 'translateZ(0)',
           animation: 'blobDriftB 22s ease-in-out infinite',
         }}
         aria-hidden="true"
@@ -311,8 +315,9 @@ export default function CheckoutPage() {
         style={{
           top: '40%', left: '60%', width: '520px', height: '520px',
           background: `radial-gradient(circle at 50% 50%, ${accentDim} 0%, transparent 65%)`,
-          filter: 'blur(50px)',
+          filter: 'blur(28px)',
           willChange: 'transform',
+          transform: 'translateZ(0)',
           animation: 'blobDriftC 26s ease-in-out infinite',
         }}
         aria-hidden="true"
@@ -465,7 +470,7 @@ export default function CheckoutPage() {
             <article
               key={plan.tier}
               aria-disabled={dimmed || undefined}
-              className={`tier-card relative border rounded-[14px] flex flex-col transition-all duration-500 ${
+              className={`tier-card relative border rounded-[14px] flex flex-col transition-[transform,box-shadow,border-color,opacity,filter] duration-500 ${
                 dimmed
                   ? 'tier-card--dimmed pointer-events-none select-none'
                   : 'hover:-translate-y-[6px]'
@@ -609,10 +614,10 @@ export default function CheckoutPage() {
             </span>
           </div>
 
-          <div className="flex items-center gap-[10px] text-[13.5px] text-[#6B6B72] max-w-[64ch]">
+          <div className="flex items-start gap-[10px] text-[13.5px] text-[#6B6B72] max-w-[64ch] text-left">
             <svg viewBox="0 0 16 16" fill="none" stroke="#A1A1A8" strokeWidth="1.6"
               strokeLinecap="round" strokeLinejoin="round"
-              className="w-[14px] h-[14px] flex-shrink-0">
+              className="w-[14px] h-[14px] flex-shrink-0 mt-[4px]">
               <circle cx="8" cy="8" r="6" />
               <path d="M8 5v3.5l2 2" />
             </svg>
