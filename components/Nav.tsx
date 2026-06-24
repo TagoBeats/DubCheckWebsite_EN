@@ -10,6 +10,7 @@ const STATIC_LINKS = [
   { href: '/blog',      label: 'Blog' },
   { href: '/help',      label: 'Help' },
   { href: '/about',     label: 'About' },
+  { href: '/download',  label: 'Download' },
 ]
 
 export default function Nav() {
