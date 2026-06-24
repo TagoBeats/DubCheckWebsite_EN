@@ -1,5 +1,5 @@
 {
-  "latest": "1.0.0",
+  "latest": "1.0.7",
   "download_url": "https://audio-dubcheck.com/download",
-  "release_notes": ""
+  "release_notes": "Signed and notarized installer. Silent install (no auto-launch), font cache warmup fix, hardened key validation, batch PDF improvements."
 }
