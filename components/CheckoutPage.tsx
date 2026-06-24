@@ -18,7 +18,7 @@ const TIERS = [
     featured: false,
     prices:   { audiobook: 29, studios: 49 },
     was:      { audiobook: 49, studios: 79 },
-    stripe:   { audiobook: 'https://buy.stripe.com/bJe7sMeWr4fj1ad1uu4Vy04', studios: 'https://buy.stripe.com/14AfZibKf5jn6uxgpo4Vy07' },
+    stripe:   { audiobook: 'https://buy.stripe.com/14AcN69C71371ad0qq4Vy0b', studios: 'https://buy.stripe.com/14AfZibKf5jn6uxgpo4Vy07' },
     items:    [
       { text: 'macOS app', bold: null },
       { text: ' spec profiles',         bold: 'All 38' },
@@ -35,7 +35,7 @@ const TIERS = [
     featured: true,
     prices:   { audiobook: 64,  studios: 99 },
     was:      { audiobook: 129, studios: 199 },
-    stripe:   { audiobook: 'https://buy.stripe.com/eVq14o29F8vz4mp6OO4Vy05', studios: 'https://buy.stripe.com/8x2dRa6pVdPT3il7SS4Vy08' },
+    stripe:   { audiobook: 'https://buy.stripe.com/bJe8wQ4hN8vz6ux4GG4Vy0c', studios: 'https://buy.stripe.com/cNi28sg0vh256uxgpo4Vy0d' },
     items:    [
       { text: 'Everything in Solo',          bold: null },
       { text: ' · drop entire seasons', bold: 'Batch QC' },
