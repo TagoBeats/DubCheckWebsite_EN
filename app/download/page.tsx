@@ -7,7 +7,7 @@ import DownloadCTA from '@/components/DownloadCTA'
 
 const CURRENT_VERSION = '1.0.7'
 const DOWNLOAD_URL = 'https://github.com/TagoBeats/DubCheck-downloads/releases/latest/download/DubCheck.pkg'
-const SUPPORT_EMAIL = 'support@audio-dbcheck.com'
+const SUPPORT_EMAIL = 'support@audio-dubcheck.com'
 
 export const metadata: Metadata = {
   title: 'Download DubCheck for macOS',
