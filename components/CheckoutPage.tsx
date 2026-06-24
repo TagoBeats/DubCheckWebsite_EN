@@ -470,7 +470,7 @@ export default function CheckoutPage() {
             <article
               key={plan.tier}
               aria-disabled={dimmed || undefined}
-              className={`tier-card relative border rounded-[14px] flex flex-col transition-[transform,box-shadow,border-color,opacity,filter] duration-500 ${
+              className={`tier-card relative border rounded-[14px] flex flex-col transition-[transform,box-shadow,border-color,opacity] duration-500 ${
                 dimmed
                   ? 'tier-card--dimmed pointer-events-none select-none'
                   : 'hover:-translate-y-[6px]'
@@ -675,8 +675,7 @@ export default function CheckoutPage() {
         /* Dimmed siblings in focused-plan view */
         .tier-card--dimmed {
           transform: scale(0.82);
-          opacity: 0.35;
-          filter: grayscale(0.85) saturate(0.4);
+          opacity: 0.28;
           box-shadow: none !important;
           cursor: default;
         }
