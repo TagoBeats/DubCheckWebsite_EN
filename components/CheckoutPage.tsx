@@ -68,6 +68,19 @@ function useConfetti(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
   useEffect(() => {
     const c = canvasRef.current
     if (!c) return
+
+    // Respect the OS "reduce motion" preference - skip the burst entirely.
+    if (typeof window !== 'undefined' &&
+        window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      return
+    }
+
+    // Scale particle count to hardware. The default desktop count caused
+    // visible jank during the first ~5 seconds on mid-range / older machines.
+    const cores = typeof navigator !== 'undefined' ? (navigator.hardwareConcurrency || 4) : 4
+    const initialCount = cores >= 8 ? 36 : cores >= 4 ? 24 : 14
+    const trickleCap   = cores >= 8 ? 18 : cores >= 4 ? 12 : 6
+
     const ctx = c.getContext('2d')!
     let W = 0, H = 0
     const dpr = window.devicePixelRatio || 1
@@ -112,7 +125,7 @@ function useConfetti(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
       }
     }
 
-    for (let i = 0; i < 70; i++) parts.push(makeParticle(true))
+    for (let i = 0; i < initialCount; i++) parts.push(makeParticle(true))
 
     // Stop spawning new particles after 5s - let existing ones fall off, then stop RAF
     let spawning = true
@@ -147,7 +160,7 @@ function useConfetti(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
       }
 
       // Trickle while spawning is active
-      if (spawning && parts.length < 30 && Math.random() < 0.06) {
+      if (spawning && parts.length < trickleCap && Math.random() < 0.06) {
         parts.push(makeParticle(false))
       }
 
