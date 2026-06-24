@@ -596,6 +596,19 @@ export default function CheckoutPage() {
             </span>
           </div>
 
+          <div className="flex items-center gap-[10px] text-[13.5px] text-[#6B6B72] max-w-[64ch]">
+            <svg viewBox="0 0 16 16" fill="none" stroke="#A1A1A8" strokeWidth="1.6"
+              strokeLinecap="round" strokeLinejoin="round"
+              className="w-[14px] h-[14px] flex-shrink-0">
+              <circle cx="8" cy="8" r="6" />
+              <path d="M8 5v3.5l2 2" />
+            </svg>
+            <span>
+              <b className="font-medium text-[#A1A1A8]">License keys are sent by hand.</b>{' '}
+              Usually within a few hours, at the latest within 24 hours.
+            </span>
+          </div>
+
           <div className="flex items-center font-mono text-[12px] text-[#44444B] tracking-[0.14em] uppercase">
             {['SCA / 3DS Secure', 'Stripe · VISA · MC · SEPA', 'Invoiced VAT, EU'].map((item, i) => (
               <span key={item} className={`px-4 ${i > 0 ? 'border-l border-white/[0.04]' : 'pl-0'}`}>
