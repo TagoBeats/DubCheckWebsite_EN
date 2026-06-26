@@ -51,7 +51,7 @@ const FAQS = [
   {
     n: 'Q/10',
     q: 'Can I try it before I buy?',
-    a: 'Yes. Download DubCheck and you automatically get a 14-day free trial of the Pro edition - no account, just your email. Run as many checks as you want against Netflix, Apple TV+, Disney+ and Prime profiles locally on your own files. If it earns its keep, claim the 50% Early Bird license before 31 July 2026. If not, walk away with zero friction.',
+    a: 'Yes. Download DubCheck and you automatically get a 7-day free trial of the Pro edition - no account, just your email. Run as many checks as you want against Netflix, Apple TV+, Disney+ and Prime profiles locally on your own files. If it earns its keep, claim the 50% Early Bird license before 31 July 2026. If not, walk away with zero friction.',
   },
 ]
 

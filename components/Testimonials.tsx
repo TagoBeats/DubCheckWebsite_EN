@@ -32,7 +32,7 @@ export default function Testimonials({ edition }: { edition: Edition }) {
       <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-10 gap-6 md:gap-10">
         <div>
           <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3">
-            § 05.5 &middot; Early signal
+            § 06 &middot; Customer Feedback
           </div>
           <h2
             id="testimonials-heading"

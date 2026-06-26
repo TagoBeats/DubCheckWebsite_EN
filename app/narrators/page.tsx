@@ -43,8 +43,8 @@ export default function NarratorsPage() {
           </section>
 
           <HowItWorks />
-          <Testimonials edition="narrators" />
           <Pricing />
+          <Testimonials edition="narrators" />
           <EditionBridge variant="narrators" />
           <FAQ />
           <CTABand />

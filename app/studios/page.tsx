@@ -45,8 +45,8 @@ export default function StudiosPage() {
 
           <WhyControl />
           <HowItWorks />
-          <Testimonials edition="studios" />
           <Pricing />
+          <Testimonials edition="studios" />
           <EditionBridge variant="studios" />
           <FAQ />
           <CTABand />

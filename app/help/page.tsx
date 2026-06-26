@@ -355,7 +355,7 @@ export default function HelpPage() {
               </FAQItem>
 
               <FAQItem q="Is there a trial?">
-                14 days of full Studio Pro from first launch. After that the app drops to Free until you enter a key.
+                7 days of full Studio Pro from first launch. After that the app drops to Free until you enter a key.
               </FAQItem>
 
               <FAQItem q="Where is the License screen?">
