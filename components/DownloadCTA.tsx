@@ -163,7 +163,7 @@ function ButtonLabel({ version }: { version: string }) {
     <span className="flex flex-col items-start leading-tight">
       <span className="text-[16px] font-semibold">Download for macOS</span>
       <span className="font-mono text-[11px] tracking-[0.08em] opacity-75">
-        DubCheck {version} · 200 MB · macOS 13+
+        DubCheck {version} · 183 MB · macOS 13+
       </span>
     </span>
   )
