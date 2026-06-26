@@ -30,7 +30,7 @@ export default function StudiosWhyControl() {
     <section className="py-[120px]" id="why">
       <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-14 gap-6 md:gap-10">
         <div>
-          <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3">§ 02 · THE DELIVERY REALITY</div>
+          <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3">§ 03 · THE DELIVERY REALITY</div>
           <h2 className="text-[28px] md:text-[44px] leading-[1.12] md:leading-[1.08] tracking-[-0.025em] mt-[14px] font-semibold max-w-[20ch]">
             Handing off your mix shouldn't be a gamble.
           </h2>
