@@ -1,5 +1,5 @@
 {
-  "latest": "1.0.8",
+  "latest": "1.0.9",
   "download_url": "https://audio-dubcheck.com/download",
-  "release_notes": "Fixes PDF export on clean Macs (no Homebrew required) — the full GLib/Cairo/Pango stack is now bundled inside the app. App icon now uses the proper macOS squircle shape in Dock + Launchpad. License panel: lighter window background and cleaner top spacing."
+  "release_notes": "Fixes the PDF export crash on clean Macs. 1.0.8 bundled the right libraries but a version mismatch underneath still hard-crashed the app on first PDF export — 1.0.9 unifies the bundled font-shaping libraries and ships its own Inter + JetBrains Mono fonts so PDFs render the same on every machine. PDF rendering is now isolated in a worker process, so any future native crash becomes a graceful 'PDF export failed' instead of taking the app down. Brighter gray body text in the app and PDF reports."
 }
