@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Nav    from '@/components/Nav'
 import Footer from '@/components/Footer'
+import ConsentRevokeButton from '@/components/ConsentRevokeButton'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy - How DubCheck handles your data',
@@ -180,6 +181,33 @@ export default function PrivacyPage() {
               data will be stored and processed for the purpose of handling your request. We do
               not pass this data on without your consent.
             </p>
+          </section>
+
+          <section className="mb-10">
+            <h2 className="text-[20px] font-semibold text-dc-ink tracking-[-0.015em] mb-4">
+              5. Analytics &amp; Cookies
+            </h2>
+
+            <h3 className="text-[16px] font-semibold text-dc-ink mb-2">Google Analytics 4</h3>
+            <p className="text-dc-ink2 text-[15px] leading-[1.7] mb-6">
+              This website uses Google Analytics 4, a web-analytics service provided by Google
+              Ireland Ltd. (Gordon House, Barrow Street, Dublin 4, Ireland). Google Analytics
+              uses cookies and similar technologies to analyse how visitors use the site. The
+              information generated (including a truncated IP address) is transmitted to and
+              stored by Google on servers that may be located outside the EU. We have enabled
+              IP anonymisation, so your IP address is shortened within EU/EEA member states
+              before transmission.
+              {' '}Analytics scripts are loaded <strong>only after you give consent</strong> via
+              the cookie banner. Legal basis: Art. 6(1)(a) GDPR and § 25(1) TTDSG. You can
+              withdraw your consent at any time using the button below — the change takes
+              effect immediately and no further data is sent.
+            </p>
+
+            <h3 className="text-[16px] font-semibold text-dc-ink mb-2">Cookie Settings</h3>
+            <p className="text-dc-ink2 text-[15px] leading-[1.7]">
+              Manage your choice at any time:
+            </p>
+            <ConsentRevokeButton />
           </section>
 
           <p className="font-mono text-[12px] text-dc-ink3 mt-8">Source: eRecht24</p>
