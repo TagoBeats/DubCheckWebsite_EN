@@ -148,7 +148,7 @@ export default function BlogPostLayout({
                 className="inline-flex items-center gap-[10px] text-[13.5px] font-semibold px-5 py-[11px] rounded-[6px] text-[#1A0A00] bg-dc-orange hover:bg-[#FF8A33] transition-colors duration-150"
                 style={{ boxShadow: '0 0 0 1px rgba(255,140,50,0.5), 0 10px 30px -10px rgba(255,122,26,0.6)' }}
               >
-                Download free 14-day Pro trial
+                Download free 7-day Pro trial
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-[14px] h-[14px]">
                   <path d="M3 8h10M9 4l4 4-4 4" />
                 </svg>

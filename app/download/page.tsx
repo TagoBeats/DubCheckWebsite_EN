@@ -82,7 +82,7 @@ export default function DownloadPage() {
               className="w-[7px] h-[7px] rounded-full flex-shrink-0 animate-pulse"
               style={{ background: '#FF7A1A', boxShadow: '0 0 8px rgba(255,122,26,0.9)' }}
             />
-            Free 14-day trial · macOS · v{CURRENT_VERSION}
+            Free 7-day trial · macOS · v{CURRENT_VERSION}
           </div>
 
           {/* ── Headline ── */}
@@ -100,7 +100,7 @@ export default function DownloadPage() {
 
           {/* ── Subtext ── */}
           <p className="text-[17px] md:text-[18px] text-dc-ink2 leading-[1.6] max-w-[52ch] mb-10">
-            Download the installer. Run free for 14 days — no card, no signup.
+            Download the installer. Run free for 7 days — no card, no signup.
             Paste your license key anytime to unlock for good.
           </p>
 
@@ -199,7 +199,7 @@ export default function DownloadPage() {
                 <div className="flex-1 min-w-0">
                   <div className="text-[14px] text-dc-ink font-medium mb-[3px]">Trying it out first?</div>
                   <div className="text-[13.5px] text-dc-ink2 leading-[1.55]">
-                    Trial runs free for 14 days. When ready, pick a plan for{' '}
+                    Trial runs free for 7 days. When ready, pick a plan for{' '}
                     <Link href="/narrators" className="text-[#FFB07A] hover:text-[#FF7A1A] underline-offset-2 hover:underline">
                       Narrators
                     </Link>{' '}
