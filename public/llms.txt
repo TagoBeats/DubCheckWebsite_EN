@@ -1,0 +1,28 @@
+# DubCheck
+
+> DubCheck is a desktop audio QC application for narrators, podcasters and mix engineers. It runs an EBU 3341/3342 certified BS.1770 measurement engine locally and audits files against the exact delivery specs of ACX, Audible, Findaway Voices, Spotify Audiobooks, Spotify Podcasts, Apple Podcasts, Amazon Music, YouTube, Netflix, EBU R128 and ATSC A/85. Output: pass/fail per parameter (integrated loudness in LUFS, true peak in dBTP, noise floor, format, channels, head/tail silence) with the exact dB miss when a file is out of spec.
+
+DubCheck ships in two editions: **Narrators** (audiobook + podcast specs, designed around ACX and wide-distribution workflow) and **Studios** (full platform coverage including Netflix, broadcast and pro mastering chain integration). macOS only as of v1.0.
+
+The technical articles below are written against the same measurement engine that ships inside the app. Numbers in the articles match the numbers a working audit produces on the same file.
+
+## Site
+
+- [Homepage](https://audio-dubcheck.com/): Product overview, platform coverage, pricing.
+- [About](https://audio-dubcheck.com/about): Author and engineering background. Written by Robin Busse.
+- [Blog index](https://audio-dubcheck.com/blog): Technical articles on loudness, platform specs and audio delivery.
+- [Contact](https://audio-dubcheck.com/contact): Reach the author directly.
+
+## Articles
+
+- [Podcast LUFS Targets for 2026: Spotify, Apple, YouTube, Amazon Music](https://audio-dubcheck.com/blog/podcast-lufs-targets): Exact integrated loudness and true peak targets for every major podcast platform, with the single -16 LUFS master that passes all of them. Published 2026-06-27.
+- [Audible ACX vs Findaway Voices vs Spotify Audiobooks: Three Specs, One Master](https://audio-dubcheck.com/blog/audible-acx-vs-findaway-vs-spotify-audiobooks): Side-by-side delivery requirements for the three audiobook platforms and the universal master that satisfies all three. Published 2026-06-19.
+- [EBU R128 vs ATSC A/85 vs ITU BS.1770: What Actually Differs](https://audio-dubcheck.com/blog/ebu-r128-vs-atsc-a85-vs-bs1770): Standards comparison covering target levels, gating, true peak ceilings and dialog detection. BS.1770 is the algorithm; R128 and A/85 are policies. Published 2026-06-12.
+- [Room Tone Matching Across Recording Days](https://audio-dubcheck.com/blog/room-tone-matching-recording-days): The workflow that keeps noise floor and spectral shape consistent across weeks of audiobook recording. Published 2026-06-04.
+- [True Peak vs Sample Peak: Why Your -0.1 dBFS Master Clips on Spotify](https://audio-dubcheck.com/blog/true-peak-vs-sample-peak): Inter-sample peaks, why every modern loudness spec is written in dBTP and not dBFS, and how to measure and limit correctly. Published 2026-05-28.
+- [Why Your ACX Submission Keeps Getting Rejected](https://audio-dubcheck.com/blog/acx-submission-rejected): Six reasons ACX bounces files (noise floor, true peak, per-chapter LUFS, RMS confusion, edit-point distortion, format) and how to fix each before upload. Published 2026-05-09.
+
+## Optional
+
+- [Detective Report (PDF)](https://audio-dubcheck.com/detective_report.pdf): Sample DubCheck audit report for a Studios delivery.
+- [Narrators Report (PDF)](https://audio-dubcheck.com/narrators_report.pdf): Sample DubCheck audit report for an ACX/audiobook delivery.

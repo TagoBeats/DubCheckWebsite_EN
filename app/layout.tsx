@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from 'next/font/google'
 import Script from 'next/script'
 import Analytics from '@/components/Analytics'
 import ConsentBanner from '@/components/ConsentBanner'
+import JsonLd from '@/components/JsonLd'
 import './globals.css'
 
 const inter = Inter({
@@ -48,10 +49,63 @@ export const metadata: Metadata = {
   },
 }
 
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${SITE_URL}/#organization`,
+  name: 'DubCheck',
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo.svg`,
+  description:
+    'Desktop audio QC application that audits files against ACX, Audible, Findaway, Spotify, Apple Podcasts, Netflix, EBU R128 and ATSC A/85 specifications using a BS.1770 measurement engine.',
+  founder: {
+    '@type': 'Person',
+    name: 'Robin Busse',
+    url: `${SITE_URL}/about`,
+  },
+  sameAs: [],
+}
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${SITE_URL}/#website`,
+  url: SITE_URL,
+  name: 'DubCheck',
+  description:
+    'Audio loudness QC for narrators, podcasters and mix engineers. Verify files against ACX, Netflix, Spotify, Apple Podcasts and broadcast specs before delivery.',
+  publisher: { '@id': `${SITE_URL}/#organization` },
+  inLanguage: 'en-US',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: { '@type': 'EntryPoint', urlTemplate: `${SITE_URL}/blog?q={search_term_string}` },
+    'query-input': 'required name=search_term_string',
+  },
+}
+
+const softwareSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  '@id': `${SITE_URL}/#software`,
+  name: 'DubCheck',
+  applicationCategory: 'MultimediaApplication',
+  operatingSystem: 'macOS',
+  description:
+    'EBU 3341/3342 certified BS.1770 measurement engine. Audits audio files against ACX, Audible, Findaway, Spotify, Apple Podcasts, Amazon Music, YouTube, Netflix, EBU R128 and ATSC A/85 specifications with pass/fail per parameter and exact dB miss.',
+  url: SITE_URL,
+  publisher: { '@id': `${SITE_URL}/#organization` },
+  offers: {
+    '@type': 'Offer',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+  },
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-dc-bg text-dc-ink antialiased`}>
+        <JsonLd data={[organizationSchema, websiteSchema, softwareSchema]} />
         <div className="relative min-h-screen overflow-x-clip">
           {/* Ambient background accents - desktop only, hidden on mobile for performance */}
           <div className="hidden md:block absolute inset-0 -z-10 pointer-events-none overflow-hidden" aria-hidden="true">

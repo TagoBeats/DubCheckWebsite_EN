@@ -25,6 +25,8 @@ export default function Post() {
       title="Why Your ACX Submission Keeps Getting Rejected"
       date="2026-05-09"
       readingMinutes={7}
+      slug="acx-submission-rejected"
+      excerpt="ACX rejections waste hours of re-editing. Every technical reason files get rejected (noise floor, true peak, per-chapter LUFS, RMS confusion, edit-point distortion, format) and how to fix each one before upload."
       tldr={[
         {
           text: (

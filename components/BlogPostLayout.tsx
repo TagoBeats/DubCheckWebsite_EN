@@ -1,9 +1,15 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
+import JsonLd from '@/components/JsonLd'
 
 interface TldrItem {
   text: React.ReactNode
+}
+
+interface FaqItem {
+  question: string
+  answer: string
 }
 
 interface BlogPostLayoutProps {
@@ -13,7 +19,12 @@ interface BlogPostLayoutProps {
   readingMinutes: number
   tldr: TldrItem[]
   children: React.ReactNode
+  slug?: string
+  excerpt?: string
+  faq?: FaqItem[]
 }
+
+const SITE_URL = 'https://audio-dubcheck.com'
 
 export default function BlogPostLayout({
   category,
@@ -22,12 +33,62 @@ export default function BlogPostLayout({
   readingMinutes,
   tldr,
   children,
+  slug,
+  excerpt,
+  faq,
 }: BlogPostLayoutProps) {
   const formatted = new Date(date).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   })
+
+  const canonical = slug ? `${SITE_URL}/blog/${slug}` : `${SITE_URL}/blog`
+
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description: excerpt ?? title,
+    image: [`${SITE_URL}/og.png`],
+    datePublished: date,
+    dateModified: date,
+    author: [{
+      '@type': 'Person',
+      name: 'Robin Busse',
+      url: `${SITE_URL}/about`,
+    }],
+    publisher: {
+      '@type': 'Organization',
+      name: 'DubCheck',
+      url: SITE_URL,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/logo.svg`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': canonical,
+    },
+    articleSection: category,
+  }
+
+  const faqSchema = faq && faq.length > 0 ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map(item => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  } : null
+
+  const schemas: object[] = [articleSchema]
+  if (faqSchema) schemas.push(faqSchema)
 
   return (
     <>
@@ -66,40 +127,8 @@ export default function BlogPostLayout({
             </div>
           </div>
 
-          {/* Article structured data */}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                '@context': 'https://schema.org',
-                '@type': 'Article',
-                headline: title,
-                description: title,
-                image: ['https://audio-dubcheck.com/og.png'],
-                datePublished: date,
-                dateModified: date,
-                author: [{
-                  '@type': 'Person',
-                  name: 'Robin Busse',
-                  url: 'https://audio-dubcheck.com/about',
-                }],
-                publisher: {
-                  '@type': 'Organization',
-                  name: 'DubCheck',
-                  url: 'https://audio-dubcheck.com',
-                  logo: {
-                    '@type': 'ImageObject',
-                    url: 'https://audio-dubcheck.com/logo.svg',
-                  },
-                },
-                mainEntityOfPage: {
-                  '@type': 'WebPage',
-                  '@id': 'https://audio-dubcheck.com/blog',
-                },
-                articleSection: category,
-              }),
-            }}
-          />
+          {/* Structured data (Article + optional FAQPage) */}
+          <JsonLd data={schemas} />
 
           {/* Divider */}
           <div className="border-t border-white/[0.06] my-10" />
