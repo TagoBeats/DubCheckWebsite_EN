@@ -2,7 +2,15 @@
 
 import { useState, FormEvent } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { track } from '@vercel/analytics'
+
+function pingEvent(event: string) {
+  fetch('/api/event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ event }),
+    keepalive: true,
+  }).catch(() => {})
+}
 
 interface Props {
   downloadUrl: string
@@ -22,7 +30,7 @@ export default function DownloadCTA({ downloadUrl, version }: Props) {
     return (
       <a
         href={downloadUrl}
-        onClick={() => track('download', { path: 'paid', version })}
+        onClick={() => pingEvent('download_paid')}
         className="group inline-flex items-center gap-[14px] px-9 py-[18px] rounded-[11px] transition-all duration-150 hover:brightness-110 mb-12"
         style={{
           background: 'linear-gradient(180deg, #FF7A1A 0%, #E06410 100%)',
@@ -109,7 +117,7 @@ export default function DownloadCTA({ downloadUrl, version }: Props) {
   return (
     <button
       type="button"
-      onClick={() => { track('download_intent', { version }); setStage('form') }}
+      onClick={() => { pingEvent('download_intent'); setStage('form') }}
       className="group inline-flex items-center gap-[14px] px-9 py-[18px] rounded-[11px] transition-all duration-150 hover:brightness-110 mb-12"
       style={{
         background: 'linear-gradient(180deg, #FF7A1A 0%, #E06410 100%)',
@@ -143,7 +151,7 @@ export default function DownloadCTA({ downloadUrl, version }: Props) {
       console.error('lead capture failed', err)
       // Fail-open: still let the user download. Email loss is preferable to lost conversion.
     }
-    track('download', { path: 'trial', version })
+    pingEvent('download_trial')
     setStage('done')
     window.location.href = downloadUrl
   }

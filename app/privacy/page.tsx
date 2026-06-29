@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Nav    from '@/components/Nav'
 import Footer from '@/components/Footer'
-import ConsentRevokeButton from '@/components/ConsentRevokeButton'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy - How DubCheck handles your data',
@@ -188,26 +187,31 @@ export default function PrivacyPage() {
               5. Analytics &amp; Cookies
             </h2>
 
-            <h3 className="text-[16px] font-semibold text-dc-ink mb-2">Google Analytics 4</h3>
+            <h3 className="text-[16px] font-semibold text-dc-ink mb-2">Vercel Web Analytics</h3>
             <p className="text-dc-ink2 text-[15px] leading-[1.7] mb-6">
-              This website uses Google Analytics 4, a web-analytics service provided by Google
-              Ireland Ltd. (Gordon House, Barrow Street, Dublin 4, Ireland). Google Analytics
-              uses cookies and similar technologies to analyse how visitors use the site. The
-              information generated (including a truncated IP address) is transmitted to and
-              stored by Google on servers that may be located outside the EU. We have enabled
-              IP anonymisation, so your IP address is shortened within EU/EEA member states
-              before transmission.
-              {' '}Analytics scripts are loaded <strong>only after you give consent</strong> via
-              the cookie banner. Legal basis: Art. 6(1)(a) GDPR and § 25(1) TTDSG. You can
-              withdraw your consent at any time using the button below — the change takes
-              effect immediately and no further data is sent.
+              This website uses Vercel Web Analytics, provided by Vercel Inc. (340 S Lemon Ave
+              #4133, Walnut, CA 91789, USA). Vercel Analytics is cookie-free and does not store
+              personal identifiers or full IP addresses — only aggregated page-view and visitor
+              counts derived from a short-lived, daily-rotating hash. No cross-site tracking is
+              performed. Legal basis: Art. 6(1)(f) GDPR (legitimate interest in understanding
+              site usage). For details see{' '}
+              <a
+                href="https://vercel.com/docs/analytics/privacy-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-dc-ink underline underline-offset-2 hover:text-white transition-colors"
+              >
+                vercel.com/docs/analytics/privacy-policy
+              </a>.
             </p>
 
-            <h3 className="text-[16px] font-semibold text-dc-ink mb-2">Cookie Settings</h3>
+            <h3 className="text-[16px] font-semibold text-dc-ink mb-2">Download Event Counter</h3>
             <p className="text-dc-ink2 text-[15px] leading-[1.7]">
-              Manage your choice at any time:
+              When you click the download button, we increment an anonymous counter (e.g.
+              &quot;download_intent: +1&quot;) stored on our own infrastructure. No IP address,
+              user agent, cookie, or identifier is recorded — only the aggregate count. Legal
+              basis: Art. 6(1)(f) GDPR.
             </p>
-            <ConsentRevokeButton />
           </section>
 
           <p className="font-mono text-[12px] text-dc-ink3 mt-8">Source: eRecht24</p>
