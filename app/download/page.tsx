@@ -6,7 +6,7 @@ import Footer from '@/components/Footer'
 import DownloadCTA from '@/components/DownloadCTA'
 
 const CURRENT_VERSION = '1.0.9'
-const DOWNLOAD_URL = 'https://github.com/TagoBeats/DubCheck-downloads/releases/latest/download/DubCheck.pkg'
+const DOWNLOAD_URL = `https://github.com/TagoBeats/DubCheck-downloads/releases/download/v${CURRENT_VERSION}/DubCheck-${CURRENT_VERSION}.pkg`
 const SUPPORT_EMAIL = 'support@audio-dubcheck.com'
 
 export const metadata: Metadata = {
