@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react'
 import { useSearchParams } from 'next/navigation'
+import { track } from '@vercel/analytics'
 
 interface Props {
   downloadUrl: string
@@ -21,6 +22,7 @@ export default function DownloadCTA({ downloadUrl, version }: Props) {
     return (
       <a
         href={downloadUrl}
+        onClick={() => track('download', { path: 'paid', version })}
         className="group inline-flex items-center gap-[14px] px-9 py-[18px] rounded-[11px] transition-all duration-150 hover:brightness-110 mb-12"
         style={{
           background: 'linear-gradient(180deg, #FF7A1A 0%, #E06410 100%)',
@@ -107,7 +109,7 @@ export default function DownloadCTA({ downloadUrl, version }: Props) {
   return (
     <button
       type="button"
-      onClick={() => setStage('form')}
+      onClick={() => { track('download_intent', { version }); setStage('form') }}
       className="group inline-flex items-center gap-[14px] px-9 py-[18px] rounded-[11px] transition-all duration-150 hover:brightness-110 mb-12"
       style={{
         background: 'linear-gradient(180deg, #FF7A1A 0%, #E06410 100%)',
@@ -141,6 +143,7 @@ export default function DownloadCTA({ downloadUrl, version }: Props) {
       console.error('lead capture failed', err)
       // Fail-open: still let the user download. Email loss is preferable to lost conversion.
     }
+    track('download', { path: 'trial', version })
     setStage('done')
     window.location.href = downloadUrl
   }
