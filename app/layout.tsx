@@ -4,6 +4,7 @@ import Script from 'next/script'
 import Analytics from '@/components/Analytics'
 import ConsentBanner from '@/components/ConsentBanner'
 import JsonLd from '@/components/JsonLd'
+import { Analytics as VercelAnalytics } from '@vercel/analytics/next'
 import './globals.css'
 
 const inter = Inter({
@@ -187,6 +188,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </div>
         <Script src="https://tally.so/widgets/embed.js" strategy="lazyOnload" />
         <Analytics />
+        <VercelAnalytics />
         <ConsentBanner />
       </body>
     </html>

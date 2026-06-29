@@ -10,7 +10,7 @@ const securityHeaders = [
       "font-src 'self' data: https://fonts.gstatic.com",
       "img-src 'self' data: blob: https:",
       "media-src 'self'",
-      "connect-src 'self' https://tally.so https://*.tally.so https://www.google-analytics.com https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com",
+      "connect-src 'self' https://tally.so https://*.tally.so https://www.google-analytics.com https://*.analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com https://vitals.vercel-insights.com https://*.vercel-insights.com",
       "frame-src 'self' https://tally.so https://*.tally.so",
       "object-src 'none'",
       "base-uri 'self'",
