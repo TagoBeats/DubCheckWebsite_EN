@@ -5,7 +5,7 @@ import Nav    from '@/components/Nav'
 import Footer from '@/components/Footer'
 import DownloadCTA from '@/components/DownloadCTA'
 
-const CURRENT_VERSION = '1.0.9'
+const CURRENT_VERSION = '1.0.10'
 const DOWNLOAD_URL = `https://github.com/TagoBeats/DubCheck-downloads/releases/download/v${CURRENT_VERSION}/DubCheck-${CURRENT_VERSION}.pkg`
 const SUPPORT_EMAIL = 'support@audio-dubcheck.com'
 
