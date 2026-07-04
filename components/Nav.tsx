@@ -8,6 +8,7 @@ const STATIC_LINKS = [
   { href: '/narrators', label: 'Narrators' },
   { href: '/studios',   label: 'Studios' },
   { href: '/blog',      label: 'Blog' },
+  { href: '/specs',     label: 'Specs' },
   { href: '/help',      label: 'Help' },
   { href: '/about',     label: 'About' },
   { href: '/download',  label: 'Download' },
