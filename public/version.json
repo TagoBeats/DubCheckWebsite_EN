@@ -1,5 +1,5 @@
 {
-  "latest": "1.0.10",
+  "latest": "1.0.11",
   "download_url": "https://audio-dubcheck.com/download",
-  "release_notes": "Small follow-ups to 1.0.9. The PDF report's page-4 footer line no longer collides with the methodology paragraph. The 'Download update' button now opens audio-dubcheck.com/download in your default browser instead of a stale GitHub URL. And back-to-back PDF exports auto-number Finder-style — first save is bare, subsequent saves get 2, 3, … appended so you don't overwrite by accident. No measurement, dylib, or font changes; the 1.0.9 stability work stands."
+  "release_notes": "Hardening patch from a full code review of 1.0.10. Most important: a measurement that crashed during analysis could silently drop out of the report while the file still showed PASS — crashed checks now surface as explicit FAILs, and an empty report can never pass. The app's local helper server is no longer reachable from websites in your browser (tightened CORS + cross-site request blocking), and a path-traversal hole in temp uploads is closed. Also: trial banner now correctly says 7 days, and numbered PDF exports no longer skip numbers after a cancelled save dialog. Measurements, dylibs and fonts untouched."
 }
