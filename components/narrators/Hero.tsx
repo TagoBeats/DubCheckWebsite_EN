@@ -45,11 +45,10 @@ export default function NarratorHero() {
 
       {/* Lede */}
       <p className="text-[18px] leading-[1.55] text-dc-ink2 max-w-[58ch] mb-9">
-          Drag your chapters in and get a clear pass/fail PDF in seconds.
-          DubCheck verifies your RMS, true peak, and noise floor against strict
-          Audible and ACX standards. Verify every single chapter before you hit submit,
-          so you never have to re-edit a rejected file again.
-          Built on an EBU 3341/3342 certified measurement engine.
+          Drag your chapters in and get a clear <strong className="font-semibold text-dc-ink">pass/fail PDF in seconds</strong>.
+          DubCheck verifies <strong className="font-semibold text-dc-ink">RMS, true peak and noise floor</strong> against
+          strict Audible and ACX standards, every single chapter, before you hit submit.
+          Never re-edit a rejected file again.
       </p>
 
       {/* CTA buttons */}

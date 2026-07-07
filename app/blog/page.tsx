@@ -32,8 +32,8 @@ export default function BlogPage() {
             Blog
           </h1>
           <p className="text-[17px] text-dc-ink2 leading-[1.7] max-w-[560px] mb-12">
-            Loudness, platform specs and delivery - written against the same measurement engine
-            that ships inside DubCheck, so the numbers here match what the audit will say.
+            Loudness, platform specs and delivery. Written against the same measurement engine
+            that ships inside DubCheck, so <strong className="font-semibold text-dc-ink">the numbers here match what the audit will say</strong>.
           </p>
 
           {/* Spec reference strip */}

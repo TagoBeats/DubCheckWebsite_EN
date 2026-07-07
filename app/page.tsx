@@ -95,8 +95,8 @@ function PersonaSwitch() {
             Upload your audiobook with 100% confidence.
           </h2>
           <p className="text-dc-ink2 text-[15px] leading-[1.6] mb-7 max-w-[40ch]">
-            Drag your chapters in and get a clear pass/fail PDF in seconds. Verify your
-            RMS, true peak and noise floor before you hit submit. Stop redelivering.
+            Drag your chapters in and get a clear pass/fail PDF in seconds. Verify your{' '}
+            <strong className="font-semibold text-dc-ink">RMS, true peak and noise floor</strong> before you hit submit. Stop redelivering.
           </p>
           <div className="flex items-center justify-between">
             <span className="font-mono text-[12px] text-dc-ink3 tracking-[0.06em]">
@@ -127,7 +127,7 @@ function PersonaSwitch() {
             Deliver your final mix with absolute certainty.
           </h2>
           <p className="text-dc-ink2 text-[15px] leading-[1.6] mb-7 max-w-[40ch]">
-            Verify your audio against strict Netflix, Apple TV+ and EBU R128 specs in one
+            Verify your audio against strict <strong className="font-semibold text-dc-ink">Netflix, Apple TV+ and EBU R128</strong> specs in one
             pass. Get a certified PDF report and hand off your masters with 100% confidence.
           </p>
           <div className="flex items-center justify-between">
@@ -190,13 +190,16 @@ function WhyItExists() {
       </h2>
       <div className="space-y-5 text-dc-ink2 text-[16px] leading-[1.7]">
         <p>
-          Every audio delivery sits behind a wall of numbers - integrated loudness, true peak, dialog gating, LRA, channel order, sample rate, dither, phase correlation. Get one wrong and the file gets bounced. The platform never tells you which one; you have to guess.
+          <strong className="font-semibold text-dc-ink">One wrong number and your file gets bounced.</strong> Every audio delivery sits behind a wall of them: integrated loudness, true peak, dialog gating, LRA, channel order, sample rate, dither, phase correlation. The platform never tells you which one failed; you have to guess.
         </p>
         <p>
-          DubCheck does that check for you. Drop a file in, pick a target - ACX, EBU R128, Netflix NOLS, Apple TV+, Disney+, Prime Video, Spotify, Audible, Storytel, Podtrac - and you get a pass/fail in seconds with every measurement annotated against the spec. No silent failures, no <em>"why does my DAW disagree with the platform meter"</em> rabbit holes. The engine is EBU 3341/3342 certified and matches the reference tone-set bit-for-bit on all 66 conformance tests.
+          DubCheck does that check for you. Drop a file in, pick a target, and you get a <strong className="font-semibold text-dc-ink">pass/fail in seconds</strong> with every measurement annotated against the spec. No silent failures, no <em>"why does my DAW disagree with the platform meter"</em> rabbit holes.
+        </p>
+        <p className="font-mono text-[13px] tracking-[0.06em] text-dc-ink3 leading-[2]">
+          ACX · EBU R128 · Netflix NOLS · Apple TV+ · Disney+ · Prime Video · Spotify · Audible · Storytel · Podtrac
         </p>
         <p>
-          Everything happens locally. Files never leave your machine, no upload queue, no cloud storage of confidential mixes, no telemetry. The PDF report it generates is the same one you hand to a client or attach to a delivery portal - readable by humans, signed off by the engine, and complete enough to settle a redelivery dispute on its own.
+          Everything happens locally. <strong className="font-semibold text-dc-ink">Files never leave your machine</strong>: no upload queue, no cloud storage of confidential mixes, no telemetry. The PDF report is the same one you hand to a client or attach to a delivery portal. Readable by humans, signed off by the engine, and complete enough to settle a redelivery dispute on its own.
         </p>
       </div>
     </section>

@@ -53,7 +53,8 @@ export default function StudiosHero() {
       {/* Lede */}
       <p className="text-[18px] leading-[1.55] text-dc-ink2 max-w-[62ch] mb-9">
           Don&apos;t let a technicality ruin your delivery.
-          DubCheck gives you signed, auditable proof your mix passes Netflix, Apple TV+, Disney+ and Prime specs - before you hit send.
+          DubCheck gives you <strong className="font-semibold text-dc-ink">signed, auditable proof</strong> your mix passes{' '}
+          <strong className="font-semibold text-dc-ink">Netflix, Apple TV+, Disney+ and Prime</strong> specs, before you hit send.
       </p>
 
       {/* CTA buttons */}

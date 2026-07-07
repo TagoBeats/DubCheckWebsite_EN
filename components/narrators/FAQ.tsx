@@ -11,7 +11,7 @@ const FAQS: Faq[] = [
     q: 'Does this guarantee ACX accepts my book?',
     a: (
       <>
-        No. DubCheck guarantees that the four measurable specs ACX cares about RMS, peak, noise floor and room tone are correctly measured and reported. ACX may still reject a file for content-quality reasons (mouth clicks, breath issues, performance, lip-sync). What DubCheck eliminates are the technical reject reasons. Your ear handles the rest.{' '}
+        No. DubCheck guarantees that the four measurable specs ACX cares about (<strong className="font-semibold text-dc-ink">RMS, peak, noise floor and room tone</strong>) are correctly measured and reported. ACX may still reject a file for content-quality reasons (mouth clicks, breath issues, performance, lip-sync). What DubCheck eliminates are the technical reject reasons. Your ear handles the rest.{' '}
         <Link href="/blog/acx-submission-rejected" className="text-dc-cyan underline underline-offset-2 hover:text-dc-ink transition-colors">
           Read the full guide to every technical ACX reject reason →
         </Link>
