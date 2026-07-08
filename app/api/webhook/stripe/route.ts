@@ -70,11 +70,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Server not configured' }, { status: 500 })
   }
 
-  console.log('[stripe-webhook] secrets loaded', {
-    live: liveSecret ? `${liveSecret.slice(0, 10)}…len=${liveSecret.length}` : 'none',
-    test: testSecret ? `${testSecret.slice(0, 10)}…len=${testSecret.length}` : 'none',
-  })
-
   const sig = req.headers.get('stripe-signature')
   if (!sig) return NextResponse.json({ error: 'Missing signature' }, { status: 400 })
 
@@ -93,12 +88,7 @@ export async function POST(req: NextRequest) {
     }
   }
   if (!event) {
-    console.error('[stripe-webhook] signature verify failed', {
-      sigHeaderPrefix: sig.slice(0, 60),
-      bodyLength: raw.length,
-      bodyFirst80: raw.slice(0, 80),
-      errorMessage: verifyError instanceof Error ? verifyError.message : String(verifyError),
-    })
+    console.error('[stripe-webhook] signature verify failed', verifyError)
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
   }
 
