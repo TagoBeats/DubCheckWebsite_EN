@@ -93,7 +93,12 @@ export async function POST(req: NextRequest) {
     }
   }
   if (!event) {
-    console.error('[stripe-webhook] signature verify failed', verifyError)
+    console.error('[stripe-webhook] signature verify failed', {
+      sigHeaderPrefix: sig.slice(0, 60),
+      bodyLength: raw.length,
+      bodyFirst80: raw.slice(0, 80),
+      errorMessage: verifyError instanceof Error ? verifyError.message : String(verifyError),
+    })
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
   }
 
