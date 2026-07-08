@@ -1,6 +1,6 @@
 const RESEND_API = 'https://api.resend.com'
 
-const FROM = 'DubCheck <keys@audio-dubcheck.com>'
+const FROM = 'DubCheck <keys@robinbusse.dev>'
 const DOWNLOAD_URL = 'https://audio-dubcheck.com/download?via=email'
 
 type SendArgs = {

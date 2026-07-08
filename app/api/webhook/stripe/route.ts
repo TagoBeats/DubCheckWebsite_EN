@@ -51,7 +51,7 @@ async function alertAdmin(subject: string, body: string): Promise<void> {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'DubCheck Alerts <alerts@audio-dubcheck.com>',
+      from: 'DubCheck Alerts <alerts@robinbusse.dev>',
       to,
       subject: `[DubCheck] ${subject}`,
       text: body,
