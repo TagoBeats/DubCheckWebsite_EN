@@ -60,26 +60,44 @@ async function alertAdmin(subject: string, body: string): Promise<void> {
 }
 
 export async function POST(req: NextRequest) {
-  const secret = process.env.STRIPE_WEBHOOK_SECRET
-  const stripeKey = process.env.STRIPE_SECRET_KEY
-  if (!secret || !stripeKey) {
-    console.error('[stripe-webhook] missing STRIPE_SECRET_KEY or STRIPE_WEBHOOK_SECRET')
+  const liveSecret = process.env.STRIPE_WEBHOOK_SECRET
+  const testSecret = process.env.STRIPE_WEBHOOK_SECRET_TEST
+  const liveKey = process.env.STRIPE_SECRET_KEY
+  const testKey = process.env.STRIPE_SECRET_KEY_TEST
+
+  if (!liveSecret && !testSecret) {
+    console.error('[stripe-webhook] no signing secret configured')
     return NextResponse.json({ error: 'Server not configured' }, { status: 500 })
   }
 
-  const stripe = new Stripe(stripeKey)
   const sig = req.headers.get('stripe-signature')
   if (!sig) return NextResponse.json({ error: 'Missing signature' }, { status: 400 })
 
   const raw = await req.text()
 
-  let event: Stripe.Event
-  try {
-    event = stripe.webhooks.constructEvent(raw, sig, secret)
-  } catch (err) {
-    console.error('[stripe-webhook] signature verify failed', err)
+  const secrets = [liveSecret, testSecret].filter(Boolean) as string[]
+  let event: Stripe.Event | null = null
+  let verifyError: unknown = null
+  const bootstrapStripe = new Stripe(liveKey || testKey || 'placeholder')
+  for (const s of secrets) {
+    try {
+      event = bootstrapStripe.webhooks.constructEvent(raw, sig, s)
+      break
+    } catch (err) {
+      verifyError = err
+    }
+  }
+  if (!event) {
+    console.error('[stripe-webhook] signature verify failed', verifyError)
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
   }
+
+  const stripeKey = event.livemode ? liveKey : testKey || liveKey
+  if (!stripeKey) {
+    console.error(`[stripe-webhook] no secret key for livemode=${event.livemode}`)
+    return NextResponse.json({ error: 'Server not configured for this mode' }, { status: 500 })
+  }
+  const stripe = new Stripe(stripeKey)
 
   if (event.type !== 'checkout.session.completed') {
     return NextResponse.json({ received: true, ignored: event.type })
