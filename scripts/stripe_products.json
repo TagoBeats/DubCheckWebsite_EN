@@ -1,0 +1,47 @@
+{
+  "_comment": "Maps Stripe price IDs to license inventory pulls. Used by the Vercel webhook.",
+  "products": {
+    "price_1TUSVoIAdVJ5vxOO5nULFGUZ": {
+      "label": "Studios Solo",
+      "edition": "studios",
+      "tier": "Solo",
+      "keys_to_send": 1,
+      "payment_link": "https://buy.stripe.com/14AfZibKf5jn6uxgpo4Vy07"
+    },
+    "price_1TjGYdIAdVJ5vxOOpis0ssNV": {
+      "label": "Studios Pro",
+      "edition": "studios",
+      "tier": "Pro",
+      "keys_to_send": 1,
+      "payment_link": "https://buy.stripe.com/cNi28sg0vh256uxgpo4Vy0d"
+    },
+    "price_1TUSWYIAdVJ5vxOOeHSJmRpQ": {
+      "label": "Studios Team",
+      "edition": "studios",
+      "tier": "Pro",
+      "keys_to_send": 5,
+      "payment_link": "https://buy.stripe.com/dRm28s7tZdPT6uxehg4Vy09"
+    },
+    "price_1TjGVsIAdVJ5vxOOn8xoKn3K": {
+      "label": "Narrators Solo",
+      "edition": "narrators",
+      "tier": "Solo",
+      "keys_to_send": 1,
+      "payment_link": "https://buy.stripe.com/14AcN69C71371ad0qq4Vy0b"
+    },
+    "price_1TjGXnIAdVJ5vxOOSXsQ8XBG": {
+      "label": "Narrators Pro",
+      "edition": "narrators",
+      "tier": "Pro",
+      "keys_to_send": 1,
+      "payment_link": "https://buy.stripe.com/bJe8wQ4hN8vz6ux4GG4Vy0c"
+    },
+    "price_1TUSUqIAdVJ5vxOOxxvzzjx4": {
+      "label": "Narrators Team",
+      "edition": "narrators",
+      "tier": "Pro",
+      "keys_to_send": 5,
+      "payment_link": "https://buy.stripe.com/cNi9AU4hN3bf3il4GG4Vy06"
+    }
+  }
+}
