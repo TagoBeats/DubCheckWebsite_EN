@@ -70,6 +70,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Server not configured' }, { status: 500 })
   }
 
+  console.log('[stripe-webhook] secrets loaded', {
+    live: liveSecret ? `${liveSecret.slice(0, 10)}…len=${liveSecret.length}` : 'none',
+    test: testSecret ? `${testSecret.slice(0, 10)}…len=${testSecret.length}` : 'none',
+  })
+
   const sig = req.headers.get('stripe-signature')
   if (!sig) return NextResponse.json({ error: 'Missing signature' }, { status: 400 })
 
