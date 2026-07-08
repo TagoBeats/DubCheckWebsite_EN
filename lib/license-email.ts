@@ -1,6 +1,7 @@
 const RESEND_API = 'https://api.resend.com'
 
 const FROM = 'DubCheck <keys@robinbusse.dev>'
+const REPLY_TO = 'support@audio-dubcheck.com'
 const DOWNLOAD_URL = 'https://audio-dubcheck.com/download?via=email'
 
 type SendArgs = {
@@ -60,6 +61,7 @@ export async function sendLicenseEmail(args: SendArgs): Promise<void> {
     body: JSON.stringify({
       from: FROM,
       to: args.to,
+      reply_to: REPLY_TO,
       subject: `Your DubCheck ${args.label} license`,
       html: html({ keys: args.keys, label: args.label }),
     }),
