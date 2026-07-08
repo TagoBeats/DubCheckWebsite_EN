@@ -622,8 +622,8 @@ export default function CheckoutPage() {
               <path d="M8 5v3.5l2 2" />
             </svg>
             <span>
-              <b className="font-medium text-[#A1A1A8]">License keys are sent by hand.</b>{' '}
-              Usually within a few hours, at the latest within 24 hours.
+              <b className="font-medium text-[#A1A1A8]">License keys are emailed automatically.</b>{' '}
+              Delivered to your inbox the moment your payment clears, usually within a minute.
             </span>
           </div>
 

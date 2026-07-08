@@ -16,29 +16,45 @@ function html({ keys, label }: { keys: string[]; label: string }): string {
   const keysBlock = keys
     .map(
       k =>
-        `<pre style="background:#0f172a;color:#e2e8f0;padding:12px 14px;border-radius:8px;white-space:pre-wrap;word-break:break-all;font-size:12px;line-height:1.4;margin:8px 0;">${k}</pre>`
+        `<pre style="background:#0f172a;color:#e2e8f0;padding:14px 16px;border-radius:10px;white-space:pre-wrap;word-break:break-all;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.5;margin:8px 0;">${k}</pre>`
     )
     .join('')
 
   const plural = keys.length > 1 ? 'keys' : 'key'
+  const isAre = keys.length > 1 ? 'are' : 'is'
 
   return `<!doctype html>
 <html>
-<body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#0f172a;max-width:560px;margin:0 auto;padding:24px;">
-  <h1 style="font-size:22px;margin:0 0 12px;">Thanks for buying DubCheck ${label}.</h1>
-  <p style="font-size:15px;line-height:1.5;">Your license ${plural} ${keys.length > 1 ? 'are' : 'is'} below. Keep this email safe — this is your proof of purchase.</p>
+<body style="margin:0;padding:0;background:#f1f5f9;">
+  <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,sans-serif;color:#0f172a;max-width:560px;margin:0 auto;padding:32px 20px;">
+    <div style="background:#ffffff;border-radius:16px;padding:36px 32px;border:1px solid #e2e8f0;">
 
-  <h2 style="font-size:14px;text-transform:uppercase;letter-spacing:0.08em;color:#475569;margin:24px 0 4px;">License ${plural}</h2>
-  ${keysBlock}
+      <div style="text-align:center;margin:0 0 28px;">
+        <img src="https://audio-dubcheck.com/logo-email.png" width="56" height="56" alt="DubCheck" style="display:inline-block;border:0;" />
+      </div>
 
-  <h2 style="font-size:14px;text-transform:uppercase;letter-spacing:0.08em;color:#475569;margin:24px 0 8px;">Quickstart</h2>
-  <ol style="font-size:15px;line-height:1.6;padding-left:20px;margin:0;">
-    <li>Download DubCheck: <a href="${DOWNLOAD_URL}" style="color:#2563eb;">${DOWNLOAD_URL}</a></li>
-    <li>Open the app, go to Settings → License, paste your key, hit Activate.</li>
-    <li>You're in. Full docs at <a href="https://audio-dubcheck.com/help" style="color:#2563eb;">audio-dubcheck.com/help</a>.</li>
-  </ol>
+      <h1 style="font-size:22px;font-weight:600;margin:0 0 12px;text-align:center;">Thanks for buying DubCheck ${label}</h1>
+      <p style="font-size:15px;line-height:1.6;color:#334155;margin:0 0 4px;text-align:center;">Your license ${plural} ${isAre} below. Keep this email safe, it's your proof of purchase.</p>
 
-  <p style="font-size:13px;color:#64748b;margin-top:32px;">Reply to this email if anything is off. I read every one.<br/>Robin</p>
+      <div style="height:1px;background:#e2e8f0;margin:28px 0;"></div>
+
+      <h2 style="font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:#64748b;margin:0 0 4px;">License ${plural}</h2>
+      ${keysBlock}
+
+      <h2 style="font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:#64748b;margin:28px 0 12px;">Quickstart</h2>
+      <ol style="font-size:15px;line-height:1.7;color:#334155;padding-left:20px;margin:0;">
+        <li>Download DubCheck: <a href="${DOWNLOAD_URL}" style="color:#2563eb;text-decoration:none;">audio-dubcheck.com/download</a></li>
+        <li>Open the app, go to Settings → License, paste your key, hit Activate.</li>
+        <li>You're in. Full docs at <a href="https://audio-dubcheck.com/help" style="color:#2563eb;text-decoration:none;">audio-dubcheck.com/help</a>.</li>
+      </ol>
+
+      <div style="height:1px;background:#e2e8f0;margin:28px 0;"></div>
+
+      <p style="font-size:14px;line-height:1.6;color:#475569;margin:0;">Something off, or need a hand? Just reply to this email or write to <a href="mailto:support@audio-dubcheck.com" style="color:#2563eb;text-decoration:none;">support@audio-dubcheck.com</a>. I read every one.</p>
+      <p style="font-size:14px;color:#0f172a;margin:16px 0 0;">Robin<br/><span style="color:#94a3b8;">DubCheck</span></p>
+
+    </div>
+  </div>
 </body>
 </html>`
 }

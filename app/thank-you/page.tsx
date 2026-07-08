@@ -88,9 +88,8 @@ export default function ThankYouPage() {
 
           {/* ── Subtext ── */}
           <p className="text-[17px] md:text-[18px] text-dc-ink2 leading-[1.6] max-w-[52ch] mb-12">
-            Your Stripe receipt is in your inbox. The license key follows
-            separately by email - usually within a few hours, at the latest
-            within 24 hours.
+            Your Stripe receipt is in your inbox. Your license key lands in
+            the same inbox automatically, usually within a minute.
           </p>
 
           {/* ── Next steps card ── */}
@@ -120,14 +119,13 @@ export default function ThankYouPage() {
             </div>
 
             <p className="text-[15px] text-dc-ink2 leading-[1.7] m-0">
-              DubCheck is a one-person operation, so license keys are still
-              sent by hand.{' '}
+              Your license key is delivered automatically the moment your
+              payment clears.{' '}
               <span className="text-dc-ink font-medium">
-                Yours is in the queue and goes out by email - usually within a
-                few hours, latest within 24 hours.
+                It should already be in your inbox, usually within a minute.
               </span>{' '}
-              Check spam too, just in case. If nothing arrived after 24
-              hours, write to{' '}
+              Check spam too, just in case. If nothing arrived after a few
+              minutes, write to{' '}
               <a
                 href="mailto:support@audio-dubcheck.com"
                 className="text-[#5EEBB3] hover:text-[#22C98B] underline-offset-2 hover:underline"
@@ -141,7 +139,7 @@ export default function ThankYouPage() {
             <div className="border-t border-white/[0.04] mt-7 pt-6 flex items-center gap-6 flex-wrap">
               {[
                 { icon: 'M3 8.5l3 3 7-7', color: '#22C98B', label: 'Receipt sent to your inbox' },
-                { icon: 'M8 4v4l2.5 2M8 2a6 6 0 1 1 0 12A6 6 0 0 1 8 2z', color: '#FFB07A', label: 'License key on the way (manual, <24h)' },
+                { icon: 'M3 8.5l3 3 7-7', color: '#22C98B', label: 'License key emailed automatically' },
                 { icon: 'M3 8.5l3 3 7-7', color: '#22C98B', label: 'macOS installer ready' },
               ].map(item => (
                 <div key={item.label} className="flex items-center gap-[8px] text-[13px] text-dc-ink2">
