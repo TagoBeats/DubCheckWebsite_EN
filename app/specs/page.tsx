@@ -6,7 +6,7 @@ import Footer from '@/components/Footer'
 export const metadata: Metadata = {
   title: 'Audio Delivery Spec References',
   description:
-    'Verified reference pages for audio delivery specs: ACX, EBU R128, Netflix. Every requirement in one table, with measurement notes and a last-verified date.',
+    'Verified reference pages for audio delivery specs: ACX, Storytel, EBU R128, ATSC A/85, Netflix, Prime Video, Spotify, Apple. Every requirement in one table.',
   alternates: { canonical: '/specs' },
 }
 
@@ -29,6 +29,36 @@ const SPECS = [
     title: 'Netflix Audio Delivery Requirements',
     summary: 'Dialogue-gated -27 LKFS, the 15% low-dialogue fallback, -2 dBTP true peak and format requirements for near-field mixes.',
   },
+  {
+    href: '/specs/storytel',
+    tag: 'Storytel',
+    title: 'Storytel Audiobook Requirements',
+    summary: 'ACX-compatible levels delivered lossless: RMS -23 to -18 dBFS, -3 dBTP peak, -60 dBFS noise floor, WAV or FLAC, mono preferred.',
+  },
+  {
+    href: '/specs/prime-video',
+    tag: 'Prime Video',
+    title: 'Prime Video Audio Delivery Requirements',
+    summary: 'Program loudness -24 LKFS ±2 LU without dialogue gating, -2 dBTP true peak and 48 kHz PCM in WAV or MOV.',
+  },
+  {
+    href: '/specs/atsc-a85',
+    tag: 'ATSC A/85',
+    title: 'ATSC A/85 Loudness Requirements',
+    summary: 'The CALM Act standard for US broadcast: -24 LKFS ±2 LU program loudness, -2 dBTP true peak and dialnorm metadata.',
+  },
+  {
+    href: '/specs/spotify',
+    tag: 'Spotify',
+    title: 'Spotify Loudness Normalization',
+    summary: 'The -14 LUFS playback reference, the -1 dBTP ceiling for lossy encoding and the Loud/Normal/Quiet playback modes.',
+  },
+  {
+    href: '/specs/apple-digital-masters',
+    tag: 'Apple',
+    title: 'Apple Digital Masters Requirements',
+    summary: '-16 LUFS Sound Check reference, -1 dBTP true peak, clipping as a hard fail and AAC 256 kbps conversion headroom.',
+  },
 ]
 
 export default function SpecsIndexPage() {
@@ -48,7 +78,16 @@ export default function SpecsIndexPage() {
             </h1>
             <p className="text-[15px] text-dc-ink2 leading-[1.7] max-w-[62ch]">
               The technical requirements of the major delivery platforms, verified against the official
-              sources and kept current. Every page carries a last-verified date.
+              sources and kept current. Every page carries a last-verified date and a link to the
+              original document.
+            </p>
+            <p className="text-[15px] text-dc-ink2 leading-[1.7] max-w-[62ch] mt-4">
+              Each reference puts the full spec in one table: loudness target and gating mode,
+              true peak ceiling, noise floor where the platform checks one, and the format requirements.
+              The measurement notes explain how each value is actually computed, because most rejected
+              deliveries fail on the measurement method, not the number. These are the same specs the
+              DubCheck engine tests against, so every value on these pages is one a working audit
+              can verify on your files.
             </p>
           </div>
 

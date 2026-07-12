@@ -23,6 +23,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/help' },
   openGraph: {
     url: '/help',
+    images: ['/og.png'],
     title: 'DubCheck Help & Documentation',
     description:
       'Setup, reading the PDF report, picking the right delivery spec, troubleshooting and FAQ.',

@@ -10,11 +10,12 @@ const LAST_VERIFIED = '2026-07-04'
 export const metadata: Metadata = {
   title: 'ACX Audio Submission Requirements: Complete Spec Reference',
   description:
-    'Every ACX technical requirement in one table: RMS -23 to -18 dB, peak -3 dB, noise floor -60 dB RMS, MP3 192 kbps CBR, room tone, file length. Verified against the official ACX spec.',
+    'Every ACX requirement in one table: RMS -23 to -18 dB, peak -3 dB, noise floor -60 dB RMS, MP3 192 kbps CBR, room tone. Verified against the official spec.',
   alternates: { canonical: '/specs/acx' },
   authors: [{ name: 'Robin Busse', url: `${SITE_URL}/about` }],
   openGraph: {
     url: '/specs/acx',
+    images: ['/og/spec-acx'],
     type: 'article',
     title: 'ACX Audio Submission Requirements: Complete Spec Reference',
     description:

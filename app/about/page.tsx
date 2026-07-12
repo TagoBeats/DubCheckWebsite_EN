@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/about' },
   openGraph: {
     url: '/about',
+    images: ['/og.png'],
     title: 'About DubCheck - Built by an audio engineer',
     description:
       'Background, principles, and the engineering thinking behind a locally-run audio QC tool.',

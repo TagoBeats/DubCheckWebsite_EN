@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import BlogPostLayout from '@/components/BlogPostLayout'
 
 export const metadata: Metadata = {
-  title: 'Podcast LUFS Targets for 2026: Spotify, Apple, YouTube, Amazon Music',
+  title: 'Podcast LUFS Targets 2026: Spotify, Apple, YouTube',
   description:
-    'What LUFS should a podcast be? Exact integrated loudness and true peak targets for Spotify, Apple Podcasts, YouTube, Amazon Music and Deezer, and what each platform actually does to a file that misses the spec.',
+    'What LUFS should a podcast be? Exact loudness and true peak targets for Spotify, Apple Podcasts, YouTube and Amazon Music, and what happens when you miss them.',
   alternates: { canonical: '/blog/podcast-lufs-targets' },
   authors: [{ name: 'Robin Busse', url: 'https://audio-dubcheck.com/about' }],
   keywords: [
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     url: '/blog/podcast-lufs-targets',
+    images: ['/og/podcast-lufs-targets'],
     type: 'article',
     title: 'Podcast LUFS Targets for 2026: Spotify, Apple, YouTube, Amazon Music',
     description:

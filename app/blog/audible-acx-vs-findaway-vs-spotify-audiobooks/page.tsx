@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import BlogPostLayout from '@/components/BlogPostLayout'
 
 export const metadata: Metadata = {
-  title: 'Audible ACX vs Findaway Voices vs Spotify Audiobooks: Three Specs, One Master',
+  title: 'ACX vs Findaway vs Spotify Audiobooks: One Master',
   description:
-    'Three audiobook platforms, three different delivery specs, three different rejection reasons. The exact technical requirements for ACX, Findaway and Spotify Audiobooks, and the single master that passes all three without re-rendering.',
+    'The exact delivery specs for ACX, Findaway Voices and Spotify Audiobooks side by side, and the single master that passes all three without re-rendering.',
   alternates: { canonical: '/blog/audible-acx-vs-findaway-vs-spotify-audiobooks' },
   authors: [{ name: 'Robin Busse', url: 'https://audio-dubcheck.com/about' }],
   keywords: [
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     url: '/blog/audible-acx-vs-findaway-vs-spotify-audiobooks',
+    images: ['/og/audible-acx-vs-findaway-vs-spotify-audiobooks'],
     type: 'article',
     title: 'Audible ACX vs Findaway Voices vs Spotify Audiobooks: Three Specs, One Master',
     description:

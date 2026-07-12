@@ -6,10 +6,11 @@ import Footer from '@/components/Footer'
 export const metadata: Metadata = {
   title: 'Contact DubCheck - Support, sales, licensing, NDA',
   description:
-    'Reach DubCheck for support, sales, licensing, or NDA-related questions. Email, phone, postal address - and what to include in a support request so we can answer fast.',
+    'Reach DubCheck for support, sales, licensing, or NDA questions. Email, phone, postal address, and what to include in a support request.',
   alternates: { canonical: '/contact' },
   openGraph: {
     url: '/contact',
+    images: ['/og.png'],
     title: 'Contact DubCheck',
     description:
       'Email, phone and postal address for DubCheck support, sales, and licensing.',

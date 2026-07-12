@@ -10,11 +10,12 @@ const LAST_VERIFIED = '2026-07-04'
 export const metadata: Metadata = {
   title: 'Netflix Audio Delivery Requirements: Complete Spec Reference',
   description:
-    'Every Netflix audio spec in one table: -27 LKFS dialogue-gated loudness, -2 dBTP true peak, low-dialogue fallback, LRA best practice, 48 kHz PCM formats. Verified against the Netflix partner spec.',
+    'Every Netflix audio spec in one table: -27 LKFS dialogue-gated loudness, -2 dBTP true peak, 48 kHz PCM formats. Verified against the Netflix partner spec.',
   alternates: { canonical: '/specs/netflix' },
   authors: [{ name: 'Robin Busse', url: `${SITE_URL}/about` }],
   openGraph: {
     url: '/specs/netflix',
+    images: ['/og/spec-netflix'],
     type: 'article',
     title: 'Netflix Audio Delivery Requirements: Complete Spec Reference',
     description:

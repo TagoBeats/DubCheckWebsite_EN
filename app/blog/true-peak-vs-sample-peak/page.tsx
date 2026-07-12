@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import BlogPostLayout from '@/components/BlogPostLayout'
 
 export const metadata: Metadata = {
-  title: 'True Peak vs Sample Peak: Why Your -0.1 dBFS Master Clips on Spotify',
+  title: 'True Peak vs Sample Peak: Why Masters Clip on Spotify',
   description:
-    'Sample peak and true peak are different measurements. The gap is where inter-sample peaks live, and where masters that look clean in a DAW end up clipping after AAC, MP3 or Ogg encoding. Full explanation with the math.',
+    'Sample peak and true peak are different measurements. Where inter-sample peaks live, and why masters that look clean in a DAW clip after AAC or MP3 encoding.',
   alternates: { canonical: '/blog/true-peak-vs-sample-peak' },
   authors: [{ name: 'Robin Busse', url: 'https://audio-dubcheck.com/about' }],
   keywords: [
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     url: '/blog/true-peak-vs-sample-peak',
+    images: ['/og/true-peak-vs-sample-peak'],
     type: 'article',
     title: 'True Peak vs Sample Peak: Why Your -0.1 dBFS Master Clips on Spotify',
     description:

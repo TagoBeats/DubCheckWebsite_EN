@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/blog' },
   openGraph: {
     url: '/blog',
+    images: ['/og.png'],
     title: 'DubCheck Blog - Loudness, platform specs, delivery compliance',
     description:
       'Guides on loudness standards, platform specs and audio delivery for narrators and mix engineers.',

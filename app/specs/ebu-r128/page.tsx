@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'Robin Busse', url: `${SITE_URL}/about` }],
   openGraph: {
     url: '/specs/ebu-r128',
+    images: ['/og/spec-ebu-r128'],
     type: 'article',
     title: 'EBU R128 Loudness Requirements: Complete Spec Reference',
     description:

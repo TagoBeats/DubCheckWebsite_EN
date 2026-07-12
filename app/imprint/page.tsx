@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/imprint' },
   openGraph: {
     url: '/imprint',
+    images: ['/og.png'],
     title: 'Imprint - DubCheck',
     description: 'Legal notice and operator contact for audio-dubcheck.com.',
   },

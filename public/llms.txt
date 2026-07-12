@@ -13,6 +13,19 @@ The technical articles below are written against the same measurement engine tha
 - [Blog index](https://audio-dubcheck.com/blog): Technical articles on loudness, platform specs and audio delivery.
 - [Contact](https://audio-dubcheck.com/contact): Reach the author directly.
 
+## Spec References
+
+Verified reference pages for platform delivery specs. Every page carries the full requirement table, measurement notes, a last-verified date and a link to the official source. The values match what the DubCheck engine tests against.
+
+- [ACX Audio Submission Requirements](https://audio-dubcheck.com/specs/acx): RMS -23 to -18 dB, peak -3 dB, noise floor -60 dB RMS, MP3 192 kbps CBR, room tone.
+- [Storytel Audiobook Requirements](https://audio-dubcheck.com/specs/storytel): ACX-compatible levels delivered lossless, WAV or FLAC, mono preferred.
+- [EBU R128 Loudness Requirements](https://audio-dubcheck.com/specs/ebu-r128): -23 LUFS programme loudness, -1 dBTP, EBU Mode gating, shortform variant.
+- [ATSC A/85 (CALM Act) Loudness Requirements](https://audio-dubcheck.com/specs/atsc-a85): -24 LKFS ±2 LU program loudness, -2 dBTP, the legally mandated US broadcast standard.
+- [Netflix Audio Delivery Requirements](https://audio-dubcheck.com/specs/netflix): Dialogue-gated -27 LKFS, -2 dBTP, low-dialogue fallback, 48 kHz PCM.
+- [Prime Video Audio Delivery Requirements](https://audio-dubcheck.com/specs/prime-video): Program loudness -24 LKFS ±2 LU, -2 dBTP, WAV or MOV, PCM only.
+- [Spotify Loudness Normalization](https://audio-dubcheck.com/specs/spotify): -14 LUFS playback reference, -1 dBTP ceiling, Loud/Normal/Quiet modes.
+- [Apple Digital Masters Requirements](https://audio-dubcheck.com/specs/apple-digital-masters): -16 LUFS Sound Check, -1 dBTP, clipping as hard fail, AAC 256 kbps headroom.
+
 ## Articles
 
 - [Podcast LUFS Targets for 2026: Spotify, Apple, YouTube, Amazon Music](https://audio-dubcheck.com/blog/podcast-lufs-targets): Exact integrated loudness and true peak targets for every major podcast platform, with the single -16 LUFS master that passes all of them. Published 2026-06-27.

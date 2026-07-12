@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/privacy' },
   openGraph: {
     url: '/privacy',
+    images: ['/og.png'],
     title: 'Privacy Policy - DubCheck',
     description: 'How DubCheck handles your data under GDPR.',
   },

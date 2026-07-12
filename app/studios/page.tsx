@@ -19,6 +19,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/studios' },
   openGraph: {
     url: '/studios',
+    images: ['/og.png'],
     title: 'DubCheck for Studios - Multi-platform delivery QC',
     description:
       'Verify mixes against Netflix, Apple TV+, Disney+ and Prime specs in one pass. NDA-safe, local, auditable.',

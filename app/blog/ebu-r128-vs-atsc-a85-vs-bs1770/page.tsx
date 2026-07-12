@@ -4,7 +4,7 @@ import BlogPostLayout from '@/components/BlogPostLayout'
 export const metadata: Metadata = {
   title: 'EBU R128 vs ATSC A/85 vs ITU BS.1770: What Actually Differs',
   description:
-    'Three loudness standards, one measurement algorithm, three different target levels. What BS.1770, EBU R128 and ATSC A/85 each specify, where they agree, where they disagree, and which one applies to your delivery.',
+    'What BS.1770, EBU R128 and ATSC A/85 each specify, where they agree, where they disagree, and which standard applies to your delivery.',
   alternates: { canonical: '/blog/ebu-r128-vs-atsc-a85-vs-bs1770' },
   authors: [{ name: 'Robin Busse', url: 'https://audio-dubcheck.com/about' }],
   keywords: [
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     url: '/blog/ebu-r128-vs-atsc-a85-vs-bs1770',
+    images: ['/og/ebu-r128-vs-atsc-a85-vs-bs1770'],
     type: 'article',
     title: 'EBU R128 vs ATSC A/85 vs ITU BS.1770: What Actually Differs',
     description:

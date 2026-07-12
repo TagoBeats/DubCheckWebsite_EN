@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import BlogPostLayout from '@/components/BlogPostLayout'
 
 export const metadata: Metadata = {
-  title: 'Room Tone Matching Across Recording Days: The Narrator Workflow That Prevents Re-Records',
+  title: 'Room Tone Matching Across Recording Days: Prevent Re-Records',
   description:
-    'Why your chapter 3 sounds different from chapter 12 even though nothing in the booth changed, and the recording, editing and measurement workflow that keeps room tone consistent across days, weeks and months of a project.',
+    'Why chapter 3 sounds different from chapter 12, and the recording, editing and measurement workflow that keeps room tone consistent across a long project.',
   alternates: { canonical: '/blog/room-tone-matching-recording-days' },
   authors: [{ name: 'Robin Busse', url: 'https://audio-dubcheck.com/about' }],
   keywords: [
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     url: '/blog/room-tone-matching-recording-days',
+    images: ['/og/room-tone-matching-recording-days'],
     type: 'article',
     title: 'Room Tone Matching Across Recording Days',
     description:

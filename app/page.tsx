@@ -6,13 +6,13 @@ import DubCheckMockup from '@/components/DubCheckMockup'
 import DemoSection   from '@/components/DemoSection'
 
 export const metadata: Metadata = {
-  title: 'DubCheck - The ultimate final check for your audio',
+  title: 'DubCheck - Audio QC for ACX, Netflix & Podcast Delivery',
   description:
     'Two editions, one EBU R128 certified engine. Catch ACX, Netflix, Apple TV+ and Disney+ spec failures before delivery.',
   alternates: { canonical: '/' },
   openGraph: {
     url: '/',
-    title: 'DubCheck - The ultimate final check for your audio',
+    title: 'DubCheck - Audio QC for ACX, Netflix & Podcast Delivery',
     description:
       'Two editions, one EBU R128 certified engine. Catch ACX, Netflix, Apple TV+ and Disney+ failures before delivery.',
   },

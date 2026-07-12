@@ -9,10 +9,11 @@ const SITE_URL = 'https://audio-dubcheck.com'
 export const metadata: Metadata = {
   title: 'Pricing - Lifetime license from €30',
   description:
-    'DubCheck pricing: Narrators edition €30 lifetime for audiobook QC, Studios edition €49 lifetime for broadcast and streaming delivery. One-time payment, free updates, no subscription.',
+    'DubCheck pricing: Narrators edition €30 lifetime for audiobook QC, Studios edition €49 lifetime for broadcast delivery. One-time payment, free updates.',
   alternates: { canonical: '/pricing' },
   openGraph: {
     url: '/pricing',
+    images: ['/og.png'],
     title: 'DubCheck Pricing - Lifetime license from €30',
     description:
       'Narrators €30, Studios €49. One-time, lifetime, free updates. Pick the edition that matches your delivery workflow.',

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'Robin Busse', url: 'https://audio-dubcheck.com/about' }],
   openGraph: {
     url: '/blog/acx-submission-rejected',
+    images: ['/og/acx-submission-rejected'],
     type: 'article',
     title: 'Why Your ACX Submission Keeps Getting Rejected',
     description:
