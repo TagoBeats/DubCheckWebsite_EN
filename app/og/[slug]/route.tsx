@@ -41,6 +41,11 @@ const SPEC_CARDS: Record<string, { category: string; title: string; sub: string 
     title: 'ATSC A/85 (CALM Act) Loudness Requirements',
     sub: '-24 LKFS, -2 dBTP, the legally mandated US broadcast standard.',
   },
+  'spec-spotify-audiobooks': {
+    category: 'Spec Reference · Spotify Audiobooks',
+    title: 'Spotify Audiobooks Requirements',
+    sub: 'RMS -24 to -14 dB, noise floor, credits and sample rules.',
+  },
   'spec-storytel': {
     category: 'Spec Reference · Storytel',
     title: 'Storytel Audiobook Requirements',

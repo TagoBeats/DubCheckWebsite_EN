@@ -51,11 +51,11 @@ export default function Post() {
         },
         {
           question: 'Should I master audiobooks in MP3 or WAV?',
-          answer: 'Always master to 44.1 kHz / 16-bit WAV. ACX accepts WAV natively, Findaway strongly prefers WAV because they re-encode downstream for retailers, and Spotify Audiobooks requires WAV or FLAC. MP3 should only be a downstream conversion, never the master.',
+          answer: 'Always master to 44.1 kHz / 16-bit WAV. Findaway strongly prefers WAV because they re-encode downstream for retailers, and Spotify Audiobooks accepts WAV and FLAC alongside its preferred MP3. For ACX you encode that master to MP3 192 kbps CBR as the final step. MP3 should only be a downstream conversion, never the master.',
         },
         {
           question: 'What true peak ceiling do audiobook platforms require?',
-          answer: 'ACX and Findaway require -3 dBTP. Spotify Audiobooks requires -1 dBTP. Mastering to -3 dBTP is the conservative choice that passes all three platforms.',
+          answer: 'ACX and Findaway specify a -3 dB peak ceiling. Spotify Audiobooks publishes no true peak limit in its delivery guide. Mastering to -3 dBTP covers all three platforms and leaves headroom for MP3 encoding.',
         },
       ]}
       tldr={[
@@ -115,64 +115,64 @@ export default function Post() {
         </thead>
         <tbody>
           <tr>
-            <td>Integrated Loudness</td>
-            <td>-18 to -23 LUFS</td>
-            <td>-18 to -23 LUFS (recommended)</td>
-            <td>-14 to -20 LUFS (target -18)</td>
+            <td>Loudness</td>
+            <td>-23 to -18 dB RMS</td>
+            <td>-23 to -18 dB RMS (recommended)</td>
+            <td>-24 to -14 dB RMS</td>
           </tr>
           <tr>
             <td>True Peak Ceiling</td>
             <td>-3 dBTP</td>
             <td>-3 dBTP</td>
-            <td>-1 dBTP</td>
+            <td>Not specified</td>
           </tr>
           <tr>
             <td>Noise Floor</td>
             <td>-60 dBFS or lower</td>
             <td>-60 dBFS or lower</td>
-            <td>-60 dBFS or lower (recommended)</td>
+            <td>Under -60 dB</td>
           </tr>
           <tr>
             <td>Sample Rate</td>
             <td>44.1 kHz</td>
             <td>44.1 kHz</td>
-            <td>44.1 or 48 kHz</td>
+            <td>44.1 kHz</td>
           </tr>
           <tr>
             <td>Bit Depth</td>
             <td>16-bit</td>
             <td>16 or 24-bit</td>
-            <td>16 or 24-bit</td>
+            <td>16-bit</td>
           </tr>
           <tr>
             <td>File Format</td>
-            <td>MP3 192 CBR or WAV</td>
+            <td>MP3 192 kbps CBR</td>
             <td>WAV preferred, MP3 accepted</td>
-            <td>WAV or FLAC</td>
+            <td>MP3 preferred, WAV or FLAC</td>
           </tr>
           <tr>
             <td>Channels</td>
             <td>Mono or stereo</td>
             <td>Stereo preferred</td>
-            <td>Stereo</td>
+            <td>Mono or stereo, not mixed</td>
           </tr>
           <tr>
             <td>Head Silence</td>
             <td>0.5 to 1 sec</td>
             <td>1 sec recommended</td>
-            <td>1 sec recommended</td>
+            <td>0.5 to 1 sec</td>
           </tr>
           <tr>
             <td>Tail Silence</td>
             <td>1 to 5 sec</td>
             <td>2 to 5 sec recommended</td>
-            <td>2 to 5 sec recommended</td>
+            <td>1 to 5 sec</td>
           </tr>
           <tr>
             <td>Chapter Structure</td>
             <td>One file per chapter, max 120 min</td>
             <td>One file per chapter</td>
-            <td>One file per chapter</td>
+            <td>One file per chapter, max 120 min</td>
           </tr>
           <tr>
             <td>QC Type</td>
@@ -186,24 +186,24 @@ export default function Post() {
       <p>
         Specs sourced from{' '}
         <a href="https://www.acx.com/help/narrators/200484550" target="_blank" rel="noopener noreferrer">ACX audio submission requirements</a>
-        , Findaway Voices delivery documentation, and Spotify Audiobooks publisher specs current as of 2026.
+        , Findaway Voices delivery documentation, and the Spotify for Authors Metadata &amp; Assets Guide (last updated 11/2024).
       </p>
 
       <h2>Where the Specs Actually Differ</h2>
 
       <h3 data-n="01">Loudness Target Window</h3>
       <p>
-        ACX and Findaway publish the same -18 to -23 LUFS window. Spotify Audiobooks targets a hotter range, centered around -18 LUFS, with normalization that lifts quieter material on playback. A master at -20 LUFS passes all three: comfortably inside the ACX/Findaway window, comfortably inside Spotify&apos;s lift range.
+        ACX and Findaway publish the same -23 to -18 dB RMS window. Spotify Audiobooks is the loosest of the three: the official guide specifies RMS between -24 and -14 dB, wider on both ends. Any master inside the ACX window automatically sits inside Spotify&apos;s. A master at -20 LUFS integrated, which lands around -20 dB RMS on dense spoken word, passes all three with margin.
       </p>
 
       <h3 data-n="02">True Peak Ceiling</h3>
       <p>
-        ACX and Findaway require -3 dBTP. Spotify requires -1 dBTP. The conservative choice is to master to <strong>-3 dBTP</strong>. It passes all three. Mastering to -1 dBTP saves 2 dB of headroom but fails ACX and Findaway. There is no upside to that on a voice-only master.
+        ACX and Findaway specify a -3 dB peak ceiling. Spotify Audiobooks publishes no true peak limit at all. The choice stays simple: master to <strong>-3 dBTP</strong> and every platform is covered, with headroom left for the MP3 encoders that raise inter-sample peaks downstream.
       </p>
 
       <h3 data-n="03">File Format and Bit Depth</h3>
       <p>
-        ACX is the outlier: it accepts MP3 192 CBR as a primary delivery format, while the other two strongly prefer WAV. The cleanest workflow is to master and deliver in <strong>44.1 kHz / 16-bit WAV</strong> for all three. ACX accepts this natively. Findaway prefers it. Spotify accepts it. The MP3 encoding for ACX happens downstream of you or in their pipeline. Do not master to MP3.
+        All three platforms take MP3, but they differ on everything else: ACX uploads are MP3 192 kbps CBR only, Findaway strongly prefers WAV, Spotify prefers MP3 and also takes WAV and FLAC. The cleanest workflow is to master in <strong>44.1 kHz / 16-bit WAV</strong> and encode per platform as the last step. Where a platform takes MP3, run the QC check on the encoded file, not the WAV master. Do not master to MP3.
       </p>
 
       <h3 data-n="04">QC Type</h3>
@@ -254,7 +254,7 @@ export default function Post() {
           </tr>
           <tr>
             <td>ACX</td>
-            <td>Loudness outside -18 to -23 LUFS</td>
+            <td>RMS outside -23 to -18 dB</td>
             <td>Single chapter out of range, not the average</td>
           </tr>
           <tr>
@@ -274,13 +274,13 @@ export default function Post() {
           </tr>
           <tr>
             <td>Spotify Audiobooks</td>
-            <td>True peak above -1 dBTP</td>
-            <td>If delivering directly to Spotify, this is stricter than ACX</td>
+            <td>Mixed mono and stereo files</td>
+            <td>The guide requires all files mono or all stereo, not a combination</td>
           </tr>
           <tr>
             <td>Spotify Audiobooks</td>
-            <td>Format mismatch</td>
-            <td>MP3 delivered instead of WAV or FLAC</td>
+            <td>Credits and sample issues</td>
+            <td>Missing opening credits, or a retail sample over 5 minutes / containing music</td>
           </tr>
         </tbody>
       </table>
@@ -302,7 +302,7 @@ export default function Post() {
       </p>
 
       <ol className="list-decimal list-inside space-y-[8px]">
-        <li><strong>Spotify-direct delivery at hotter loudness.</strong> If you publish directly to Spotify Audiobooks (not via Findaway), you can master to -18 LUFS / -1 dBTP and gain a small competitive loudness advantage in the catalog. Costs you the ACX-compatible master. You have to render twice.</li>
+        <li><strong>Spotify-direct delivery at hotter loudness.</strong> The Spotify for Authors guide allows RMS up to -14 dB, noticeably hotter than ACX&apos;s ceiling. Mastering hotter for a Spotify-only title is allowed, but playback normalization erases most of the perceived advantage and it costs you the ACX-compatible master. Rarely worth the second render.</li>
         <li><strong>High-end retail (Apple Books premium).</strong> If you are delivering to a premium retail program that accepts 24-bit / 48 kHz, render a higher-res master alongside the universal one. The universal master still goes to ACX, Findaway and standard Spotify.</li>
       </ol>
 

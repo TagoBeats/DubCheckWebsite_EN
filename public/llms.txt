@@ -18,6 +18,7 @@ The technical articles below are written against the same measurement engine tha
 Verified reference pages for platform delivery specs. Every page carries the full requirement table, measurement notes, a last-verified date and a link to the official source. The values match what the DubCheck engine tests against.
 
 - [ACX Audio Submission Requirements](https://audio-dubcheck.com/specs/acx): RMS -23 to -18 dB, peak -3 dB, noise floor -60 dB RMS, MP3 192 kbps CBR, room tone.
+- [Spotify Audiobooks Requirements](https://audio-dubcheck.com/specs/spotify-audiobooks): RMS -24 to -14 dB, noise floor under -60 dB, MP3 preferred, mono or stereo, credits and retail sample rules.
 - [Storytel Audiobook Requirements](https://audio-dubcheck.com/specs/storytel): ACX-compatible levels delivered lossless, WAV or FLAC, mono preferred.
 - [EBU R128 Loudness Requirements](https://audio-dubcheck.com/specs/ebu-r128): -23 LUFS programme loudness, -1 dBTP, EBU Mode gating, shortform variant.
 - [ATSC A/85 (CALM Act) Loudness Requirements](https://audio-dubcheck.com/specs/atsc-a85): -24 LKFS ±2 LU program loudness, -2 dBTP, the legally mandated US broadcast standard.

@@ -30,6 +30,12 @@ const SPECS = [
     summary: 'Dialogue-gated -27 LKFS, the 15% low-dialogue fallback, -2 dBTP true peak and format requirements for near-field mixes.',
   },
   {
+    href: '/specs/spotify-audiobooks',
+    tag: 'Spotify Audiobooks',
+    title: 'Spotify Audiobooks Requirements',
+    summary: 'RMS -24 to -14 dB, noise floor under -60 dB, MP3 preferred, mono or stereo, plus credits and retail sample rules from the SFA guide.',
+  },
+  {
     href: '/specs/storytel',
     tag: 'Storytel',
     title: 'Storytel Audiobook Requirements',

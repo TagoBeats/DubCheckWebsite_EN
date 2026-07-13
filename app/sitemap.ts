@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/specs/ebu-r128`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/specs/netflix`,  lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/specs/storytel`,              lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${SITE_URL}/specs/spotify-audiobooks`,    lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/specs/prime-video`,           lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/specs/atsc-a85`,              lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/specs/spotify`,               lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
