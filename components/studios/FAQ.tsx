@@ -51,7 +51,7 @@ const FAQS = [
   {
     n: 'Q/10',
     q: 'Can I try it before I buy?',
-    a: 'Yes. Download DubCheck and you automatically get a 7-day free trial of the Pro edition - no account, just your email. Run as many checks as you want against Netflix, Apple TV+, Disney+ and Prime profiles locally on your own files. If it earns its keep, claim the 50% Early Bird license before 31 July 2026. If not, walk away with zero friction.',
+    a: 'Better than that: the app is free. Single assets against Netflix, Prime Video, EBU R128 or ATSC A/85, full signed PDF, no account and no expiry. First launch also gives you 7 days of batch checking so you can run a whole season, and when that ends nothing locks - you just drop back to one file per run.',
   },
 ]
 

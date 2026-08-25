@@ -14,7 +14,7 @@ import DemoSection   from '@/components/DemoSection'
 export const metadata: Metadata = {
   title: 'DubCheck for Narrators - ACX QC & PDF',
   description:
-    'Stop getting ACX-rejected. DubCheck verifies RMS, peak, noise floor and room tone on every chapter and hands you a clean pass/fail PDF. Lifetime license €30.',
+    'Stop getting ACX-rejected. DubCheck verifies RMS, peak, noise floor and room tone on every chapter and hands you a clean pass/fail PDF. Free for single chapters.',
   alternates: { canonical: '/narrators' },
   openGraph: {
     url: '/narrators',

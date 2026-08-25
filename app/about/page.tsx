@@ -58,10 +58,12 @@ export default function AboutPage() {
                 There are no third-party analytics, no telemetry, no crash reports sent home by default. The product is a tool, not a funnel. When something breaks I would rather hear about it in an email than see it in a dashboard.
               </p>
 
-              <h2 className="text-dc-ink text-[22px] font-semibold tracking-[-0.02em] mt-10 mb-3">Two editions, one engine</h2>
+              <h2 className="text-dc-ink text-[22px] font-semibold tracking-[-0.02em] mt-10 mb-3">One app, and it is free</h2>
               <p>
-                <strong className="text-dc-ink">DubCheck Studios</strong> is the orange edition, aimed at broadcast, streaming and dubbing work: Netflix NOLS, EBU R128, ATSC A/85, Apple TV+, Disney+, Prime Video, YouTube.{' '}
-                <strong className="text-dc-ink">DubCheck Narrators</strong> is the cyan edition, aimed at audiobooks and podcasts: ACX, Audible, Storytel, Spotify Audiobooks, Podtrac. The edition is read from the license key. Both share the exact same measurement core, so a number measured in one will match a number measured in the other.
+                Every spec ships in the same binary: Netflix NOLS, EBU R128, ATSC A/85, Prime Video and YouTube on the broadcast side, ACX, Storytel, Spotify Audiobooks and Podtrac on the narration side. No editions, no feature matrix, no crippled free version. Checking one file per run costs nothing and always will.
+              </p>
+              <p>
+                The one thing you can pay for is batch: dropping a whole folder in one pass, plus a summary report across it. That is a throughput upgrade, not an accuracy one. Splitting a QC tool so the free version measures worse would defeat the point of having it.
               </p>
 
               <h2 className="text-dc-ink text-[22px] font-semibold tracking-[-0.02em] mt-10 mb-3">Getting in touch</h2>

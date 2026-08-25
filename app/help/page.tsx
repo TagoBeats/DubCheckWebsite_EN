@@ -122,7 +122,7 @@ export default function HelpPage() {
               </Step>
 
               <Step n={2} title="Drop your audio">
-                On the empty screen, drag one or more files in, or click <strong className="text-dc-ink">Browse Files</strong>. WAV, BWF, and FLAC. Mono through 7.1.2. You can drop up to 10 files on Pro, unlimited on Studio Pro.
+                On the empty screen, drag one or more files in, or click <strong className="text-dc-ink">Browse Files</strong>. WAV, BWF, and FLAC. Mono through 7.1.2. One file per run on the free version, unlimited with a Batch key.
               </Step>
 
               <Shot src="/help/empty-state.png" caption="Drag files anywhere on the window or use Browse Files." />
@@ -301,11 +301,12 @@ export default function HelpPage() {
               />
 
               <Issue
-                problem='The CLI says "License required"'
-                cause="The CLI is part of the Studio Pro tier only."
+                problem='The CLI refuses more than one file'
+                cause="You are on the free version, which checks one file per run in both the GUI and the CLI."
                 fix={
                   <>
-                    Either upgrade your key or use the GUI. Pro covers GUI, PDF, and batch up to 10 files.
+                    Pass a single file, or activate a Batch key with <strong className="text-dc-ink">dubcheck activate &lt;KEY&gt;</strong> to
+                    lift the limit.
                   </>
                 }
               />
@@ -339,28 +340,20 @@ export default function HelpPage() {
                 Nowhere. Files are read, measured, and reported locally. The PDF is written to the path you pick. Nothing leaves your machine.
               </FAQItem>
 
-              <FAQItem q="What are the tiers?">
-                <strong className="text-dc-ink">Free:</strong> single file, EBU R128 only, no PDF, no CLI.
-                <br />
-                <strong className="text-dc-ink">Pro:</strong> batch up to 10 files, every spec, PDF export.
-                <br />
-                <strong className="text-dc-ink">Studio Pro:</strong> unlimited batch, PDF, CLI access.
-              </FAQItem>
-
-              <FAQItem q="Studios vs Narrators, what is the difference?">
-                Two editions of the same engine. <strong className="text-dc-ink">Studios</strong> (orange) is for broadcast, streaming, and dubbing: Netflix, EBU, ATSC, Prime Video. <strong className="text-dc-ink">Narrators</strong> (cyan) is for audiobooks and podcasts: ACX, Audible, Storytel, Spotify Audiobooks, Podtrac. The edition is read from your license key.
+              <FAQItem q="Free vs Batch, what is the difference?">
+                One app, one engine, all specs in both. <strong className="text-dc-ink">Free</strong> checks one file per run: broadcast, streaming, audiobook, podcast, whatever you point it at. <strong className="text-dc-ink">Batch</strong> lifts the file limit so you can drop a whole folder and adds a summary report across the batch.
               </FAQItem>
 
               <FAQItem q="How does activation work?">
-                Offline. The license is a short signed string. The app verifies the signature against an embedded public key, reads the tier and expiry, and unlocks the matching features. No server call, no per-machine activation count.
+                Offline. The license is a short signed string. The app verifies the signature against an embedded public key, reads the tier and expiry, and unlocks batch checking. No server call, no per-machine activation count. The free version needs no key at all.
               </FAQItem>
 
               <FAQItem q="Is there a trial?">
-                7 days of full Studio Pro from first launch. After that the app drops to Free until you enter a key.
+                First launch gives you 7 days of Batch. When it ends nothing locks, the app just drops back to Free.
               </FAQItem>
 
               <FAQItem q="Where is the License screen?">
-                Click the small <strong className="text-dc-ink">Pro</strong> / <strong className="text-dc-ink">Studio Pro</strong> / <strong className="text-dc-ink">Trial</strong> badge in the bottom-right corner of the app.
+                Click the small <strong className="text-dc-ink">Free</strong> / <strong className="text-dc-ink">Batch</strong> / <strong className="text-dc-ink">Trial</strong> badge in the bottom-right corner of the app.
                 <Shot src="/help/license-screen.png" caption="The License screen. Your tier, license details, About info, and a Help button that brings you back here." inline />
               </FAQItem>
             </Section>

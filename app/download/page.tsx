@@ -5,7 +5,7 @@ import Nav    from '@/components/Nav'
 import Footer from '@/components/Footer'
 import DownloadCTA from '@/components/DownloadCTA'
 
-const CURRENT_VERSION = '1.0.11'
+const CURRENT_VERSION = '1.1.0'
 const DOWNLOAD_URL = `https://github.com/TagoBeats/DubCheck-downloads/releases/download/v${CURRENT_VERSION}/DubCheck-${CURRENT_VERSION}.pkg`
 const SUPPORT_EMAIL = 'support@audio-dubcheck.com'
 
@@ -82,7 +82,7 @@ export default function DownloadPage() {
               className="w-[7px] h-[7px] rounded-full flex-shrink-0 animate-pulse"
               style={{ background: '#FF7A1A', boxShadow: '0 0 8px rgba(255,122,26,0.9)' }}
             />
-            Free 7-day trial · macOS · v{CURRENT_VERSION}
+            Free · macOS · v{CURRENT_VERSION}
           </div>
 
           {/* ── Headline ── */}
@@ -100,11 +100,11 @@ export default function DownloadPage() {
 
           {/* ── Subtext ── */}
           <p className="text-[17px] md:text-[18px] text-dc-ink2 leading-[1.6] max-w-[52ch] mb-10">
-            Download the installer. Run free for 7 days — no card, no signup.
-            Paste your license key anytime to unlock for good.
+            Free, and it stays free. No account, no card, no expiry. One file per run,
+            every platform spec, full PDF report.
           </p>
 
-          {/* ── Primary CTA (email-gated for trial, direct for paid via ?via=email) ── */}
+          {/* ── Primary CTA (direct download, email opt-in after the click) ── */}
           <Suspense fallback={null}>
             <DownloadCTA downloadUrl={DOWNLOAD_URL} version={CURRENT_VERSION} />
           </Suspense>
@@ -197,15 +197,13 @@ export default function DownloadPage() {
                   </svg>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-[14px] text-dc-ink font-medium mb-[3px]">Trying it out first?</div>
+                  <div className="text-[14px] text-dc-ink font-medium mb-[3px]">Need to check a whole folder?</div>
                   <div className="text-[13.5px] text-dc-ink2 leading-[1.55]">
-                    Trial runs free for 7 days. When ready, pick a plan for{' '}
-                    <Link href="/narrators" className="text-[#FFB07A] hover:text-[#FF7A1A] underline-offset-2 hover:underline">
-                      Narrators
-                    </Link>{' '}
-                    or{' '}
-                    <Link href="/studios" className="text-[#FFB07A] hover:text-[#FF7A1A] underline-offset-2 hover:underline">
-                      Studios
+                    The first 7 days include batch checking so you can try it on a real season or
+                    audiobook. After that it is €29 once, or you keep using the free single-file
+                    version.{' '}
+                    <Link href="/pricing" className="text-[#FFB07A] hover:text-[#FF7A1A] underline-offset-2 hover:underline">
+                      See pricing
                     </Link>.
                   </div>
                 </div>

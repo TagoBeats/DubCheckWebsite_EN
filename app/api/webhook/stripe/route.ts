@@ -3,13 +3,12 @@ import Stripe from 'stripe'
 import { Redis } from '@upstash/redis'
 import productsJson from '@/scripts/stripe_products.json'
 import { sendLicenseEmail } from '@/lib/license-email'
+import { BATCH_PRICE_CENTS } from '@/lib/pricing'
 
 export const runtime = 'nodejs'
 
 type ProductEntry = {
   label: string
-  edition: string
-  tier: string
   keys_to_send: number
   payment_link?: string
 }
@@ -19,9 +18,8 @@ const PRODUCTS = (productsJson as { products: Record<string, ProductEntry> })
 
 const redis = Redis.fromEnv()
 
-function listName(edition: string, tier: string): string {
-  return `keys:${edition.toLowerCase()}:${tier.toLowerCase()}`
-}
+// One product, one pool. Free needs no key, so this is the only list there is.
+const KEY_LIST = 'keys:batch'
 
 async function popKeys(list: string, n: number): Promise<string[]> {
   const keys: string[] = []
@@ -134,18 +132,28 @@ export async function POST(req: NextRequest) {
     const alreadyFulfilled = await redis.exists(`sold:${session.id}:${item.id}`)
     if (alreadyFulfilled) continue
 
-    const product = PRODUCTS[priceId]
+    // There is exactly one paid app product, so the price-ID table is only a
+    // convenience. If a price is not listed we still fulfil it as Batch when the
+    // line item costs exactly the Batch price, which keeps a sale from silently
+    // failing over a config typo while never matching the managed-QC service
+    // products (149 / 449 / 899).
+    const product =
+      PRODUCTS[priceId] ??
+      (item.price?.unit_amount === BATCH_PRICE_CENTS && item.price?.currency === 'eur'
+        ? { label: 'Batch', keys_to_send: 1 }
+        : undefined)
+
     if (!product) {
       await alertAdmin(
         'Unknown price_id in checkout',
-        `Session ${session.id}, price ${priceId}. Not in stripe_products.json. Manual fulfillment needed.`
+        `Session ${session.id}, price ${priceId} (${item.price?.unit_amount} ${item.price?.currency}). Not in stripe_products.json and not the Batch price. Manual fulfillment needed.`
       )
       continue
     }
 
     const qty = item.quantity ?? 1
     const totalKeys = product.keys_to_send * qty
-    const list = listName(product.edition, product.tier)
+    const list = KEY_LIST
 
     const keys = await popKeys(list, totalKeys)
 
@@ -163,8 +171,6 @@ export async function POST(req: NextRequest) {
         to: email,
         keys,
         label: product.label,
-        edition: product.edition,
-        tier: product.tier,
       })
     } catch (err) {
       await returnKeys(list, keys)

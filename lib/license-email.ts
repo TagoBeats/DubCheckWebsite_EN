@@ -2,14 +2,12 @@ const RESEND_API = 'https://api.resend.com'
 
 const FROM = 'DubCheck <keys@robinbusse.dev>'
 const REPLY_TO = 'support@audio-dubcheck.com'
-const DOWNLOAD_URL = 'https://audio-dubcheck.com/download?via=email'
+const DOWNLOAD_URL = 'https://audio-dubcheck.com/download'
 
 type SendArgs = {
   to: string
   keys: string[]
   label: string
-  edition: string
-  tier: string
 }
 
 function html({ keys, label }: { keys: string[]; label: string }): string {
@@ -34,6 +32,7 @@ function html({ keys, label }: { keys: string[]; label: string }): string {
       </div>
 
       <h1 style="font-size:22px;font-weight:600;margin:0 0 12px;text-align:center;">Thanks for buying DubCheck ${label}</h1>
+      <p style="font-size:15px;line-height:1.6;color:#334155;margin:0 0 4px;text-align:center;">No more one-file-at-a-time. Drop a whole folder and DubCheck runs the lot.</p>
       <p style="font-size:15px;line-height:1.6;color:#334155;margin:0 0 4px;text-align:center;">Your license ${plural} ${isAre} below. Keep this email safe, it's your proof of purchase.</p>
 
       <div style="height:1px;background:#e2e8f0;margin:28px 0;"></div>
@@ -44,8 +43,8 @@ function html({ keys, label }: { keys: string[]; label: string }): string {
       <h2 style="font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:#64748b;margin:28px 0 12px;">Quickstart</h2>
       <ol style="font-size:15px;line-height:1.7;color:#334155;padding-left:20px;margin:0;">
         <li>Download DubCheck: <a href="${DOWNLOAD_URL}" style="color:#2563eb;text-decoration:none;">audio-dubcheck.com/download</a></li>
-        <li>Open the app, go to Settings → License, paste your key, hit Activate.</li>
-        <li>You're in. Full docs at <a href="https://audio-dubcheck.com/help" style="color:#2563eb;text-decoration:none;">audio-dubcheck.com/help</a>.</li>
+        <li>Open the app and click the small badge in the bottom-right corner to open the License screen.</li>
+        <li>Paste your key, hit Activate, and the file limit is gone. Full docs at <a href="https://audio-dubcheck.com/help" style="color:#2563eb;text-decoration:none;">audio-dubcheck.com/help</a>.</li>
       </ol>
 
       <div style="height:1px;background:#e2e8f0;margin:28px 0;"></div>

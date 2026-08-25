@@ -41,7 +41,7 @@ const FAQS: Faq[] = [
   {
     n: 'Q/06',
     q: 'Can I try it before I buy?',
-    a: 'Yes. Download DubCheck and you automatically get a 7-day free trial of the Pro edition - no account, just your email. Run full batches of your chapters through ACX, Spotify and Storytel profiles locally. If it earns its keep, claim the 50% Early Bird license before 31 July 2026. If not, walk away with zero friction.',
+    a: 'Better than that: the app is free. Single chapters against ACX, Spotify Audiobooks, Storytel or Podtrac, full PDF report, no account and no expiry. First launch also gives you 7 days of batch checking so you can run a whole book, and when that ends nothing locks - you just drop back to one chapter per run.',
   },
   {
     n: 'Q/07',

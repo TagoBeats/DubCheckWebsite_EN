@@ -13,19 +13,19 @@ const COPY: Record<Variant, {
   ledClass:  string
 }> = {
   narrators: {
-    label:    'Need streamer specs instead?',
+    label:    'Also deliver to streamers?',
     headline: 'Mixing for Netflix, Apple TV+, Disney+ or Prime?',
-    body:     <>The AudioBook Edition focuses on ACX, Spotify Audiobooks, Storytel and Podtrac. If you deliver final mixes to streaming platforms, the Studios Edition covers <strong className="font-semibold text-dc-ink">NOLS, Apple TV+, Disney+, Prime Video, EBU R128 and ATSC A/85</strong>. Multi-spec in one pass, audit-ready PDF.</>,
-    ctaLabel: 'See Studios Edition',
+    body:     <>Same app, same download, no second purchase. DubCheck ships every spec in one binary, so the profiles for <strong className="font-semibold text-dc-ink">NOLS, Apple TV+, Disney+, Prime Video, EBU R128 and ATSC A/85</strong> are already sitting in the dropdown next to your ACX ones. Multi-spec in one pass, audit-ready PDF.</>,
+    ctaLabel: 'See the studio workflow',
     ctaHref:  '/studios',
     accent:   'text-dc-orange',
     ledClass: 'led-orange',
   },
   studios: {
-    label:    'Just need ACX or audiobook specs?',
+    label:    'Also cutting audiobooks?',
     headline: 'Recording an audiobook for Audible / ACX?',
-    body:     <>The Studios Edition is built for streamer-grade deliveries (Netflix, Apple TV+, Disney+, Prime). If your workflow centers on audiobook submissions, the lighter AudioBook Edition covers <strong className="font-semibold text-dc-ink">ACX, Spotify Audiobooks, Storytel and Podtrac</strong>, at audiobook pricing.</>,
-    ctaLabel: 'See AudioBook Edition',
+    body:     <>Same app, same download, no second purchase. The <strong className="font-semibold text-dc-ink">ACX, Spotify Audiobooks, Storytel and Podtrac</strong> profiles are already in the same dropdown as your Netflix and EBU ones, RMS and room tone checks included.</>,
+    ctaLabel: 'See the narrator workflow',
     ctaHref:  '/narrators',
     accent:   'text-dc-cyan',
     ledClass: 'led',

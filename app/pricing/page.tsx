@@ -3,84 +3,57 @@ import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import JsonLd from '@/components/JsonLd'
+import PricingCards from '@/components/PricingCards'
+import { BATCH_PRICE_EUR, PLATFORM_COUNT, SPEC_COUNT } from '@/lib/pricing'
 
 const SITE_URL = 'https://audio-dubcheck.com'
 
 export const metadata: Metadata = {
-  title: 'Pricing - Lifetime license from €30',
+  title: 'Pricing - Free, or €29 once for batch',
   description:
-    'DubCheck pricing: Narrators edition €30 lifetime for audiobook QC, Studios edition €49 lifetime for broadcast delivery. One-time payment, free updates.',
+    `DubCheck is free: check one file per run against all ${SPEC_COUNT} platform specs and export a signed PDF. €${BATCH_PRICE_EUR} once unlocks unlimited batch checking. No subscription.`,
   alternates: { canonical: '/pricing' },
   openGraph: {
     url: '/pricing',
     images: ['/og.png'],
-    title: 'DubCheck Pricing - Lifetime license from €30',
+    title: 'DubCheck Pricing - Free, or €29 once for batch',
     description:
-      'Narrators €30, Studios €49. One-time, lifetime, free updates. Pick the edition that matches your delivery workflow.',
+      `Free forever for single files. €${BATCH_PRICE_EUR} once for unlimited batch checking. One payment, no subscription.`,
   },
 }
 
-const EDITIONS = [
-  {
-    name: 'Narrators',
-    color: 'cyan',
-    tag: 'For audiobook & podcast delivery',
-    price: '30',
-    blurb: 'ACX, Audible, Storytel, Spotify Audiobooks, Apple Podcasts, Podtrac.',
-    href: '/narrators',
-    features: [
-      'ACX RMS, peak, noise floor, room tone',
-      'Audible, Storytel, Findaway specs',
-      'Spotify, Apple Podcasts, Podtrac targets',
-      'Per-chapter pass/fail PDF',
-      'Free lifetime updates',
-    ],
-  },
-  {
-    name: 'Studios',
-    color: 'orange',
-    tag: 'For broadcast, streaming, dubbing',
-    price: '49',
-    blurb: 'Netflix NOLS, Apple TV+, Disney+, Prime Video, YouTube, EBU R128, ATSC A/85.',
-    href: '/studios',
-    features: [
-      'Netflix NOLS + EBU R128 + ATSC A/85',
-      'Apple TV+, Disney+, Prime Video specs',
-      'Dialog gating, true peak, LRA, channel order',
-      'Signed delivery PDF per asset',
-      'Free lifetime updates',
-    ],
-  },
-]
-
 const FAQ = [
   {
+    q: 'What is actually free?',
+    a: `The app. You check one file per run against all ${SPEC_COUNT} spec profiles across ${PLATFORM_COUNT} platforms and export the signed PDF report. No account, no card, no expiry, no watermark on the report. The free version is not a trial.`,
+  },
+  {
+    q: `What do I get for €${BATCH_PRICE_EUR}?`,
+    a: 'Batch. Instead of one file per run you drop a whole folder, a full season or an entire audiobook, and DubCheck checks every file in one pass and adds a summary report across the batch. Same measurement engine, same specs.',
+  },
+  {
     q: 'Is it really a one-time payment?',
-    a: 'Yes. €30 for Narrators or €49 for Studios buys a lifetime license. No subscription, no annual renewal. Updates within the major version are free, including new platform specs as they ship.',
+    a: `Yes. €${BATCH_PRICE_EUR} buys a lifetime key. No subscription, no annual renewal. Updates within the major version are free, including new platform specs as they ship.`,
   },
   {
-    q: 'What is the difference between Narrators and Studios?',
-    a: 'Same measurement engine, different target sets. Narrators ships with audiobook and podcast platform specs (ACX, Audible, Spotify, Apple Podcasts). Studios ships with broadcast, streaming and dubbing specs (Netflix NOLS, Apple TV+, Disney+, EBU R128, ATSC A/85). The edition is read from the license key.',
+    q: 'Can I try batch before paying?',
+    a: 'Yes. The app starts a 7-day batch trial on first launch, no card and no signup. When it ends nothing gets locked, you simply drop back to the free single-file version.',
   },
   {
-    q: 'Can I upgrade from Narrators to Studios later?',
-    a: 'Yes. The price difference plus a small admin fee. Email support@audio-dubcheck.com with your license key and we will issue a Studios key.',
+    q: 'Why is the free version not crippled?',
+    a: 'Because a QC tool that hides half its checks behind a paywall is useless for deciding whether to trust it. Every spec, every measurement and the full PDF are in the free version. The paid part is throughput, not accuracy.',
   },
   {
-    q: 'Is there a free trial?',
-    a: 'Yes, 7 days, full feature set, no card required. The trial runs against every supported platform spec so you can validate it on a real delivery before paying.',
+    q: 'Do I need to be online?',
+    a: 'Only to download the app. Every check runs locally on your machine, your audio never leaves it, and the free version needs no license check at all.',
   },
   {
-    q: 'How many machines can I activate?',
-    a: 'Two. Most engineers run one studio Mac and one laptop. If you need more seats for a team, see the Studio Batch service tier below.',
+    q: 'How many machines can I use my key on?',
+    a: 'The key is tied to you, not to a machine. Studio Mac and laptop is exactly what it is for. Just do not hand it around.',
   },
   {
     q: 'Do you offer a refund?',
     a: 'Yes. 14-day money-back guarantee, no questions asked. Email support and we will refund the original payment method.',
-  },
-  {
-    q: 'Is DubCheck a subscription?',
-    a: 'No. A lifetime license is a one-time payment for the version you buy plus all minor updates. A future major version may be a separate upgrade, but you can keep using the version you paid for indefinitely.',
   },
   {
     q: 'Do you need an invoice for VAT?',
@@ -94,22 +67,36 @@ const SERVICE_TIERS = [
   { name: 'Studio Retainer', price: '899', per: 'per month',    note: 'Unlimited deliveries · Slack channel · custom profiles' },
 ]
 
-const offerSchemas = EDITIONS.map(e => ({
+const productSchema = {
   '@context': 'https://schema.org',
-  '@type': 'Product',
-  '@id': `${SITE_URL}/pricing#${e.name.toLowerCase()}`,
-  name: `DubCheck ${e.name} Edition`,
-  description: e.blurb,
-  url: `${SITE_URL}${e.href}`,
+  '@type': 'SoftwareApplication',
+  '@id': `${SITE_URL}/pricing#dubcheck`,
+  name: 'DubCheck',
+  applicationCategory: 'MultimediaApplication',
+  operatingSystem: 'macOS',
+  description:
+    'Offline loudness and delivery QC for audiobooks, podcasts, broadcast and streaming. Free for single files, one-time payment for batch checking.',
+  url: `${SITE_URL}/pricing`,
   brand: { '@type': 'Brand', name: 'DubCheck' },
-  offers: {
-    '@type': 'Offer',
-    priceCurrency: 'EUR',
-    price: e.price,
-    availability: 'https://schema.org/InStock',
-    url: `${SITE_URL}/pricing`,
-  },
-}))
+  offers: [
+    {
+      '@type': 'Offer',
+      name: 'DubCheck Free',
+      priceCurrency: 'EUR',
+      price: '0',
+      availability: 'https://schema.org/InStock',
+      url: `${SITE_URL}/download`,
+    },
+    {
+      '@type': 'Offer',
+      name: 'DubCheck Batch',
+      priceCurrency: 'EUR',
+      price: String(BATCH_PRICE_EUR),
+      availability: 'https://schema.org/InStock',
+      url: `${SITE_URL}/pricing`,
+    },
+  ],
+}
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -133,7 +120,7 @@ const breadcrumbSchema = {
 export default function PricingPage() {
   return (
     <>
-      <JsonLd data={[...offerSchemas, faqSchema, breadcrumbSchema]} />
+      <JsonLd data={[productSchema, faqSchema, breadcrumbSchema]} />
       <div className="grid-bg" aria-hidden="true" />
       <div className="relative z-[1] max-w-[1440px] mx-auto px-5 md:px-10">
         <Nav />
@@ -143,78 +130,32 @@ export default function PricingPage() {
           <header className="max-w-[860px] mx-auto text-center">
             <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3 mb-3">§ Pricing</div>
             <h1 className="text-[34px] md:text-[52px] font-semibold tracking-[-0.025em] leading-[1.08]">
-              One payment. Lifetime license. No subscription.
+              Free for one file. €{BATCH_PRICE_EUR} once for the whole folder.
             </h1>
             <p className="text-dc-ink2 text-[17px] leading-[1.6] mt-5 max-w-[640px] mx-auto">
-              DubCheck ships in two editions sharing the same EBU 3341/3342 certified measurement engine.
-              Pick the one that matches what you deliver.
+              Every spec, every measurement and the full signed PDF are in the free version.
+              The only thing you ever pay for is checking more than one file at a time.
             </p>
           </header>
 
-          {/* Editions */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-14 max-w-[1100px] mx-auto">
-            {EDITIONS.map(e => {
-              const accent = e.color === 'cyan' ? 'rgba(0,242,255,0.35)' : 'rgba(255,122,26,0.35)'
-              const glow   = e.color === 'cyan' ? 'rgba(0,242,255,0.18)' : 'rgba(255,122,26,0.20)'
-              const btnCls = e.color === 'cyan'
-                ? 'text-[#001318] bg-dc-cyan hover:bg-[#33f5ff]'
-                : 'text-[#1A0A00] bg-dc-orange hover:bg-[#FF8A33]'
-              return (
-                <div
-                  key={e.name}
-                  className="border rounded-[14px] p-[32px_30px] flex flex-col relative"
-                  style={{
-                    borderColor: accent,
-                    background: '#17171A',
-                    boxShadow: `0 40px 100px -40px ${glow}`,
-                  }}
-                >
-                  <div className={`font-mono text-[12px] tracking-[0.14em] uppercase mb-3 ${e.color === 'cyan' ? 'text-dc-cyan' : 'text-dc-orange'}`}>
-                    {e.tag}
-                  </div>
-                  <h2 className="text-[28px] font-semibold tracking-[-0.015em] mb-1">DubCheck {e.name}</h2>
-                  <p className="text-[14.5px] text-dc-ink2 mb-7" style={{ minHeight: '3em' }}>{e.blurb}</p>
+          <PricingCards />
 
-                  <div className="font-mono text-[48px] text-dc-ink tracking-[-0.02em] leading-none mb-1">
-                    <span className="text-[22px] text-dc-ink3 mr-[2px] align-[8px]">€</span>
-                    {e.price}
-                  </div>
-                  <div className="font-mono text-[12px] text-dc-ink3 mb-7">one-time · lifetime license · free updates</div>
-
-                  <ul className="list-none p-0 m-0 mb-8 border-t border-white/[0.06]">
-                    {e.features.map(f => (
-                      <li key={f} className="flex items-start gap-3 py-[11px] border-b border-white/[0.06] text-[14px] text-dc-ink2">
-                        <span className={`mt-[6px] inline-block w-[6px] h-[6px] rounded-full flex-shrink-0 ${e.color === 'cyan' ? 'bg-dc-cyan' : 'bg-dc-orange'}`} />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link
-                    href={e.href}
-                    className={`mt-auto flex items-center justify-center w-full text-[14px] font-semibold px-5 py-[14px] rounded-[8px] transition-colors duration-150 ${btnCls}`}
-                  >
-                    Explore the {e.name} edition →
-                  </Link>
-                </div>
-              )
-            })}
-          </div>
-
-          {/* What is included (shared engine) */}
-          <section className="max-w-[860px] mx-auto mt-24">
-            <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3 mb-3">§ Included in every license</div>
-            <h2 className="text-[26px] md:text-[34px] font-semibold tracking-[-0.02em] mb-6">Everything ships with the lifetime license.</h2>
+          {/* What is included */}
+          <section className="max-w-[860px] mx-auto mt-10">
+            <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3 mb-3">§ In both versions</div>
+            <h2 className="text-[26px] md:text-[34px] font-semibold tracking-[-0.02em] mb-6">
+              The engine does not change when you pay.
+            </h2>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-3 text-dc-ink2 text-[15px]">
               {[
                 'EBU 3341/3342 certified BS.1770 engine',
                 '66 / 66 conformance tones bit-for-bit match',
+                `All ${SPEC_COUNT} spec profiles, ${PLATFORM_COUNT} platforms`,
                 'Signed PDF report per file',
-                'Two activations (studio + laptop)',
                 '100% local processing, no upload',
-                '7-day free trial, full feature set',
-                'Free updates within major version',
-                '14-day money-back guarantee',
+                'Dialog gating, true peak, LRA, channel order',
+                'Free updates within the major version',
+                'macOS, runs offline',
               ].map(f => (
                 <li key={f} className="flex items-start gap-3 py-1">
                   <span className="mt-[8px] inline-block w-[5px] h-[5px] rounded-full bg-dc-ink3" />
@@ -224,13 +165,13 @@ export default function PricingPage() {
             </ul>
           </section>
 
-          {/* Service tier (Studio Batch QC) */}
+          {/* Service tier (managed QC) */}
           <section className="max-w-[1100px] mx-auto mt-24">
             <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3 mb-3">§ Studio Service · optional</div>
             <h2 className="text-[26px] md:text-[34px] font-semibold tracking-[-0.02em] mb-3">Want us to run the QC for you?</h2>
             <p className="text-dc-ink2 text-[15.5px] leading-[1.7] mb-8 max-w-[680px]">
-              For studios that prefer to outsource the final delivery check, we offer a managed QC service.
-              Send the masters, get back a signed delivery PDF and a list of any platform spec misses.
+              The app is the free part. For studios that would rather outsource the final delivery check entirely,
+              we also run it as a service: send the masters, get back a signed delivery PDF and a list of any platform spec misses.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {SERVICE_TIERS.map(t => (
@@ -282,15 +223,15 @@ export default function PricingPage() {
 
           {/* CTA */}
           <section className="max-w-[760px] mx-auto mt-24 text-center">
-            <h2 className="text-[24px] md:text-[30px] font-semibold tracking-[-0.02em] mb-4">Still picking an edition?</h2>
+            <h2 className="text-[24px] md:text-[30px] font-semibold tracking-[-0.02em] mb-4">Not sure it fits your delivery?</h2>
             <p className="text-dc-ink2 text-[15.5px] mb-6">
               Read the use-case breakdown for{' '}
-              <Link href="/narrators" className="text-dc-cyan underline underline-offset-2">Narrators</Link>
+              <Link href="/narrators" className="text-dc-cyan underline underline-offset-2">narrators</Link>
               {' or '}
-              <Link href="/studios" className="text-dc-orange underline underline-offset-2">Studios</Link>
+              <Link href="/studios" className="text-dc-orange underline underline-offset-2">studios</Link>
               , or skim the{' '}
               <Link href="/help" className="text-dc-ink underline underline-offset-2">help docs</Link>{' '}
-              to see how the report reads on a real delivery.
+              to see how the report reads on a real delivery. Then just download it, it costs nothing.
             </p>
           </section>
 

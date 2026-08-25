@@ -1,16 +1,8 @@
-import type { Metadata } from 'next'
-import { Suspense } from 'react'
-import CheckoutPage from '@/components/CheckoutPage'
+import { redirect } from 'next/navigation'
 
-export const metadata: Metadata = {
-  title: "You're on the list | DubCheck",
-  robots: { index: false, follow: false },
-}
-
+// The old checkout carried three tiers across two editions. The model is now
+// Free plus a single one-time Batch license, so every /checkout link lands on
+// the pricing page instead. Kept as a route so old links do not 404.
 export default function Page() {
-  return (
-    <Suspense>
-      <CheckoutPage />
-    </Suspense>
-  )
+  redirect('/pricing')
 }

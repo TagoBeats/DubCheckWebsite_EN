@@ -8,13 +8,13 @@ import DemoSection   from '@/components/DemoSection'
 export const metadata: Metadata = {
   title: 'DubCheck - Audio QC for ACX, Netflix & Podcast Delivery',
   description:
-    'Two editions, one EBU R128 certified engine. Catch ACX, Netflix, Apple TV+ and Disney+ spec failures before delivery.',
+    'Free offline QC on an EBU R128 certified engine. Catch ACX, Netflix, Apple TV+ and Disney+ spec failures before delivery.',
   alternates: { canonical: '/' },
   openGraph: {
     url: '/',
     title: 'DubCheck - Audio QC for ACX, Netflix & Podcast Delivery',
     description:
-      'Two editions, one EBU R128 certified engine. Catch ACX, Netflix, Apple TV+ and Disney+ failures before delivery.',
+      'Free offline QC on an EBU R128 certified engine. Catch ACX, Netflix, Apple TV+ and Disney+ failures before delivery.',
   },
 }
 
@@ -59,7 +59,7 @@ function PersonaSwitch() {
       <div className="flex items-center gap-[10px] mb-[26px]">
         <span className="led" />
         <span className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3">
-          Two editions · one engine · EBU R128 certified
+          Free · offline · EBU R128 certified
         </span>
       </div>
 
@@ -73,8 +73,8 @@ function PersonaSwitch() {
 
       {/* Lede */}
       <p className="text-[18px] leading-[1.55] text-dc-ink2 max-w-[62ch] mb-12">
-        Bulletproof your deliveries. DubCheck comes in two editions sharing the same EBU 3341/3342
-        certified engine. Pick the edition built for your workflow:
+        Bulletproof your deliveries. One app, every platform spec, an EBU 3341/3342 certified engine,
+        and it costs nothing. Find the workflow that matches yours:
       </p>
 
       {/* Persona cards */}
@@ -100,7 +100,7 @@ function PersonaSwitch() {
           </p>
           <div className="flex items-center justify-between">
             <span className="font-mono text-[12px] text-dc-ink3 tracking-[0.06em]">
-              From €30 lifetime
+              Free · €29 once for batch
             </span>
             <span aria-label="See DubCheck Narrators details" className="inline-flex items-center gap-[8px] text-[13.5px] font-semibold text-dc-cyan group-hover:translate-x-[4px] transition-transform duration-200">
               Explore the Narrators edition
@@ -132,7 +132,7 @@ function PersonaSwitch() {
           </p>
           <div className="flex items-center justify-between">
             <span className="font-mono text-[12px] text-dc-ink3 tracking-[0.06em]">
-              From €49 lifetime
+              Free · €29 once for batch
             </span>
             <span aria-label="See DubCheck Studios details" className="inline-flex items-center gap-[8px] text-[13.5px] font-semibold text-dc-orange group-hover:translate-x-[4px] transition-transform duration-200">
               Explore the Studios edition
