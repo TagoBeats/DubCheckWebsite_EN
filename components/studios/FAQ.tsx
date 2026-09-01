@@ -51,7 +51,7 @@ const FAQS = [
   {
     n: 'Q/10',
     q: 'Can I try it before I buy?',
-    a: 'Better than that: the app is free. Single assets against Netflix, Prime Video, EBU R128 or ATSC A/85, full signed PDF, no account and no expiry. First launch also gives you 7 days of batch checking so you can run a whole season, and when that ends nothing locks - you just drop back to one file per run.',
+    a: 'Better than that: the app is free. Single assets against Netflix, Prime Video, EBU R128 or ATSC A/85, full signed PDF, no account and no expiry. You can also start 7 days of batch checking from the License screen inside the app whenever you want to run a whole season, and when those end nothing locks - you just drop back to one file per run.',
   },
 ]
 

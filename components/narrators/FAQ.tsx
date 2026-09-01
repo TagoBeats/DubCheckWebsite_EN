@@ -41,7 +41,7 @@ const FAQS: Faq[] = [
   {
     n: 'Q/06',
     q: 'Can I try it before I buy?',
-    a: 'Better than that: the app is free. Single chapters against ACX, Spotify Audiobooks, Storytel or Podtrac, full PDF report, no account and no expiry. First launch also gives you 7 days of batch checking so you can run a whole book, and when that ends nothing locks - you just drop back to one chapter per run.',
+    a: 'Better than that: the app is free. Single chapters against ACX, Spotify Audiobooks, Storytel or Podtrac, full PDF report, no account and no expiry. You can also start 7 days of batch checking from the License screen inside the app whenever you want to run a whole book, and when those end nothing locks - you just drop back to one chapter per run.',
   },
   {
     n: 'Q/07',

@@ -349,7 +349,7 @@ export default function HelpPage() {
               </FAQItem>
 
               <FAQItem q="Is there a trial?">
-                First launch gives you 7 days of Batch. When it ends nothing locks, the app just drops back to Free.
+                Yes, 7 days of Batch whenever you want to start them. Open the License screen (the tier badge in the bottom-right corner) and hit <strong className="text-dc-ink">Try Batch free for 7 days</strong>. No card, no signup. When the 7 days are up nothing locks, the app just drops back to Free.
               </FAQItem>
 
               <FAQItem q="Where is the License screen?">

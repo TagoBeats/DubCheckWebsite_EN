@@ -199,9 +199,9 @@ export default function DownloadPage() {
                 <div className="flex-1 min-w-0">
                   <div className="text-[14px] text-dc-ink font-medium mb-[3px]">Need to check a whole folder?</div>
                   <div className="text-[13.5px] text-dc-ink2 leading-[1.55]">
-                    The first 7 days include batch checking so you can try it on a real season or
-                    audiobook. After that it is €29 once, or you keep using the free single-file
-                    version.{' '}
+                    Start 7 days of batch checking from the License screen in the app and try it on a
+                    real season or audiobook. After that it is €29 once, or you keep using the free
+                    single-file version.{' '}
                     <Link href="/pricing" className="text-[#FFB07A] hover:text-[#FF7A1A] underline-offset-2 hover:underline">
                       See pricing
                     </Link>.

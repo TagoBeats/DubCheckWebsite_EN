@@ -37,7 +37,7 @@ const FAQ = [
   },
   {
     q: 'Can I try batch before paying?',
-    a: 'Yes. The app starts a 7-day batch trial on first launch, no card and no signup. When it ends nothing gets locked, you simply drop back to the free single-file version.',
+    a: 'Yes. Open the License screen in the app (the small tier badge in the bottom-right corner) and hit "Try Batch free for 7 days". No card, no signup. When the 7 days are up nothing gets locked, you simply drop back to the free single-file version.',
   },
   {
     q: 'Why is the free version not crippled?',
@@ -59,12 +59,6 @@ const FAQ = [
     q: 'Do you need an invoice for VAT?',
     a: 'Stripe issues a proper invoice with VAT and reverse-charge handling for EU business buyers at checkout.',
   },
-]
-
-const SERVICE_TIERS = [
-  { name: 'Single Delivery', price: '149', per: 'per delivery', note: '1 program · 48 h turnaround · 7-day retention' },
-  { name: 'Studio Batch',    price: '449', per: 'per batch',    note: 'Up to 12 programs · 24 h priority · 30-day retention', featured: true },
-  { name: 'Studio Retainer', price: '899', per: 'per month',    note: 'Unlimited deliveries · Slack channel · custom profiles' },
 ]
 
 const productSchema = {
@@ -163,45 +157,6 @@ export default function PricingPage() {
                 </li>
               ))}
             </ul>
-          </section>
-
-          {/* Service tier (managed QC) */}
-          <section className="max-w-[1100px] mx-auto mt-24">
-            <div className="font-mono text-[12px] tracking-[0.14em] uppercase text-dc-ink3 mb-3">§ Studio Service · optional</div>
-            <h2 className="text-[26px] md:text-[34px] font-semibold tracking-[-0.02em] mb-3">Want us to run the QC for you?</h2>
-            <p className="text-dc-ink2 text-[15.5px] leading-[1.7] mb-8 max-w-[680px]">
-              The app is the free part. For studios that would rather outsource the final delivery check entirely,
-              we also run it as a service: send the masters, get back a signed delivery PDF and a list of any platform spec misses.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {SERVICE_TIERS.map(t => (
-                <div
-                  key={t.name}
-                  className="border rounded-[12px] p-[24px_22px]"
-                  style={t.featured ? {
-                    borderColor: 'rgba(255,122,26,0.35)',
-                    background: 'linear-gradient(180deg, rgba(255,122,26,0.06) 0%, #17171A 30%)',
-                  } : {
-                    borderColor: 'rgba(255,255,255,0.08)',
-                    background: '#17171A',
-                  }}
-                >
-                  <div className={`font-mono text-[11px] tracking-[0.14em] uppercase mb-2 ${t.featured ? 'text-dc-orange' : 'text-dc-ink3'}`}>
-                    {t.featured ? 'Recommended' : 'Service tier'}
-                  </div>
-                  <h3 className="text-[19px] font-semibold tracking-[-0.01em] mb-2">{t.name}</h3>
-                  <div className="font-mono text-[28px] text-dc-ink tracking-[-0.02em] leading-none mb-1">
-                    <span className="text-[15px] text-dc-ink3 mr-[2px] align-[5px]">€</span>
-                    {t.price}
-                  </div>
-                  <div className="font-mono text-[11px] text-dc-ink3 mb-4">{t.per}</div>
-                  <p className="text-[13.5px] text-dc-ink2 leading-[1.55]">{t.note}</p>
-                </div>
-              ))}
-            </div>
-            <p className="text-[13px] text-dc-ink3 mt-4">
-              Service tier inquiries: <Link href="/contact" className="text-dc-ink2 underline underline-offset-2">contact us</Link>.
-            </p>
           </section>
 
           {/* FAQ */}

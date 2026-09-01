@@ -1,5 +1,5 @@
 {
   "latest": "1.1.0",
   "download_url": "https://audio-dubcheck.com/download",
-  "release_notes": "DubCheck is now free. Checking one file per run against every spec profile, with the full signed PDF report, costs nothing and needs no license key — the app never locks. Your first 7 days also include Batch, which lifts the file limit so you can drop a whole folder and get a summary report across it; when the trial ends you simply drop back to the free single-file version instead of being shut out. Editions are gone: Narrators and Studios were merged, so every install now ships all 20 spec profiles across 11 platforms. Existing license keys keep working. Measurements, dylibs and fonts untouched."
+  "release_notes": "DubCheck is now free. Checking one file per run against every spec profile, with the full signed PDF report, costs nothing and needs no license key, and the app never locks. Batch lifts the file limit so you can drop a whole folder and get a summary report across it. You can try Batch free for 7 days from the License screen, and when the trial ends you simply drop back to the free single-file version instead of being shut out. Editions are gone: Narrators and Studios were merged, so every install now ships all 20 spec profiles across 11 platforms. Existing license keys keep working. Measurements, dylibs and fonts untouched."
 }
