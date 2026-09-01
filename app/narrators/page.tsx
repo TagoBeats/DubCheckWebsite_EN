@@ -14,14 +14,14 @@ import DemoSection   from '@/components/DemoSection'
 export const metadata: Metadata = {
   title: 'DubCheck for Narrators - ACX QC & PDF',
   description:
-    'Stop getting ACX-rejected. DubCheck verifies RMS, peak, noise floor and room tone on every chapter and hands you a clean pass/fail PDF. Free for single chapters.',
+    'Stop getting ACX-rejected. DubCheck measures RMS, sample peak and the room tone in your pauses against the ACX numbers and hands you a clean pass/fail PDF. Free for single chapters.',
   alternates: { canonical: '/narrators' },
   openGraph: {
     url: '/narrators',
     images: ['/og.png'],
     title: 'DubCheck for Narrators - ACX QC & PDF',
     description:
-      'Verify every chapter against ACX RMS, peak, noise floor and room tone. Pass/fail PDF in seconds.',
+      'Check every chapter against the ACX RMS window, peak ceiling and noise floor. Pass/fail PDF in seconds.',
   },
 }
 

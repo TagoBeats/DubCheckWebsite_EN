@@ -226,7 +226,7 @@ export default function AcxSpecPage() {
                 DubCheck verifies every value on this page in one click
               </h2>
               <p className="text-[14.5px] text-dc-ink2 leading-[1.7] mb-6 max-w-[480px]">
-                RMS, peak, noise floor, format and per-chapter consistency checked against the exact ACX spec.
+                RMS, peak, noise floor and format checked against the exact ACX spec.
                 Pass/Fail PDF report included. Runs 100% locally on your machine.
               </p>
               <Link

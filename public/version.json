@@ -1,5 +1,5 @@
 {
-  "latest": "1.1.0",
+  "latest": "1.2.0",
   "download_url": "https://audio-dubcheck.com/download",
-  "release_notes": "DubCheck is now free. Checking one file per run against every spec profile, with the full signed PDF report, costs nothing and needs no license key, and the app never locks. Batch lifts the file limit so you can drop a whole folder and get a summary report across it. You can try Batch free for 7 days from the License screen, and when the trial ends you simply drop back to the free single-file version instead of being shut out. Editions are gone: Narrators and Studios were merged, so every install now ships all 20 spec profiles across 11 platforms. Existing license keys keep working. Measurements, dylibs and fonts untouched."
+  "release_notes": "DubCheck now measures the numbers the audiobook platforms actually reject for. RMS level in dBFS, sample peak and the noise floor of your pauses are new checks, so an ACX run is no longer just sample rate, bit depth and mono: it holds your file against the -23 to -18 dBFS RMS window, the -3 dBFS peak ceiling and the -60 dBFS noise floor. Storytel and Spotify Audiobooks carry their own windows. A file with no pause long enough to measure room tone in says so instead of guessing a number. Everything else is unchanged: free for one file per run, every spec profile, full signed PDF, no key and no expiry."
 }

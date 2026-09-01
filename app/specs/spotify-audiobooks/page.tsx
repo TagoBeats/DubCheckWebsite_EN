@@ -208,7 +208,7 @@ export default function SpotifyAudiobooksSpecPage() {
               The guide also asks for subjective quality: high clarity, no distracting edits,
               no background hiss, no excessive mouth noise, not harsh or tinny.
               Those are reviewer judgments, not meter readings. The measurable part -
-              levels, noise floor, silences, format, consistency - is what you can verify
+              levels, noise floor and format - is what you can verify
               completely before upload, and missing it is what delays availability in stores.
             </p>
 
@@ -234,7 +234,7 @@ export default function SpotifyAudiobooksSpecPage() {
                 DubCheck verifies every value on this page in one click
               </h2>
               <p className="text-[14.5px] text-dc-ink2 leading-[1.7] mb-6 max-w-[480px]">
-                RMS, noise floor, silences, format and per-chapter consistency checked against
+                RMS, noise floor and format checked against
                 the exact Spotify Audiobooks spec. Pass/Fail PDF report included. Runs 100% locally.
               </p>
               <Link
