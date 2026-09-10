@@ -6,8 +6,9 @@ type Stats = Record<string, { total: number; days: Record<string, number> }>
 
 const EVENT_LABELS: Record<string, string> = {
   download_intent: 'Intent (Button-Klick)',
-  download_trial: 'Trial-Download',
-  download_paid: 'Paid-Download',
+  lead_download_page: 'Mail-Opt-in',
+  download_trial: 'Trial-Download (alt)',
+  download_paid: 'Paid-Download (alt)',
 }
 
 export default function StatsPage() {
@@ -47,9 +48,11 @@ export default function StatsPage() {
   const allDays = data && events[0] ? Object.keys(data[events[0]].days) : []
 
   const intentTotal = data?.download_intent?.total ?? 0
+  const leadTotal = data?.lead_download_page?.total ?? 0
   const trialTotal = data?.download_trial?.total ?? 0
-  const paidTotal = data?.download_paid?.total ?? 0
-  const conversion = intentTotal > 0 ? ((trialTotal / intentTotal) * 100).toFixed(1) : '—'
+  // Trial and paid stopped counting with the free-app pricing, so the rate that
+  // still means something is: of everyone who downloads, who leaves an email.
+  const optInRate = intentTotal > 0 ? ((leadTotal / intentTotal) * 100).toFixed(1) : '—'
 
   return (
     <div className="min-h-screen bg-dc-bg text-dc-ink p-6 md:p-12">
@@ -104,9 +107,9 @@ export default function StatsPage() {
           <>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
               <Stat label="Intent total" value={intentTotal} />
-              <Stat label="Trial DL total" value={trialTotal} />
-              <Stat label="Paid DL total" value={paidTotal} />
-              <Stat label="Intent → Trial" value={`${conversion}%`} />
+              <Stat label="Mail-Opt-ins" value={leadTotal} />
+              <Stat label="Intent → Opt-in" value={`${optInRate}%`} />
+              <Stat label="Trial DL (alt)" value={trialTotal} />
             </div>
 
             <div className="rounded-[10px] border border-white/[0.08] overflow-hidden">

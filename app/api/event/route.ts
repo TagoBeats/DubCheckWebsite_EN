@@ -3,10 +3,13 @@ import { Redis } from '@upstash/redis'
 
 const redis = Redis.fromEnv()
 
+// Every name a client may send. Anything else is dropped, so a name that the
+// site pings but that is missing here counts silently nothing.
 const ALLOWED_EVENTS = new Set([
-  'download_intent',
-  'download_trial',
-  'download_paid',
+  'download_intent',      // download button clicked
+  'lead_download_page',   // email opt-in after the download started
+  'download_trial',       // legacy, from the trial/paid split before 1.1.0
+  'download_paid',        // legacy, same era
 ])
 
 export async function POST(req: NextRequest) {

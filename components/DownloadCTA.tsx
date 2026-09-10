@@ -30,7 +30,7 @@ export default function DownloadCTA({ downloadUrl, version }: Props) {
     <div className="w-full max-w-[520px] mb-12 flex flex-col items-center gap-6">
       <a
         href={downloadUrl}
-        onClick={() => { pingEvent('download'); setDownloaded(true) }}
+        onClick={() => { pingEvent('download_intent'); setDownloaded(true) }}
         className="group inline-flex items-center gap-[14px] px-9 py-[18px] rounded-[11px] transition-all duration-150 hover:brightness-110"
         style={{
           background: 'linear-gradient(180deg, #FF7A1A 0%, #E06410 100%)',

@@ -3,7 +3,14 @@ import { Redis } from '@upstash/redis'
 
 const redis = Redis.fromEnv()
 
-const EVENTS = ['download_intent', 'download_trial', 'download_paid'] as const
+// Keep this in sync with ALLOWED_EVENTS in /api/event. The two legacy names
+// stay in the list so their old numbers remain readable.
+const EVENTS = [
+  'download_intent',
+  'lead_download_page',
+  'download_trial',
+  'download_paid',
+] as const
 
 export async function GET(req: NextRequest) {
   const key = req.nextUrl.searchParams.get('key')

@@ -1,6 +1,45 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { Redis } from '@upstash/redis'
+
+export const runtime = 'nodejs'
 
 const RESEND_API = 'https://api.resend.com'
+
+const redis = Redis.fromEnv()
+
+// The endpoint is public, so the source cannot be trusted. Anything the site
+// does not send itself is filed as "unknown" instead of ending up in a key.
+const KNOWN_SOURCES = new Set(['download_page'])
+
+function normalizeSource(raw: string): string {
+  const s = raw.trim().toLowerCase()
+  return KNOWN_SOURCES.has(s) ? s : 'unknown'
+}
+
+/**
+ * Records where a contact came from. Resend has no custom fields, so the source
+ * doubles as last_name to stay visible in the dashboard; Upstash keeps the full
+ * record with timestamps. Never throws — a bookkeeping miss must not cost a lead.
+ */
+async function recordSource(email: string, source: string) {
+  try {
+    const now = new Date().toISOString()
+    const key = `lead:${email}`
+    const isNew = !(await redis.exists(key))
+
+    if (isNew) {
+      await redis.hset(key, { email, source, first_seen: now, last_seen: now, hits: 1 })
+      await redis.sadd('leads', email)
+      await redis.incr(`lead:source:${source}:total`)
+    } else {
+      // Keep the first source: that is the one that actually won the contact.
+      await redis.hset(key, { last_seen: now })
+      await redis.hincrby(key, 'hits', 1)
+    }
+  } catch (err) {
+    console.error('[lead] Upstash write failed', err)
+  }
+}
 
 export async function POST(req: NextRequest) {
   let email: string
@@ -9,7 +48,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
     email = String(body.email || '').trim().toLowerCase()
-    source = String(body.source || 'unknown')
+    source = normalizeSource(String(body.source || ''))
   } catch {
     return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 })
   }
@@ -24,7 +63,7 @@ export async function POST(req: NextRequest) {
   // No Resend creds yet → log and accept so local dev still works.
   if (!apiKey || !audienceId) {
     console.log(`[lead] (no Resend creds) ${email} · source=${source} · ${new Date().toISOString()}`)
-    return NextResponse.json({ ok: true, stored: 'log-only' })
+    return NextResponse.json({ ok: true, stored: 'log-only', source })
   }
 
   try {
@@ -34,20 +73,22 @@ export async function POST(req: NextRequest) {
         Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, unsubscribed: false }),
+      body: JSON.stringify({ email, unsubscribed: false, last_name: source }),
     })
 
     if (!res.ok) {
       const data = await res.json().catch(() => ({}))
       // Treat "already exists" (409) as success — don't penalize repeat downloaders.
       if (res.status === 409 || /already/i.test(data?.message || '')) {
-        return NextResponse.json({ ok: true, stored: 'already_existed' })
+        await recordSource(email, source)
+        return NextResponse.json({ ok: true, stored: 'already_existed', source })
       }
       console.error('[lead] Resend error', res.status, data)
       return NextResponse.json({ error: 'Could not save contact' }, { status: 502 })
     }
 
-    return NextResponse.json({ ok: true, stored: 'resend' })
+    await recordSource(email, source)
+    return NextResponse.json({ ok: true, stored: 'resend', source })
   } catch (err) {
     console.error('[lead] Resend request failed', err)
     return NextResponse.json({ error: 'Network error' }, { status: 502 })
