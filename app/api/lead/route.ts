@@ -17,15 +17,28 @@ function normalizeSource(raw: string): string {
 }
 
 /**
+ * Whether this address has been seen before. On a Redis failure it answers
+ * "seen", which is the safe direction: the caller then leaves the source in
+ * Resend untouched instead of overwriting a good value with a guess.
+ */
+async function isKnownLead(email: string): Promise<boolean> {
+  try {
+    return (await redis.exists(`lead:${email}`)) === 1
+  } catch (err) {
+    console.error('[lead] Upstash read failed', err)
+    return true
+  }
+}
+
+/**
  * Records where a contact came from. Resend has no custom fields, so the source
  * doubles as last_name to stay visible in the dashboard; Upstash keeps the full
  * record with timestamps. Never throws — a bookkeeping miss must not cost a lead.
  */
-async function recordSource(email: string, source: string) {
+async function recordSource(email: string, source: string, isNew: boolean) {
   try {
     const now = new Date().toISOString()
     const key = `lead:${email}`
-    const isNew = !(await redis.exists(key))
 
     if (isNew) {
       await redis.hset(key, { email, source, first_seen: now, last_seen: now, hits: 1 })
@@ -66,6 +79,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true, stored: 'log-only', source })
   }
 
+  // Resend upserts on POST, it does not reject a known address. Sending the
+  // source again would overwrite the first one, so it only rides along the
+  // first time — that is the source that actually won the contact.
+  const isNew = !(await isKnownLead(email))
+  const contact: Record<string, unknown> = { email, unsubscribed: false }
+  if (isNew) contact.last_name = source
+
   try {
     const res = await fetch(`${RESEND_API}/audiences/${audienceId}/contacts`, {
       method: 'POST',
@@ -73,21 +93,21 @@ export async function POST(req: NextRequest) {
         Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, unsubscribed: false, last_name: source }),
+      body: JSON.stringify(contact),
     })
 
     if (!res.ok) {
       const data = await res.json().catch(() => ({}))
-      // Treat "already exists" (409) as success — don't penalize repeat downloaders.
+      // Defensive: older accounts answered 409 instead of upserting.
       if (res.status === 409 || /already/i.test(data?.message || '')) {
-        await recordSource(email, source)
+        await recordSource(email, source, isNew)
         return NextResponse.json({ ok: true, stored: 'already_existed', source })
       }
       console.error('[lead] Resend error', res.status, data)
       return NextResponse.json({ error: 'Could not save contact' }, { status: 502 })
     }
 
-    await recordSource(email, source)
+    await recordSource(email, source, isNew)
     return NextResponse.json({ ok: true, stored: 'resend', source })
   } catch (err) {
     console.error('[lead] Resend request failed', err)
