@@ -17,16 +17,15 @@ function normalizeSource(raw: string): string {
 }
 
 /**
- * Whether this address has been seen before. On a Redis failure it answers
- * "seen", which is the safe direction: the caller then leaves the source in
- * Resend untouched instead of overwriting a good value with a guess.
+ * The source this address was first seen with, or null if it is new. On a Redis
+ * failure it reads as new, so the current source is used rather than none.
  */
-async function isKnownLead(email: string): Promise<boolean> {
+async function firstSource(email: string): Promise<string | null> {
   try {
-    return (await redis.exists(`lead:${email}`)) === 1
+    return await redis.hget<string>(`lead:${email}`, 'source')
   } catch (err) {
     console.error('[lead] Upstash read failed', err)
-    return true
+    return null
   }
 }
 
@@ -79,12 +78,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true, stored: 'log-only', source })
   }
 
-  // Resend upserts on POST, it does not reject a known address. Sending the
-  // source again would overwrite the first one, so it only rides along the
-  // first time — that is the source that actually won the contact.
-  const isNew = !(await isKnownLead(email))
-  const contact: Record<string, unknown> = { email, unsubscribed: false }
-  if (isNew) contact.last_name = source
+  // Resend upserts on POST instead of rejecting a known address, and an omitted
+  // field is cleared, not kept. So the stored first source has to be sent along
+  // on every repeat: that is the source that actually won the contact.
+  const known = await firstSource(email)
+  const isNew = known === null
+  const contact = { email, unsubscribed: false, last_name: known ?? source }
 
   try {
     const res = await fetch(`${RESEND_API}/audiences/${audienceId}/contacts`, {
